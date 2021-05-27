@@ -10,9 +10,10 @@ public class EnemyController : MonoBehaviour
     float walkSpeed = 3;
     public float stopDistance; //Enemyが停止するPlayerとの距離を格納する変数
     public float moveDistance; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
+
     Vector3 enemyMoveRange;
 
-    public Transform player; //PlayerのTransformコンポーネントを格納する変数
+    Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
 
     NavMeshAgent agent; //
@@ -20,7 +21,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GameObject.Find("RPGHeroHP").transform;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
