@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     Rigidbody rb; //Rigidbody変数の宣言 
-    float moveSpeed = 3; //スピードの変数の宣言
-    float dashSpeed = 7;
+    float moveSpeed = 7; //スピードの変数の宣言
+    float dashSpeed = 20;
     float rotateSpeed = 90; //回転スピードの宣言
 
     Animator animator; //アニメーションの変数
