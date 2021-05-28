@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,19 +14,23 @@ public class EnemyController : MonoBehaviour
 
     Vector3 enemyMoveRange;
 
+    public int enemyHP ; //敵の最大HP
+    public int currentHP; //現在の敵のHP
+    
     Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
 
-    NavMeshAgent agent; //
+    NavMeshAgent agent; 
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("RPGHeroHP").transform;
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
-        enemyMoveRange = transform.position;
+        player = GameObject.Find("RPGHeroHP").transform;　//プレイヤーのオブジェクトを探して格納
+        rb = GetComponent<Rigidbody>(); //RigidBodyを取得
+        animator = GetComponent<Animator>(); //Animatorを取得
+        agent = GetComponent<NavMeshAgent>(); //NavMeshAgentを取得
+        enemyMoveRange = transform.position; //Enemyの初期位置を取得
+        currentHP = enemyHP; //代入
     }
 
     // Update is called once per frame
@@ -52,5 +57,10 @@ public class EnemyController : MonoBehaviour
         float enemyMoveRangex = 6 * Mathf.Sin(Random.Range(0f, 360f));
         float enemyMoveRangez = 6 * Mathf.Sin(Random.Range(0f, 360f));
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
+    }
+
+    public void Attack()
+    {
+
     }
 }
