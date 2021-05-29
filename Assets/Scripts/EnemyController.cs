@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
 
     public int enemyHP ; //敵の最大HP
     public int currentHP; //現在の敵のHP
+    public Sprite enemyImage; //敵のSprite
     
     Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>(); //NavMeshAgentを取得
         enemyMoveRange = transform.position; //Enemyの初期位置を取得
         currentHP = enemyHP; //代入
+        //enemyImage = GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -59,8 +61,4 @@ public class EnemyController : MonoBehaviour
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
     }
 
-    public void Attack()
-    {
-
-    }
 }

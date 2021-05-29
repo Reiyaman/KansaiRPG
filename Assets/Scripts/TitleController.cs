@@ -7,10 +7,13 @@ public class TitleController : MonoBehaviour
 {
     AudioSource audioSource;
     //public AudioClip startSE;
+    //public AudioClip titleSE;
+    //public AudioClip retrySE;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,5 +33,17 @@ public class TitleController : MonoBehaviour
 
     }
 
+    public void TitleButton()
+    {
+        SceneManager.LoadScene("Title");
+        //audioSource.PlayOneShot(titleSE);
+
+    }
+
+    public void RetryButton()
+    {
+        SceneManager.LoadScene("Main");
+        //sudioSource.PlayOneShot(retrySE);
+    }
 
 }

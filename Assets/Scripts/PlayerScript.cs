@@ -19,14 +19,28 @@ public class PlayerScript : MonoBehaviour
     public Image playerSliderGauge; //スライダーの色の変数
     public Color color_1, color_2, color_3, color_4; // カラーの変数
 
+    public GameObject enemyimage; //エネミーの画像
+    //public GameObject[] enemy; //エネミーの配列
+
+    Image image;
+    //Sprite[] enemySprite = new Sprite[6]; //Spriteを入れるための配列
+
     Animator animator; //アニメーションの変数
     public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
 
+   // private void Awake()
+   // {
+       // for(int i = 0; i < enemy.Length; i++)
+       // {
+       //     enemySprite[i] = Resources.Load<Sprite>(enemy[i].name); //Resourcesフォルダに入れたSpriteを取得する
+       // }
+    //}
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();　//Rigidbodyの取得
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();　//Animatorの取得
+        image = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
     }
 
     // Update is called once per frame
@@ -63,7 +77,7 @@ public class PlayerScript : MonoBehaviour
             rb.velocity = -transform.forward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
         }
 
-        else if (Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space)) //Space
         {
             animator.SetInteger("Dash", 1);
             rb.velocity = transform.forward * dashSpeed + new Vector3(0, rb.velocity.y, 0);
@@ -74,13 +88,14 @@ public class PlayerScript : MonoBehaviour
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
         }
     }
-
-    private void OnCllisionEnter(Collision collision) 
+    
+    private void OnCollisionEnter(Collision collision) 
     {
         if (collision.gameObject.tag == "Enemy")//Enemyに接触した場合
         {
             eHP = collision.gameObject.GetComponent<EnemyController>().enemyHP; //戦うEnemyの最大HPを取得
             cHP = collision.gameObject.GetComponent<EnemyController>().currentHP; //戦うEnemyの現在のHPを取得
+            image.sprite = collision.gameObject.GetComponent<EnemyController>().enemyImage; //戦うEnemyのSprite
         }
     }
 
