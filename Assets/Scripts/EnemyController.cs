@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     float walkSpeed = 3;
     public float stopDistance; //Enemyが停止するPlayerとの距離を格納する変数
     public float moveDistance; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
+    bool action = false; //Playerに接触したかしていないか
 
     Vector3 enemyMoveRange;
 
@@ -20,8 +21,9 @@ public class EnemyController : MonoBehaviour
     
     Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
-
-    NavMeshAgent agent; 
+    public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
+    
+    NavMeshAgent agent; //NavMeshAgentの変数
 
     // Start is called before the first frame update
     void Start()
@@ -36,21 +38,60 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    { 
+    private void FixedUpdate()
+    {
+        currentState = animator.GetCurrentAnimatorStateInfo(0);
+        animator.SetInteger("Walk", 0);
+        animator.SetInteger("Run", 0);
+        animator.SetBool("Battle", false);
 
-        float distance = Vector3.Distance(transform.position, player.position); //変数を作成してEnemyとPlayerの距離を格納
-        if(distance < moveDistance && distance > stopDistance) //距離判定
+        if(action == false) //Playerにまだ接触していないので動ける
         {
-            Vector3 playerPos = player.position; //変数を作成して、Playerの座標を格納
-            playerPos.y = transform.position.y; //自分自身のY座標を格納
-            transform.LookAt(playerPos); //EnemyをPlayerPosの座標方向に向かせる
-            transform.position = transform.position + transform.forward * moveSpeed * Time.deltaTime; //Enemyを前方向に向かわせる
+            float distance = Vector3.Distance(transform.position, player.position); //変数を作成してEnemyとPlayerの距離を格納
+            if (distance < moveDistance && distance > stopDistance) //距離判定
+            {
+                Vector3 playerPos = player.position; //変数を作成して、Playerの座標を格納
+                playerPos.y = transform.position.y; //自分自身のY座標を格納
+                transform.LookAt(playerPos); //EnemyをPlayerPosの座標方向に向かせる
+                animator.SetInteger("Run", 1);
+                transform.position = transform.position + transform.forward * moveSpeed * Time.deltaTime; //Enemyを前方向に向かわせる
+            }
+
+            else
+            {
+                // InvokeRepeating("MoveEnemy", 1, 5);
+            }
         }
+    }
 
-        else
+    private void OnTriggerEnter(Collider other) //接触した時の処理
+    {
+        if (other.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
-           // InvokeRepeating("MoveEnemy", 1, 5);
+            Rigidbody playerBody = other.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
+            if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+            {
+                Vector3 attackForce = (other.transform.position - this.transform.position) * 7; //Playerに与える力を設定
+                attackForce.y = transform.position.y; //Y座標だけは動かさない
+                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+            }
+            else if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+            {
+                Vector3 attackForce = (other.transform.position - this.transform.position) * 3f; //Playerに与える力を設定
+                attackForce.y = transform.position.y; //Y座標だけは動かさない
+                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+            }
+            else
+            {
+                Vector3 attackForce = (other.transform.position - this.transform.position) * 2; //Playerに与える力を設定
+                attackForce.y = transform.position.y; //Y座標だけは動かさない
+                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+            }
+
+            //animator.SetInteger("Walk", 0);
+            //animator.SetInteger("Run", 0);
+            animator.SetBool("Battle", true); //バトルスタート
+            action = true; //Playerに接触したから静止
         }
     }
 
