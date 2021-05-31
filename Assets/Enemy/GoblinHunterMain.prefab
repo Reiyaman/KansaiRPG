@@ -1092,7 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31f33e840d284b7980c1e3840e5c243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 4
+  stopDistance: 2
   moveDistance: 20
   enemyHP: 1300
   currentHP: 0

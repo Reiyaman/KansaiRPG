@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     float moveSpeed = 9; //スピードの変数の宣言
     float dashSpeed = 20;
     float rotateSpeed = 90; //回転スピードの宣言
-    bool scene = false; //移動中かバトル中かの変数
+   
     
     public int eHP; //接触したEnemyの最大HP
     public int cHP; //接触したEnemyの現在のHP
@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject enemyimage; //エネミーの画像
     public GameObject gameMaster; //GameMasterオブジェクトの変数
+    public GameObject enemy; //戦うEnemyの変数
 
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
@@ -47,7 +48,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();　//Rigidbodyの取得
         animator = GetComponent<Animator>();　//Animatorの取得
         image = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
-        currentPlayerHP = maxPlayerHP; //代入 
+        currentPlayerHP = maxPlayerHP; //代入
     }
 
     // Update is called once per frame
@@ -60,7 +61,7 @@ public class PlayerScript : MonoBehaviour
     {
         currentState = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (scene == false) //移動中の時
+        if (gameMaster.GetComponent<ModeController>().mode == false) //移動中の時
         {
             animator.SetInteger("Walk", 0);
             animator.SetInteger("Dash", 0);
@@ -112,12 +113,13 @@ public class PlayerScript : MonoBehaviour
             eHP = other.gameObject.GetComponent<EnemyController>().enemyHP; //戦うEnemyの最大HPを取得
             cHP = other.gameObject.GetComponent<EnemyController>().currentHP; //戦うEnemyの現在のHPを取得
             image.sprite = other.gameObject.GetComponent<EnemyController>().enemyImage; //戦うEnemyのSprits
+            enemy = other.gameObject; //戦うEnemyのゲームオブジェクトを代入
 
             Vector3 enemyPos = other.transform.position; //変数を作成して、当たったEnemyの座標を格納
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
-            SendMessage("changeBattle");
+            SendMessage("ChangeBattleModeWait");
             Invoke("battlestart", 2f);
 
             //Rigidbody enemyBody = other.gameObject.GetComponent<Rigidbody>(); //EnemyのRigidbodyを取得
@@ -155,10 +157,10 @@ public class PlayerScript : MonoBehaviour
         Invoke("attackButtonTrue", 2f);
     }
 
-     public void changeBattle()
+     public void ChangeBattleModeWait()
     {
-        scene = true; //バトル状態に遷移
-        animator.SetInteger("Walk", 0);
+        gameMaster.SendMessage("ChangeBattleMode"); //バトルモードに移動
+        animator.SetInteger("Walk", 0); //Playerの静止
         animator.SetInteger("Dash", 0);
     }
 

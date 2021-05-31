@@ -11,27 +11,19 @@ public class BattleController : MonoBehaviour
     public Color color_1, color_2, color_3, color_4; // カラーの変数
 
     public GameObject player; //PlayerScriptから引っ張ってきたCollisionの情報を格納するための変数
+    public GameObject battleEnemy; //戦う敵の変数
 
-    int i = 1; 
-    int maxHP; //Playerスクリプトから引っ張ってきた戦う敵の最大HPを格納する変数
-    int currentHP; //Playerスクリプトから引っ張ってきた戦う敵の現在のHPを格納する変数
+    public GameObject attackButton;
+
+    public int maxHP; //Playerスクリプトから引っ張ってきた戦う敵の最大HPを格納する変数
+    public int currentHP; //Playerスクリプトから引っ張ってきた戦う敵の現在のHPを格納する変数
 
 
-    public GameObject enemyimage; //エネミーの画像
-    public GameObject enemySlider; //エネミーのHPゲージ
-    public GameObject attackButton; //攻撃ボタン
-    public GameObject specialButton; //必殺ボタン
-    public GameObject talkBox; //トークボックス
-    Image images;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyimage.SetActive(false); //初期は非表示
-        attackButton.SetActive(false); //初期は非表示
-        specialButton.SetActive(false); //初期は非表示
-        talkBox.SetActive(false); //初期は非表示
-        images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
+
     }
 
     // Update is called once per frame
@@ -44,7 +36,7 @@ public class BattleController : MonoBehaviour
     {
         attackButton.SetActive(false); //ボタンを消す
 
-        int damage = Random.Range(100, 200); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(800, 1000); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
 
         currentHP = currentHP - damage; //最新のHPを取得
@@ -66,10 +58,13 @@ public class BattleController : MonoBehaviour
         {
             enemySliderGauge.color = Color.Lerp(color_4, color_3, enemyslider.value * 4f);
         }
-    
-        i++;
 
-        Invoke("DamageButton", 2f);
+        if(currentHP > 0)
+        {
+            Invoke("DamageButton", 2f);
+            //gameObject.SendMessage("DestroyEnemyWait");
+
+        }
     }
 
     public void DamageButton()
@@ -79,11 +74,8 @@ public class BattleController : MonoBehaviour
 
     public void BattleStart()
     {
-        enemyimage.SetActive(true); //画像を表示
-        enemySlider.SetActive(true); //敵のHPゲージを表示
-        talkBox.SetActive(true); //トークボックスを表示
-        attackButton.SetActive(true); //攻撃ボタンの表示
         maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;
         currentHP = player.gameObject.GetComponent<PlayerScript>().cHP;
+       // gameObject.SendMessage("ChangeBattleMode");
     }
 }
