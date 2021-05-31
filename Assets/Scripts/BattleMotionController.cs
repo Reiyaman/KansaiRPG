@@ -12,10 +12,13 @@ public class BattleMotionController : MonoBehaviour
     public GameObject attackButton;
     public GameObject specialButton;
 
+    TalkScript talkScript;
+   
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        talkScript = gameObject.GetComponent<TalkScript>();
     }
 
     // Update is called once per frame
@@ -39,7 +42,7 @@ public class BattleMotionController : MonoBehaviour
         Invoke("EnemyAttack", 1.5f);
         if(enemySlider.value <= 0)
         {
-            gameObject.SendMessage("EnemyDestroyWait");
+            Invoke("EnemyDestroyWait", 2f);
         }
     }
 
@@ -62,7 +65,10 @@ public class BattleMotionController : MonoBehaviour
 
     public void EnemyDestroyWait() //倒れるアニメーションを再生
     {
+        Text victory_text = talkScript.talkText;
+        victory_text.text = "おっしゃあ！　倒したったで！";
         battleEnemy.GetComponent<Animator>().SetTrigger("Death");
+
         Invoke("EnemyDestroy", 5f);
     }
     
@@ -76,6 +82,8 @@ public class BattleMotionController : MonoBehaviour
     {
         //attackButton.SetActive(false);
         //specialButton.SetActive(false);
+        Text lose_text = talkScript.talkText;
+        lose_text.text = "あああ、やられてしもうた、、";
         player.GetComponent<Animator>().SetTrigger("Death");
         gameObject.SendMessage("GameOverWait");
     }

@@ -27,6 +27,9 @@ public class PlayerScript : MonoBehaviour
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
 
+    TalkScript talkScript;
+    
+
     //public GameObject[] enemy; //エネミーの配列
 
     public Image image;
@@ -49,6 +52,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();　//Animatorの取得
         image = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
         currentPlayerHP = maxPlayerHP; //代入
+        talkScript = gameMaster.GetComponent<TalkScript>();
     }
 
     // Update is called once per frame
@@ -154,6 +158,9 @@ public class PlayerScript : MonoBehaviour
             playerSliderGauge.color = Color.Lerp(color_4, color_3, playerSlider.value * 4f);
         }
 
+        Text damage_text = talkScript.talkText;
+        damage_text.text = damage + "のダメージをくらってもうたわ！";
+
         if(playerSlider.value <= 0)
         {
             gameMaster.SendMessage("PlayerDeath");
@@ -161,6 +168,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            Invoke("NextWait", 2f);
             Invoke("attackButtonTrue", 2f);
         }
     }
@@ -180,5 +188,10 @@ public class PlayerScript : MonoBehaviour
     public void attackButtonTrue()
     {
         attackButton.SetActive(true);
+    }
+
+    public void NextWait()
+    {
+        talkScript.Next();
     }
 }

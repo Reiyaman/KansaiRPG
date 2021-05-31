@@ -11,7 +11,10 @@ public class EnemyController : MonoBehaviour
     float walkSpeed = 3;
     public float stopDistance; //Enemyが停止するPlayerとの距離を格納する変数
     public float moveDistance; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
+
     bool action = false; //Playerに接触したかしていないか
+    bool exist; //出現しているか消えているか
+    bool touch; //Playerと接触しているかどうか
 
     Vector3 enemyMoveRange;
 
@@ -34,7 +37,29 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>(); //NavMeshAgentを取得
         enemyMoveRange = transform.position; //Enemyの初期位置を取得
         currentHP = enemyHP; //代入
+
+        exist = true;
+        touch = false;
         //enemyImage = GetComponent<Image>();
+    }
+
+    public void Update()
+    {
+        if(exist == true)
+        {
+            Time.timeScale = 1;
+        }
+
+        else
+        {
+            {
+                if(touch == false)
+                {
+                    Time.timeScale = 0;
+                    gameObject.SetActive(false);
+                }
+            } 
+        }
     }
 
     // Update is called once per frame
@@ -68,6 +93,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
+            touch = true; //接触したのでTrue
             animator.SetBool("Battle", true); //バトルスタート
             //animator.SetInteger("Run", 0);
 
@@ -105,4 +131,15 @@ public class EnemyController : MonoBehaviour
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
     }
 
+   public void DisappearEnemy() //止めて消す
+    {
+        exist = false;
+        gameObject.SetActive(false);
+    }
+
+    public void AppearEnemy() //動かして出現させる
+    {
+       exist = true;
+      gameObject.SetActive(true);
+    }
 }

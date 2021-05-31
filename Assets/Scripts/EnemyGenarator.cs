@@ -9,24 +9,37 @@ public class EnemyGenarator : MonoBehaviour
     public float interval = 5; //何秒に一回敵を発生させるか
     float timer = 7; //タイマー
     float moveDistance = 40; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
+    bool exist; //出現か消すか
 
     // Start is called before the first frame update
     void Start()
     {
         //InvokeRepeating("GenerateEnemy", 10, 10);
+        gameObject.SetActive(true);
+        exist = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime; //タイマーを減らす
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (timer < 0 && distance < moveDistance)　//タイマーが切れてPlayerが一定距離内に入ったら
+        if(exist == true)
         {
-            Spawn();
-            timer = interval;
+            Time.timeScale = 1; //動かす
+            timer -= Time.deltaTime; //タイマーを減らす
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+
+            if (timer < 0 && distance < moveDistance) //タイマーが切れてPlayerが一定距離内に入ったら
+            {
+                Spawn();
+                timer = interval;
+            }
         }
+
+        else
+        {
+            Time.timeScale = 0; //止める
+        }
+   
     }
 
     void GenerateEnemy()
@@ -47,5 +60,17 @@ public class EnemyGenarator : MonoBehaviour
     {
         int enemyNumber = Random.Range(0, enemies.Length); //どの敵が出現するかランダムで選ぶ
         Instantiate(enemies[enemyNumber], transform.position, transform.rotation); //敵を生成する
+    }
+
+    public void DisappearSpawn() //止めて消す
+    {
+        exist = false;
+        gameObject.SetActive(false);
+    }
+
+    public void AppearSpawn() //動かして出現させる
+    {
+        exist = true;
+        gameObject.SetActive(true);
     }
 }

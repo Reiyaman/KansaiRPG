@@ -18,12 +18,14 @@ public class BattleController : MonoBehaviour
     public int maxHP; //Playerスクリプトから引っ張ってきた戦う敵の最大HPを格納する変数
     public int currentHP; //Playerスクリプトから引っ張ってきた戦う敵の現在のHPを格納する変数
 
+    TalkScript talkScript;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        talkScript = gameObject.GetComponent<TalkScript>();
     }
 
     // Update is called once per frame
@@ -58,6 +60,9 @@ public class BattleController : MonoBehaviour
         {
             enemySliderGauge.color = Color.Lerp(color_4, color_3, enemyslider.value * 4f);
         }
+
+        Text attack_text = talkScript.talkText;
+        attack_text.text = damage + "のダメージを与えたったわい！";
 
         if(currentHP > 0)
         {

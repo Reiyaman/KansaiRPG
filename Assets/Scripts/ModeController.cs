@@ -10,7 +10,16 @@ public class ModeController : MonoBehaviour
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
     public GameObject talkBox; //トークボックス
+
     public bool mode; // /移動中かバトル中かの変数
+    public GameObject enemySpawner; //エネミースポナーオブジェクトの変数
+    public GameObject Enemy;
+    //public GameObject 
+
+    //public List<GameObject>  StopEnemyObject = new List<GameObject>(); //停止させる配列
+    
+    //public GameObject Player;
+
     Image images;
 
     // Start is called before the first frame update
@@ -28,7 +37,11 @@ public class ModeController : MonoBehaviour
     public void ChangeBattleMode()
     {
         mode = true; //バトルモードに遷移
-
+        enemySpawner.SendMessage("DisappearSpawn"); //EnemySpawnerを消す
+        Enemy.SendMessage("DisappearEnemy");
+        gameObject.SendMessage("TalkWait");
+       // Enemy = Player.gameObject.GetComponent<PlayerScript>().enemy;
+       // StopEnemyObject.Remove(Enemy);
         Invoke("BattleMode", 4f);
 
     }
@@ -41,7 +54,10 @@ public class ModeController : MonoBehaviour
         enemySlider.SetActive(false); //移動モードは非表示
         specialButton.SetActive(false); //移動モードは非表示
         talkBox.SetActive(false); //移動モードは非表示
+
         images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
+        enemySpawner.SendMessage("AppearSpawn");　//EnemySpawnerを出現させる
+        Enemy.SendMessage("AppearEnemy");
     }
 
     public void BattleMode()
