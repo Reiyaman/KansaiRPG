@@ -46,4 +46,13 @@ public class TitleController : MonoBehaviour
         //sudioSource.PlayOneShot(retrySE);
     }
 
+    public void GameOverWait()
+    {
+        Invoke("GameOver", 4f);
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
 }

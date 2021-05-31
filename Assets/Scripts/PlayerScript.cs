@@ -129,9 +129,9 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    public void DamagePlayer() //Playerがくらう
+    public void PlayerDamage() //Playerがくらう
     {
-        int damage = Random.Range(100, 200); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(1000, 1300); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
 
         currentPlayerHP = currentPlayerHP - damage; //最新のHPを取得
@@ -154,7 +154,15 @@ public class PlayerScript : MonoBehaviour
             playerSliderGauge.color = Color.Lerp(color_4, color_3, playerSlider.value * 4f);
         }
 
-        Invoke("attackButtonTrue", 2f);
+        if(playerSlider.value <= 0)
+        {
+            gameMaster.SendMessage("PlayerDeath");
+
+        }
+        else
+        {
+            Invoke("attackButtonTrue", 2f);
+        }
     }
 
      public void ChangeBattleModeWait()

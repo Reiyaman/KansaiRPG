@@ -68,6 +68,9 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
+            animator.SetBool("Battle", true); //バトルスタート
+            //animator.SetInteger("Run", 0);
+
             Rigidbody playerBody = other.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
             if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
             {
@@ -90,7 +93,7 @@ public class EnemyController : MonoBehaviour
 
             //animator.SetInteger("Walk", 0);
             //animator.SetInteger("Run", 0);
-            animator.SetBool("Battle", true); //バトルスタート
+            //animator.SetBool("Battle", true); //バトルスタート
             action = true; //Playerに接触したから静止
         }
     }

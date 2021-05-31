@@ -36,7 +36,7 @@ public class BattleController : MonoBehaviour
     {
         attackButton.SetActive(false); //ボタンを消す
 
-        int damage = Random.Range(800, 1000); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(100, 200); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
 
         currentHP = currentHP - damage; //最新のHPを取得
@@ -61,7 +61,7 @@ public class BattleController : MonoBehaviour
 
         if(currentHP > 0)
         {
-            Invoke("DamageButton", 2f);
+            Invoke("DamageButton", 3.3f);
             //gameObject.SendMessage("DestroyEnemyWait");
 
         }
@@ -69,11 +69,12 @@ public class BattleController : MonoBehaviour
 
     public void DamageButton()
     {
-        player.gameObject.SendMessage("DamagePlayer");
+        player.gameObject.SendMessage("PlayerDamage");
     }
 
     public void BattleStart()
     {
+        
         maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;
         currentHP = player.gameObject.GetComponent<PlayerScript>().cHP;
        // gameObject.SendMessage("ChangeBattleMode");

@@ -7,7 +7,10 @@ public class BattleMotionController : MonoBehaviour
 {
     public GameObject player; //Playerの変数
     public GameObject battleEnemy; //戦う敵の変数
-    public Slider enemySlider;
+    public Slider enemySlider; //敵のHPゲージ
+    public Slider playerSlider; //PlayerのHPゲージ
+    public GameObject attackButton;
+    public GameObject specialButton;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +39,7 @@ public class BattleMotionController : MonoBehaviour
         Invoke("EnemyAttack", 1.5f);
         if(enemySlider.value <= 0)
         {
-            gameObject.SendMessage("DestroyEnemyWait");
+            gameObject.SendMessage("EnemyDestroyWait");
         }
     }
 
@@ -45,7 +48,7 @@ public class BattleMotionController : MonoBehaviour
         if(enemySlider.value > 0)
         {
             battleEnemy.GetComponent<Animator>().SetTrigger("Attack");
-            Invoke("PlayerDamage", 0.5f);
+            Invoke("PlayerDamage", 1.0f);
         }
        // player.GetComponent<Animator>().SetTrigger("Damage");
 
@@ -54,17 +57,26 @@ public class BattleMotionController : MonoBehaviour
     public void PlayerDamage()
     {
         player.GetComponent<Animator>().SetTrigger("Damage");
+        
     }
 
-    public void DestroyEnemyWait() //倒れるアニメーションを再生
+    public void EnemyDestroyWait() //倒れるアニメーションを再生
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Death");
-        Invoke("DestroyEnemy", 5f);
+        Invoke("EnemyDestroy", 5f);
     }
     
-    public void DestroyEnemy() //戦ったEnemyを消滅させる
+    public void EnemyDestroy() //戦ったEnemyを消滅させる
     {
         Destroy(battleEnemy);
         gameObject.SendMessage("ChangeMoveMode");
+    }
+
+    public void PlayerDeath()
+    {
+        //attackButton.SetActive(false);
+        //specialButton.SetActive(false);
+        player.GetComponent<Animator>().SetTrigger("Death");
+        gameObject.SendMessage("GameOverWait");
     }
 }
