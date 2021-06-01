@@ -21,7 +21,7 @@ public class TalkScript : MonoBehaviour
 
     public void TalkWait()
     {
-        Invoke("TalkStart", 4f);
+        Invoke("TalkStart", 0.5f);
     }
 
     public void TalkStart()

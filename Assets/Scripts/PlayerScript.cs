@@ -124,7 +124,7 @@ public class PlayerScript : MonoBehaviour
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
             SendMessage("ChangeBattleModeWait");
-            Invoke("battlestart", 2f);
+            Invoke("battlestart", 0.5f);
 
             //Rigidbody enemyBody = other.gameObject.GetComponent<Rigidbody>(); //EnemyのRigidbodyを取得
             //Vector3 attackForce = (other.transform.position - this.transform.position) * 5; //Enemyに与える力を設定
@@ -135,8 +135,12 @@ public class PlayerScript : MonoBehaviour
 
     public void PlayerDamage() //Playerがくらう
     {
-        int damage = Random.Range(1000, 1300); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(1000, 130); //攻撃のダメージを乱数で取得
+
+        Text damage_text = talkScript.talkText;
+        damage_text.text = damage + "のダメージをくらってもうたわ！";
         Debug.Log("damage : " + damage);
+
 
         currentPlayerHP = currentPlayerHP - damage; //最新のHPを取得
         Debug.Log("After current : " + currentPlayerHP);
@@ -158,8 +162,6 @@ public class PlayerScript : MonoBehaviour
             playerSliderGauge.color = Color.Lerp(color_4, color_3, playerSlider.value * 4f);
         }
 
-        Text damage_text = talkScript.talkText;
-        damage_text.text = damage + "のダメージをくらってもうたわ！";
 
         if(playerSlider.value <= 0)
         {

@@ -39,10 +39,15 @@ public class BattleMotionController : MonoBehaviour
     public void EnemyDamage()
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
-        Invoke("EnemyAttack", 1.5f);
+
         if(enemySlider.value <= 0)
         {
-            Invoke("EnemyDestroyWait", 2f);
+            Invoke("EnemyDestroyWait", 0.5f);
+        }
+
+        else
+        {
+            Invoke("EnemyAttack", 1.5f);
         }
     }
 
@@ -51,7 +56,7 @@ public class BattleMotionController : MonoBehaviour
         if(enemySlider.value > 0)
         {
             battleEnemy.GetComponent<Animator>().SetTrigger("Attack");
-            Invoke("PlayerDamage", 1.0f);
+            Invoke("PlayerDamage", 0.7f);
         }
        // player.GetComponent<Animator>().SetTrigger("Damage");
 
