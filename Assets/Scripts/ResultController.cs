@@ -89,6 +89,8 @@ public class ResultController : MonoBehaviour
             clearMessage.gameObject.SetActive(true);
         }
 
+        yield return new WaitForSeconds(2.0f);
+
         nextButton.SetActive(true);
        
     }

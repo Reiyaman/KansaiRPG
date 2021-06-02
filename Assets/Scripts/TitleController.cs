@@ -55,4 +55,9 @@ public class TitleController : MonoBehaviour
     {
         SceneManager.LoadScene("GameOver");
     }
+
+    public void gameClear()
+    {
+        SceneManager.LoadScene("StaffRoll");
+    }
 }
