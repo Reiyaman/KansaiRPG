@@ -131,6 +131,21 @@ public class PlayerScript : MonoBehaviour
             //enemyBody.AddForce(attackForce, ForceMode.Impulse); //Enemyに衝撃を与える
         }
 
+        if(other.gameObject.tag == "BOSS") //ボスに接触したら
+        {
+            eHP = other.gameObject.GetComponent<BossController>().enemyHP;
+            cHP = other.gameObject.GetComponent<BossController>().currentHP;
+            image.sprite = other.gameObject.GetComponent<BossController>().enemyImage; //戦うEnemyのSprits
+            enemy = other.gameObject; //戦うEnemyのゲームオブジェクトを代入
+
+            Vector3 enemyPos = other.transform.position; //変数を作成して、当たったEnemyの座標を格納
+            enemyPos.y = transform.position.y; //自分自身のY座標を格納
+            transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
+
+            SendMessage("ChangeBattleModeWait");
+            Invoke("battlestart", 0.5f);
+        }
+
     }
 
     public void PlayerDamage() //Playerがくらう

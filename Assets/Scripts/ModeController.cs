@@ -10,9 +10,13 @@ public class ModeController : MonoBehaviour
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
     public GameObject talkBox; //トークボックス
+    public GameObject HPText; //PlayerのHPテキスト
+    public GameObject HPSlider; //PlayerのHPゲージ
+    public GameObject GameClearText; //Gameclearテキスト
 
     public GameObject moveModeCamera; //移動中のカメラの変数
     public GameObject battleModeCamera; //バトル中のカメラの変数
+    public GameObject gameClearCamera; //ゲームクリアのカメラの変数
    
 
     public bool mode; // /移動中かバトル中かの変数
@@ -85,4 +89,21 @@ public class ModeController : MonoBehaviour
         talkBox.SetActive(true); //トークボックスを表示
         attackButton.SetActive(true); //攻撃ボタンの表示
     }
+
+    public void GameClear()
+    {
+        mode = true;
+        HPText.SetActive(false); //PlayerのHP文字を非表示
+        HPSlider.SetActive(false); //PlayerのHPゲージを非表示
+        GameClearText.SetActive(true); //Gameclearのテキストを表示
+        enemyimage.SetActive(false); //非表示
+        attackButton.SetActive(false); //非表示
+        enemySlider.SetActive(false); //非表示
+        specialButton.SetActive(false); //非表示
+        talkBox.SetActive(false); //非表示
+
+        gameObject.SendMessage("ResultCoroutine");
+        
+    }
+
 }

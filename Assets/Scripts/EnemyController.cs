@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    Rigidbody  rb;//Rigidbody変数の宣言
+    Rigidbody  rb; //Rigidbody変数の宣言
     float moveSpeed = 14; //スピードの変数の宣言
     float walkSpeed = 3;
     public float stopDistance; //Enemyが停止するPlayerとの距離を格納する変数

@@ -73,14 +73,20 @@ public class BattleMotionController : MonoBehaviour
         Text victory_text = talkScript.talkText;
         victory_text.text = "おっしゃあ！　倒したったで！";
         battleEnemy.GetComponent<Animator>().SetTrigger("Death");
-
-        Invoke("EnemyDestroy", 5f);
+        Invoke("EnemyDestroy", 6f);
     }
     
     public void EnemyDestroy() //戦ったEnemyを消滅させる
     {
         Destroy(battleEnemy);
-        gameObject.SendMessage("ChangeMoveMode");
+        if(battleEnemy.gameObject.tag == "Enemy")
+        {
+            gameObject.SendMessage("ChangeMoveMode");
+        }
+        else if(battleEnemy.gameObject.tag == "BOSS")
+        {
+            gameObject.SendMessage("GameClear");
+        }
     }
 
     public void PlayerDeath()
