@@ -21,12 +21,13 @@ public class ModeController : MonoBehaviour
 
     public bool mode; // /移動中かバトル中かの変数
     public GameObject enemySpawner; //エネミースポナーオブジェクトの変数
-    public GameObject Enemy;
+  
+    //public GameObject Enemy;
     //public GameObject 
 
     //public List<GameObject>  StopEnemyObject = new List<GameObject>(); //停止させる配列
     
-    //public GameObject Player;
+    public GameObject Player;
 
     Image images;
 
@@ -54,9 +55,9 @@ public class ModeController : MonoBehaviour
         //battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
 
         enemySpawner.SendMessage("DisappearSpawn"); //EnemySpawnerを消す
-        Enemy.SendMessage("DisappearEnemy");
+       // Enemy.SendMessage("DisappearEnemy");
         gameObject.SendMessage("TalkWait");
-       // Enemy = Player.gameObject.GetComponent<PlayerScript>().enemy;
+        //Enemy = Player.gameObject.GetComponent<PlayerScript>().enemy;
        // StopEnemyObject.Remove(Enemy);
         Invoke("BattleMode", 0.5f);
 
@@ -75,14 +76,17 @@ public class ModeController : MonoBehaviour
         talkBox.SetActive(false); //移動モードは非表示
 
         images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
-        enemySpawner.SendMessage("AppearSpawn");　//EnemySpawnerを出現させる
-        Enemy.SendMessage("AppearEnemy");
+        enemySpawner.GetComponent<EnemyGenarator>().AppearSpawn();
+        //Enemy.SendMessage("AppearEnemy");
     }
 
     public void BattleMode()
     {
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
+
+        enemySlider.GetComponent<Slider>().value = 1;
+        gameObject.GetComponent<BattleController>().enemySliderGauge.color = gameObject.GetComponent<BattleController>().color_1;
 
         enemyimage.SetActive(true); //画像を表示
         enemySlider.SetActive(true); //敵のHPゲージを表示

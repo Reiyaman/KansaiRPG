@@ -784,6 +784,7 @@ GameObject:
   - component: {fileID: 9096175158999202146}
   - component: {fileID: 1712518921}
   - component: {fileID: 8398844016671942861}
+  - component: {fileID: 8900219978894313894}
   m_Layer: 0
   m_Name: TurtleShellPBR
   m_TagString: Enemy
@@ -850,7 +851,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774625739149480}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.6384592, y: 1.2280216, z: 1.5472505}
@@ -894,6 +895,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8900219978894313894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774625739149480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc757141153940f3aa06c65ebd8c83e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1822049695589022
 GameObject:
   m_ObjectHideFlags: 0

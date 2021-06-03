@@ -13,8 +13,6 @@ public class EnemyController : MonoBehaviour
     public float moveDistance; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
 
     bool action = false; //Playerに接触したかしていないか
-    bool exist; //出現しているか消えているか
-    bool touch; //Playerと接触しているかどうか
 
     Vector3 enemyMoveRange;
 
@@ -38,28 +36,13 @@ public class EnemyController : MonoBehaviour
         enemyMoveRange = transform.position; //Enemyの初期位置を取得
         currentHP = enemyHP; //代入
 
-        exist = true;
-        touch = false;
+       
         //enemyImage = GetComponent<Image>();
     }
 
     public void Update()
     {
-        if(exist == true)
-        {
-            Time.timeScale = 1;
-        }
-
-        else
-        {
-            {
-                if(touch == false)
-                {
-                    Time.timeScale = 0;
-                    gameObject.SetActive(false);
-                }
-            } 
-        }
+       
     }
 
     // Update is called once per frame
@@ -89,33 +72,33 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) //接触した時の処理
+    private void OnCollisionEnter(Collision collision) //接触した時の処理
     {
-        if (other.gameObject.tag == "Player") //プレイヤーに接触した場合
+        if (collision.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
-            touch = true; //接触したのでTrue
+           // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
             animator.SetBool("Battle", true); //バトルスタート
             //animator.SetInteger("Run", 0);
 
-            Rigidbody playerBody = other.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
-            if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
-            {
-                Vector3 attackForce = (other.transform.position - this.transform.position) * 7; //Playerに与える力を設定
-                attackForce.y = transform.position.y; //Y座標だけは動かさない
-                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            }
-            else if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-            {
-                Vector3 attackForce = (other.transform.position - this.transform.position) * 3f; //Playerに与える力を設定
-                attackForce.y = transform.position.y; //Y座標だけは動かさない
-                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            }
-            else
-            {
-                Vector3 attackForce = (other.transform.position - this.transform.position) * 2; //Playerに与える力を設定
-                attackForce.y = transform.position.y; //Y座標だけは動かさない
-                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            }
+            //Rigidbody playerBody = collision.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
+            //if (collision.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+            //{
+             //   Vector3 attackForce = (collision.transform.position - this.transform.position) * 7; //Playerに与える力を設定
+             //   attackForce.y = transform.position.y; //Y座標だけは動かさない
+             //   playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+           // }
+           // else if (collision.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+            //{
+              //  Vector3 attackForce = (collision.transform.position - this.transform.position) * 3f; //Playerに与える力を設定
+               // attackForce.y = transform.position.y; //Y座標だけは動かさない
+               // playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+           // }
+            //else
+           // {
+            //    Vector3 attackForce = (collision.transform.position - this.transform.position) * 2; //Playerに与える力を設定
+              //  attackForce.y = transform.position.y; //Y座標だけは動かさない
+              //  playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+            //}
 
             //animator.SetInteger("Walk", 0);
             //animator.SetInteger("Run", 0);
@@ -131,15 +114,4 @@ public class EnemyController : MonoBehaviour
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
     }
 
-   public void DisappearEnemy() //止めて消す
-    {
-        exist = false;
-        gameObject.SetActive(false);
-    }
-
-    public void AppearEnemy() //動かして出現させる
-    {
-       exist = true;
-      gameObject.SetActive(true);
-    }
 }

@@ -7,6 +7,7 @@ TagManager:
   - FlythroughCam
   - Enemy
   - BOSS
+  - Ground
   layers:
   - Default
   - TransparentFX
