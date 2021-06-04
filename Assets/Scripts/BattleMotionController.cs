@@ -81,11 +81,11 @@ public class BattleMotionController : MonoBehaviour
         Destroy(battleEnemy);
         if(battleEnemy.gameObject.tag == "Enemy")
         {
-            gameObject.SendMessage("ChangeMoveMode");
+            gameObject.GetComponent<ModeController>().ChangeMoveMode();
         }
         else if(battleEnemy.gameObject.tag == "BOSS")
         {
-            gameObject.SendMessage("GameClear");
+            gameObject.GetComponent<ModeController>().GameClear();
         }
     }
 
@@ -96,6 +96,6 @@ public class BattleMotionController : MonoBehaviour
         Text lose_text = talkScript.talkText;
         lose_text.text = "あああ、やられてしもうた、、";
         player.GetComponent<Animator>().SetTrigger("Death");
-        gameObject.SendMessage("GameOverWait");
+        gameObject.GetComponent<TitleController>().GameOverWait();
     }
 }

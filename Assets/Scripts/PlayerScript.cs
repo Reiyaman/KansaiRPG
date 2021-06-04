@@ -163,7 +163,8 @@ public class PlayerScript : MonoBehaviour
             rb.velocity = new Vector3(0, 0, 0);
             gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
 
-            SendMessage("ChangeBattleModeWait");
+            gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
+           // SendMessage("ChangeBattleModeWait");
             Invoke("battlestart", 0.5f);
         }
 
@@ -206,7 +207,8 @@ public class PlayerScript : MonoBehaviour
 
         if(playerSlider.value <= 0)
         {
-            gameMaster.SendMessage("PlayerDeath");
+            gameMaster.GetComponent<BattleMotionController>().PlayerDeath();
+           // gameMaster.SendMessage("PlayerDeath");
 
         }
         else
@@ -218,14 +220,16 @@ public class PlayerScript : MonoBehaviour
 
      public void ChangeBattleModeWait()
     {
-        gameMaster.SendMessage("ChangeBattleMode"); //バトルモードに移動
+        gameMaster.GetComponent<ModeController>().ChangeBattleMode();
+        //gameMaster.SendMessage("ChangeBattleMode"); //バトルモードに移動
         animator.SetInteger("Walk", 0); //Playerの静止
         animator.SetInteger("Dash", 0);
     }
 
     public void battlestart() 
     {
-        gameMaster.SendMessage("BattleStart"); //GameMasterに関数を送る
+        gameMaster.GetComponent<BattleController>().BattleStart();
+       // gameMaster.SendMessage("BattleStart"); //GameMasterに関数を送る
     }
 
     public void attackButtonTrue()

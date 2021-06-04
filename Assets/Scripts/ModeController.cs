@@ -20,13 +20,14 @@ public class ModeController : MonoBehaviour
    
 
     public bool mode; // /移動中かバトル中かの変数
-    public GameObject enemySpawner; //エネミースポナーオブジェクトの変数
-  
+    public int x; //スポナーの数
+    public EnemyGenarator[] refObj; //エネミースポナースクリプトの変数
+
     //public GameObject Enemy;
     //public GameObject 
 
     //public List<GameObject>  StopEnemyObject = new List<GameObject>(); //停止させる配列
-    
+
     public GameObject Player;
 
     Image images;
@@ -34,6 +35,7 @@ public class ModeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EnemyGenarator enemySpawners = refObj[x].gameObject.GetComponent<EnemyGenarator>(); //EnemySpawner達のスクリプトを取得
         mode = false; //移動中はFalse
 
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //最初は移動カメラ
@@ -51,12 +53,18 @@ public class ModeController : MonoBehaviour
     {
         mode = true; //バトルモードに遷移
 
-        //moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1; 
-        //battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
+        int size = refObj.Length;
+        foreach(EnemyGenarator item in refObj)
+        {
+          if(item != null)
+          {
+             item.DisappearSpawn(); //フィールド上のEnemySpawnerを消す
+         }
+         }
 
-        enemySpawner.SendMessage("DisappearSpawn"); //EnemySpawnerを消す
-       // Enemy.SendMessage("DisappearEnemy");
-        gameObject.SendMessage("TalkWait");
+        //refObj.DisappearSpawn();
+        
+        gameObject.GetComponent<TalkScript>().TalkWait();
         //Enemy = Player.gameObject.GetComponent<PlayerScript>().enemy;
        // StopEnemyObject.Remove(Enemy);
         Invoke("BattleMode", 0.5f);
@@ -76,7 +84,17 @@ public class ModeController : MonoBehaviour
         talkBox.SetActive(false); //移動モードは非表示
 
         images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
-        enemySpawner.GetComponent<EnemyGenarator>().AppearSpawn();
+
+        foreach (EnemyGenarator item in refObj)
+        {
+            if (item != null)
+            {
+               item.AppearSpawn(); //フィールド上のEnemySpawnerを出現させる
+           }
+        }
+
+        //refObj.AppearSpawn();
+       
         //Enemy.SendMessage("AppearEnemy");
     }
 
@@ -106,7 +124,8 @@ public class ModeController : MonoBehaviour
         specialButton.SetActive(false); //非表示
         talkBox.SetActive(false); //非表示
 
-        gameObject.SendMessage("ResultCoroutine");
+        gameObject.GetComponent<ResultController>().ResultCoroutine();
+        
         
     }
 

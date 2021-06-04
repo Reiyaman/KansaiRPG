@@ -74,7 +74,8 @@ public class BattleController : MonoBehaviour
 
     public void DamageButton()
     {
-        player.gameObject.SendMessage("PlayerDamage");
+        player.GetComponent<PlayerScript>().PlayerDamage();
+       // player.gameObject.SendMessage("PlayerDamage");
     }
 
     public void BattleStart()
