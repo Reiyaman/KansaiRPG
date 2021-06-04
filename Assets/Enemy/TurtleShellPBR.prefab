@@ -873,6 +873,7 @@ MonoBehaviour:
   enemyHP: 900
   currentHP: 0
   enemyImage: {fileID: 21300000, guid: a0141af500e624519bdfda613859b584, type: 3}
+  enemyContainer: {fileID: 0}
 --- !u!195 &8398844016671942861
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -902,11 +903,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774625739149480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fc757141153940f3aa06c65ebd8c83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyContainer: {fileID: 0}
+  enemies: {fileID: 0}
 --- !u!1 &1822049695589022
 GameObject:
   m_ObjectHideFlags: 0

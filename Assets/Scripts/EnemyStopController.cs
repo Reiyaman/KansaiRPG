@@ -5,37 +5,41 @@ using UnityEngine;
 public class EnemyStopController : MonoBehaviour
 {
 
-    bool exist; //出現しているか消えているか
+   
+
+    public GameObject enemyContainer; //フィールド上のEnemyを格納するコンテナオブジェクト
+    public GameObject enemies;
 
     // Start is called before the first frame update
     void Start()
     {
-        exist = true;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (exist == true)
-        {
-            Time.timeScale = 1; //動かす
-        }
-
-        else
-        {
-            Time.timeScale = 0; //停止させる
-        }
+       
     }
 
     public void DisappearEnemy() //止めて消す
     {
-        exist = false;
+        foreach(Transform child in transform)
+        {
+            child.gameObject.GetComponent<EnemyController>().exist = false;
+            child.gameObject.SetActive(false);
+        }
+        
        // gameObject.GetComponent<Mesh>().enabled = false;
     }
 
     public void AppearEnemy() //動かして出現させる
     {
-       exist = true;
-      gameObject.SetActive(true);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.GetComponent<EnemyController>().exist = true;
+            child.gameObject.SetActive(true);
+        }
+            
     }
 }

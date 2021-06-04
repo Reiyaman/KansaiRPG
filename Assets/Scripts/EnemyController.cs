@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    public bool exist;
+
     Rigidbody  rb; //Rigidbody変数の宣言
     float moveSpeed = 14; //スピードの変数の宣言
     float walkSpeed = 3;
@@ -26,9 +28,13 @@ public class EnemyController : MonoBehaviour
     
     NavMeshAgent agent; //NavMeshAgentの変数
 
+    GameObject enemyContainer; //フィールド上のEnemyを格納するコンテナオブジェクト
+
     // Start is called before the first frame update
     void Start()
     {
+        exist = true;
+
         player = GameObject.Find("RPGHeroHP").transform;　//プレイヤーのオブジェクトを探して格納
         rb = GetComponent<Rigidbody>(); //RigidBodyを取得
         animator = GetComponent<Animator>(); //Animatorを取得
@@ -36,13 +42,25 @@ public class EnemyController : MonoBehaviour
         enemyMoveRange = transform.position; //Enemyの初期位置を取得
         currentHP = enemyHP; //代入
 
+        enemyContainer = GameObject.Find("EnemyContainer");
+        this.gameObject.transform.parent = enemyContainer.transform; //Enemyをコンテナに格納する
+
+
        
         //enemyImage = GetComponent<Image>();
     }
 
     public void Update()
     {
-       
+        if (exist == true)
+        {
+            Time.timeScale = 1; //動かす
+        }
+
+        else
+        {
+            Time.timeScale = 0; //停止させる
+        }
     }
 
     // Update is called once per frame
@@ -76,6 +94,8 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
+            this.gameObject.transform.parent = null; //Enemyをコンテナから外す
+
            // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
             animator.SetBool("Battle", true); //バトルスタート
             //animator.SetInteger("Run", 0);
@@ -113,5 +133,7 @@ public class EnemyController : MonoBehaviour
         float enemyMoveRangez = 6 * Mathf.Sin(Random.Range(0f, 360f));
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
     }
+
+    
 
 }

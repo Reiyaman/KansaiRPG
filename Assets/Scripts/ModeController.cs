@@ -17,7 +17,8 @@ public class ModeController : MonoBehaviour
     public GameObject moveModeCamera; //移動中のカメラの変数
     public GameObject battleModeCamera; //バトル中のカメラの変数
     public GameObject gameClearCamera; //ゲームクリアのカメラの変数
-   
+
+    public GameObject enemyContainer;
 
     public bool mode; // /移動中かバトル中かの変数
     public int x; //スポナーの数
@@ -59,14 +60,15 @@ public class ModeController : MonoBehaviour
           if(item != null)
           {
              item.DisappearSpawn(); //フィールド上のEnemySpawnerを消す
-         }
-         }
+           }
 
-        //refObj.DisappearSpawn();
+        }
+
         
         gameObject.GetComponent<TalkScript>().TalkWait();
-        //Enemy = Player.gameObject.GetComponent<PlayerScript>().enemy;
-       // StopEnemyObject.Remove(Enemy);
+
+        enemyContainer.GetComponent<EnemyStopController>().DisappearEnemy();
+
         Invoke("BattleMode", 0.5f);
 
     }
@@ -93,9 +95,7 @@ public class ModeController : MonoBehaviour
            }
         }
 
-        //refObj.AppearSpawn();
-       
-        //Enemy.SendMessage("AppearEnemy");
+        enemyContainer.GetComponent<EnemyStopController>().AppearEnemy();
     }
 
     public void BattleMode()
