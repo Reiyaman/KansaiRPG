@@ -129,19 +129,21 @@ public class PlayerScript : MonoBehaviour
        
         if (collision.gameObject.tag == "Enemy")//Enemyに接触した場合
         {
+            gameMaster.GetComponent<ModeController>().mode = true;
+
             eHP = collision.gameObject.GetComponent<EnemyController>().enemyHP; //戦うEnemyの最大HPを取得
             cHP = collision.gameObject.GetComponent<EnemyController>().currentHP; //戦うEnemyの現在のHPを取得
             image.sprite = collision.gameObject.GetComponent<EnemyController>().enemyImage; //戦うEnemyのSprits
             enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
 
+            rb.velocity = new Vector3(0, 0, 0);
+            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
+
             Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
-            //rb.velocity = new Vector3(0, 0, 0);
-            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
-
-            SendMessage("ChangeBattleModeWait");
+            gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
             Invoke("battlestart", 0.5f);
 
             //Rigidbody enemyBody = other.gameObject.GetComponent<Rigidbody>(); //EnemyのRigidbodyを取得
@@ -151,17 +153,19 @@ public class PlayerScript : MonoBehaviour
 
         else if(collision.gameObject.tag == "BOSS") //ボスに接触したら
         {
+            gameMaster.GetComponent<ModeController>().mode = true;
+
             eHP = collision.gameObject.GetComponent<BossController>().enemyHP;
             cHP = collision.gameObject.GetComponent<BossController>().currentHP;
             image.sprite = collision.gameObject.GetComponent<BossController>().enemyImage; //戦うEnemyのSprits
             enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
 
+            rb.velocity = new Vector3(0, 0, 0);
+            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
+
             Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
-
-            rb.velocity = new Vector3(0, 0, 0);
-            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
 
             gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
            // SendMessage("ChangeBattleModeWait");

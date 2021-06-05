@@ -33,35 +33,35 @@ public class BossController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollision(Collision other)
     {
         if(other.gameObject.tag == "Player")
         {
+            animator.SetBool("Battle", true); //バトルスタート
+
             Vector3 playerPos = other.transform.position; //変数を作成して、Playerの座標を格納
             playerPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(playerPos); //EnemyをPlayerPosの座標方向に向かせる
 
-            animator.SetBool("Battle", true); //バトルスタート
-
             Rigidbody playerBody = other.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
-            if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
-            {
-                Vector3 attackForce = (other.transform.position - this.transform.position) * 7; //Playerに与える力を設定
-                attackForce.y = transform.position.y; //Y座標だけは動かさない
-                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            }
-            else if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-            {
-                Vector3 attackForce = (other.transform.position - this.transform.position) * 3f; //Playerに与える力を設定
-                attackForce.y = transform.position.y; //Y座標だけは動かさない
-                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            }
-            else
-            {
-                Vector3 attackForce = (other.transform.position - this.transform.position) * 2; //Playerに与える力を設定
-                attackForce.y = transform.position.y; //Y座標だけは動かさない
-                playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            }
+            //if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+            //{
+             //   Vector3 attackForce = (other.transform.position - this.transform.position) * 7; //Playerに与える力を設定
+             //   attackForce.y = transform.position.y; //Y座標だけは動かさない
+              //  playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+            //}
+            //else if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+            //{
+               // Vector3 attackForce = (other.transform.position - this.transform.position) * 3f; //Playerに与える力を設定
+               // attackForce.y = transform.position.y; //Y座標だけは動かさない
+               // playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+           // }
+           // else
+           // {
+             //   Vector3 attackForce = (other.transform.position - this.transform.position) * 2; //Playerに与える力を設定
+               // attackForce.y = transform.position.y; //Y座標だけは動かさない
+               /// playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
+           // }
         }
     }
 }

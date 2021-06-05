@@ -95,8 +95,8 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
             this.gameObject.transform.parent = null; //Enemyをコンテナから外す
-
-           // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
+            animator.SetInteger("Run", 1);
+            // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
             animator.SetBool("Battle", true); //バトルスタート
             //animator.SetInteger("Run", 0);
 
