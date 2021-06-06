@@ -11,6 +11,8 @@ public class BossController : MonoBehaviour
     public int enemyHP; //ボスの最大HP
     public int currentHP; //現在のボスのHP
     public Sprite enemyImage; //ボスのSprite
+    public int enemyAttackMaxDamage; //接触したエネミーの攻撃力
+    public int enemyAttackMinDamage; //
 
     Animator animator;//アニメーションの変数
     public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
@@ -33,7 +35,7 @@ public class BossController : MonoBehaviour
         
     }
 
-    private void OnCollision(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Player")
         {

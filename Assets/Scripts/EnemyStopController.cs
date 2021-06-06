@@ -7,8 +7,8 @@ public class EnemyStopController : MonoBehaviour
 
    
 
-    public GameObject enemyContainer; //フィールド上のEnemyを格納するコンテナオブジェクト
-    public GameObject enemies;
+   // public GameObject enemyContainer; //フィールド上のEnemyを格納するコンテナオブジェクト
+    //public GameObject enemies;
 
     // Start is called before the first frame update
     void Start()

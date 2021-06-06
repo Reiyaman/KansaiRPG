@@ -21,8 +21,11 @@ public class EnemyController : MonoBehaviour
     public int enemyHP ; //敵の最大HP
     public int currentHP; //現在の敵のHP
     public Sprite enemyImage; //敵のSprite
-    
-    Transform player; //PlayerのTransformコンポーネントを格納する変数
+
+    public int enemyattackminDamage; //エネミーの攻撃力
+    public int enemyattackmaxDamage;
+
+     Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
     public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
     
@@ -45,8 +48,12 @@ public class EnemyController : MonoBehaviour
         enemyContainer = GameObject.Find("EnemyContainer");
         this.gameObject.transform.parent = enemyContainer.transform; //Enemyをコンテナに格納する
 
+        animator.SetInteger("Walk", 0);
+        animator.SetInteger("Run", 0);
+        animator.SetBool("Battle", false);
 
-       
+
+
         //enemyImage = GetComponent<Image>();
     }
 
@@ -67,9 +74,9 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         currentState = animator.GetCurrentAnimatorStateInfo(0);
-        animator.SetInteger("Walk", 0);
-        animator.SetInteger("Run", 0);
-        animator.SetBool("Battle", false);
+        //animator.SetInteger("Walk", 0);
+        //animator.SetInteger("Run", 0);
+        //animator.SetBool("Battle", false);
 
         if(action == false) //Playerにまだ接触していないので動ける
         {
@@ -85,9 +92,12 @@ public class EnemyController : MonoBehaviour
 
             else
             {
+                animator.SetInteger("Run", 0);
+                animator.SetInteger("Walk", 1);
                 // InvokeRepeating("MoveEnemy", 1, 5);
             }
         }
+
     }
 
     private void OnCollisionEnter(Collision collision) //接触した時の処理
@@ -95,7 +105,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
             this.gameObject.transform.parent = null; //Enemyをコンテナから外す
-            animator.SetInteger("Run", 1);
+            //animator.SetInteger("Run", 1);
             // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
             animator.SetBool("Battle", true); //バトルスタート
             //animator.SetInteger("Run", 0);

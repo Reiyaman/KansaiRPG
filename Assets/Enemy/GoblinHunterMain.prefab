@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238940506099692618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 0.4571262, z: 3.54}
+  m_LocalPosition: {x: 0.09, y: 0.4571262, z: 2.34}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 8980390744224071177}
@@ -1161,7 +1161,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &985308634
 MonoBehaviour:
@@ -1181,6 +1181,8 @@ MonoBehaviour:
   enemyHP: 1300
   currentHP: 0
   enemyImage: {fileID: 21300000, guid: 41c2e3164caef42d0a56d493eca425ad, type: 3}
+  enemyattackminDamage: 300
+  enemyattackmaxDamage: 350
 --- !u!195 &9184163519762366199
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1215,8 +1217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc757141153940f3aa06c65ebd8c83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyContainer: {fileID: 0}
-  enemies: {fileID: 0}
 --- !u!65 &4261711826753205774
 BoxCollider:
   m_ObjectHideFlags: 0

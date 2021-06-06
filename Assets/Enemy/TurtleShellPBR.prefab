@@ -841,7 +841,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &9096175158999202146
 BoxCollider:
@@ -868,12 +868,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31f33e840d284b7980c1e3840e5c243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exist: 0
   stopDistance: 3
   moveDistance: 20
   enemyHP: 900
   currentHP: 0
   enemyImage: {fileID: 21300000, guid: a0141af500e624519bdfda613859b584, type: 3}
-  enemyContainer: {fileID: 0}
+  enemyattackminDamage: 100
+  enemyattackmaxDamage: 150
 --- !u!195 &8398844016671942861
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -881,7 +883,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774625739149480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -908,8 +910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc757141153940f3aa06c65ebd8c83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyContainer: {fileID: 0}
-  enemies: {fileID: 0}
 --- !u!1 &1822049695589022
 GameObject:
   m_ObjectHideFlags: 0

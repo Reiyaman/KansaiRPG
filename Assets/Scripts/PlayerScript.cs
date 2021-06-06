@@ -16,6 +16,9 @@ public class PlayerScript : MonoBehaviour
     
     public int eHP; //接触したEnemyの最大HP
     public int cHP; //接触したEnemyの現在のHP
+    public int enemyAttackMaxDamage; //接触したエネミーの攻撃力
+    public int enemyAttackMinDamage; //
+
     public int maxPlayerHP; //Playerの最大HP
     public int currentPlayerHP; //Playerの現在のHP
 
@@ -130,13 +133,15 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")//Enemyに接触した場合
         {
             gameMaster.GetComponent<ModeController>().mode = true;
+            rb.velocity = new Vector3(0, 0, 0);
 
             eHP = collision.gameObject.GetComponent<EnemyController>().enemyHP; //戦うEnemyの最大HPを取得
             cHP = collision.gameObject.GetComponent<EnemyController>().currentHP; //戦うEnemyの現在のHPを取得
             image.sprite = collision.gameObject.GetComponent<EnemyController>().enemyImage; //戦うEnemyのSprits
             enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
+            enemyAttackMaxDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackmaxDamage;
+            enemyAttackMinDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackminDamage;
 
-            rb.velocity = new Vector3(0, 0, 0);
             gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
 
             Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
@@ -158,6 +163,8 @@ public class PlayerScript : MonoBehaviour
             eHP = collision.gameObject.GetComponent<BossController>().enemyHP;
             cHP = collision.gameObject.GetComponent<BossController>().currentHP;
             image.sprite = collision.gameObject.GetComponent<BossController>().enemyImage; //戦うEnemyのSprits
+            enemyAttackMaxDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackmaxDamage;
+            enemyAttackMinDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackminDamage;
             enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
 
             rb.velocity = new Vector3(0, 0, 0);
@@ -167,8 +174,8 @@ public class PlayerScript : MonoBehaviour
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
-            gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-           // SendMessage("ChangeBattleModeWait");
+           // gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
+            Invoke("ChangeBattleModeWait", 1.5f);
             Invoke("battlestart", 0.5f);
         }
 
@@ -181,7 +188,7 @@ public class PlayerScript : MonoBehaviour
 
     public void PlayerDamage() //Playerがくらう
     {
-        int damage = Random.Range(1000, 130); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(enemyAttackMinDamage, enemyAttackMaxDamage); //攻撃のダメージを乱数で取得
 
         Text damage_text = talkScript.talkText;
         damage_text.text = damage + "のダメージをくらってもうたわ！";

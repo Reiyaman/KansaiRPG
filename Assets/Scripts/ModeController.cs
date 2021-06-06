@@ -67,7 +67,7 @@ public class ModeController : MonoBehaviour
         
         gameObject.GetComponent<TalkScript>().TalkWait();
 
-        enemyContainer.GetComponent<EnemyStopController>().DisappearEnemy();
+        enemyContainer.GetComponent<EnemyStopController>().DisappearEnemy(); //フィールド上の全てのEnemyを消す
 
         Invoke("BattleMode", 0.5f);
 
@@ -95,7 +95,7 @@ public class ModeController : MonoBehaviour
            }
         }
 
-        enemyContainer.GetComponent<EnemyStopController>().AppearEnemy();
+        enemyContainer.GetComponent<EnemyStopController>().AppearEnemy();　//フィールド上の全てのEnemyを出現させる
     }
 
     public void BattleMode()
