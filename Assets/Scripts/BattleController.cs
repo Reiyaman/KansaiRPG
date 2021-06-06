@@ -38,7 +38,7 @@ public class BattleController : MonoBehaviour
     {
         attackButton.SetActive(false); //ボタンを消す
 
-        int damage = Random.Range(100, 110); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(1000, 1100); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
 
         currentHP = currentHP - damage; //最新のHPを取得
@@ -49,16 +49,16 @@ public class BattleController : MonoBehaviour
 
         if (enemyslider.value > 0.75f) //段々と色が緑→黄→赤に変化していく
         {
-            enemySliderGauge.color = Color.Lerp(color_2, color_1, (enemyslider.value - 0.75f) * 4f);
+            enemySliderGauge.color = Color.Lerp(color_1, color_2, (enemyslider.value - 0.75f) * 4f);
         }
 
         else if (enemyslider.value > 0.25f)
         {
-            enemySliderGauge.color = Color.Lerp(color_3, color_2, (enemyslider.value - 0.25f) * 4f);
+            enemySliderGauge.color = Color.Lerp(color_2, color_3, (enemyslider.value - 0.25f) * 4f);
         }
         else
         {
-            enemySliderGauge.color = Color.Lerp(color_4, color_3, enemyslider.value * 4f);
+            enemySliderGauge.color = Color.Lerp(color_3, color_4, enemyslider.value * 4f);
         }
 
         Text attack_text = talkScript.talkText;

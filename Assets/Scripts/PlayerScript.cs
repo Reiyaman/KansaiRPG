@@ -135,6 +135,8 @@ public class PlayerScript : MonoBehaviour
             gameMaster.GetComponent<ModeController>().mode = true;
             rb.velocity = new Vector3(0, 0, 0);
 
+            currentPlayerHP = maxPlayerHP; //代入
+
             eHP = collision.gameObject.GetComponent<EnemyController>().enemyHP; //戦うEnemyの最大HPを取得
             cHP = collision.gameObject.GetComponent<EnemyController>().currentHP; //戦うEnemyの現在のHPを取得
             image.sprite = collision.gameObject.GetComponent<EnemyController>().enemyImage; //戦うEnemyのSprits
@@ -159,6 +161,8 @@ public class PlayerScript : MonoBehaviour
         else if(collision.gameObject.tag == "BOSS") //ボスに接触したら
         {
             gameMaster.GetComponent<ModeController>().mode = true;
+
+            currentPlayerHP = maxPlayerHP; //代入
 
             eHP = collision.gameObject.GetComponent<BossController>().enemyHP;
             cHP = collision.gameObject.GetComponent<BossController>().currentHP;

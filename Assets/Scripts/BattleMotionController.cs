@@ -12,6 +12,8 @@ public class BattleMotionController : MonoBehaviour
     public GameObject attackButton;
     public GameObject specialButton;
 
+    public int exp;
+
     TalkScript talkScript;
    
 
@@ -42,7 +44,7 @@ public class BattleMotionController : MonoBehaviour
 
         if(enemySlider.value <= 0)
         {
-            Invoke("EnemyDestroyWait", 0.5f);
+            Invoke("EnemyDestroyCoroutine", 0.5f);
         }
 
         else
@@ -68,13 +70,71 @@ public class BattleMotionController : MonoBehaviour
         
     }
 
-    public void EnemyDestroyWait() //倒れるアニメーションを再生
+    public void EnemyDestroyCoroutine()
     {
-        Text victory_text = talkScript.talkText;
-        victory_text.text = "おっしゃあ！　倒したったで！";
-        battleEnemy.GetComponent<Animator>().SetTrigger("Death");
-        Invoke("EnemyDestroy", 6f);
+        StartCoroutine("EnemyDestroyWait");
     }
+
+    private IEnumerator EnemyDestroyWait() //倒れるアニメーションを再生
+    {
+        int recover = Random.Range(200, 500);
+        Text victory_text = talkScript.talkText;
+       
+        player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
+        player.GetComponent<PlayerScript>().playerSlider.value = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを減らす
+        Debug.Log("slider.value : " + playerSlider.value);
+
+        if (player.GetComponent<PlayerScript>().playerSlider.value > 0.75f) //段々と色が緑→黄→赤に変化していく
+        {
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (playerSlider.value + 0.25f) * 4f);
+        }
+
+        else if (player.GetComponent<PlayerScript>().playerSlider.value > 0.25f)
+        {
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (playerSlider.value + 0.75f) * 4f);
+        }
+        else
+        {
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, playerSlider.value * 4f);
+        }
+
+        if(battleEnemy.name == "BeholderPBR")
+        {
+             exp = Random.Range(400, 500);
+        }
+
+        else if(battleEnemy.name == "ChestMonsterPBR")
+        {
+             exp = Random.Range(250, 300);
+        }
+
+        else if(battleEnemy.name == "GoblinHunterMain")
+        {
+             exp = Random.Range(800, 1000);
+        }
+
+        else if(battleEnemy.name == "SlimePBR")
+        {
+             exp = Random.Range(100, 150);
+        }
+
+        else if(battleEnemy.name == "TurtleShell")
+        {
+             exp = Random.Range(500, 550);
+        }
+
+
+        victory_text.text = "おっしゃあ！　倒したったで!";
+
+        yield return new WaitForSeconds(2.0f);
+
+        victory_text.text = "体力" + recover + "回復したで！\n" + "経験値" + exp + "ゲットや！";
+
+        battleEnemy.GetComponent<Animator>().SetTrigger("Death");
+        
+        Invoke("EnemyDestroy", 2f);
+    }
+
     
     public void EnemyDestroy() //戦ったEnemyを消滅させる
     {
