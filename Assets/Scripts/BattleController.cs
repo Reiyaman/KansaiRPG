@@ -14,6 +14,8 @@ public class BattleController : MonoBehaviour
     public GameObject battleEnemy; //戦う敵の変数
 
     public GameObject attackButton;
+    public GameObject specialButton;
+    public int special;
 
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
@@ -29,6 +31,7 @@ public class BattleController : MonoBehaviour
     void Start()
     {
         talkScript = gameObject.GetComponent<TalkScript>();
+        special = 0;
     }
 
     // Update is called once per frame
@@ -40,6 +43,7 @@ public class BattleController : MonoBehaviour
     public void AttackButton() //Attackボタンを押した時に呼ぶ関数
     {
         attackButton.SetActive(false); //ボタンを消す
+        specialButton.SetActive(false);
 
         int damage = Random.Range(player.GetComponent<LevelController>().playerAttackMinDamage, player.GetComponent<LevelController>().playerAttackMaxDamage); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
@@ -68,6 +72,47 @@ public class BattleController : MonoBehaviour
         attack_text.text = damage + "のダメージを与えたったわい！";
 
         if(currentHP > 0)
+        {
+            Invoke("DamageButton", 3.0f);
+            //gameObject.SendMessage("DestroyEnemyWait");
+
+        }
+    }
+
+    public void SpecialButton() //Specialボタンを押した時に呼ぶ関数
+    {
+        attackButton.SetActive(false);
+        specialButton.SetActive(false); //ボタンを消す
+
+        special = 0; //カウントリセット
+
+        int damage = Random.Range(player.GetComponent<LevelController>().playerAttackMinDamage, player.GetComponent<LevelController>().playerAttackMaxDamage) * 3; //攻撃のダメージを乱数で取得
+        Debug.Log("damage : " + damage);
+
+        currentHP = currentHP - damage; //最新のHPを取得
+        Debug.Log("After current : " + currentHP);
+
+        enemyslider.value = (float)currentHP / (float)maxHP; //HPバーのゲージを減らす
+        Debug.Log("slider.value : " + enemyslider.value);
+
+        if (enemyslider.value > 0.75f) //段々と色が緑→黄→赤に変化していく
+        {
+            enemySliderGauge.color = Color.Lerp(color_2, color_1, (enemyslider.value - 0.75f) * 4f);
+        }
+
+        else if (enemyslider.value > 0.25f)
+        {
+            enemySliderGauge.color = Color.Lerp(color_3, color_2, (enemyslider.value - 0.25f) * 4f);
+        }
+        else
+        {
+            enemySliderGauge.color = Color.Lerp(color_4, color_3, enemyslider.value * 4f);
+        }
+
+        Text special_text = talkScript.talkText;
+        special_text.text = "くらえ！わいのスペシャル攻撃や！\n" + damage + "のダメージを与えたったわい！";
+
+        if (currentHP > 0)
         {
             Invoke("DamageButton", 3.0f);
             //gameObject.SendMessage("DestroyEnemyWait");

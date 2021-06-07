@@ -54,7 +54,7 @@ public class LevelController : MonoBehaviour
 
             yield return new WaitForSeconds(2.0f);
 
-            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル3にアップしたで!\n" + "もっと強くなろうな！";
+            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル3にアップしたで!\n" + "リカバリーを習得したで！";
         }
 
         if(playerExp >= 1000 && level == 3)
@@ -79,7 +79,7 @@ public class LevelController : MonoBehaviour
 
             yield return new WaitForSeconds(2.0f);
 
-            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル5にアップしたで!\n" + "もっと強くなろうな！";
+            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル5にアップしたで!\n" + "必殺技を習得したで！";
         }
 
         if(playerExp >= 5000 && level == 5)

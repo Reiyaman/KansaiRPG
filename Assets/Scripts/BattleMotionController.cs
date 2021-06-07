@@ -31,7 +31,7 @@ public class BattleMotionController : MonoBehaviour
         
     }
 
-    public void PlayerAttack()
+    public void PlayerAttack() //Playerが攻撃
     {
         battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
         player.GetComponent<Animator>().SetTrigger("Attack");
@@ -40,7 +40,14 @@ public class BattleMotionController : MonoBehaviour
         //Invoke("EnemyAttack", 2.0f);
     }
 
-    public void EnemyDamage()
+    public void PlayerSpecialAttck() //Special攻撃時
+    {
+        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
+        player.GetComponent<Animator>().SetTrigger("Special");
+        Invoke("EnemyDamage", 0.5f);
+    }
+
+    public void EnemyDamage() //Enemyくらう
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
 
@@ -55,7 +62,7 @@ public class BattleMotionController : MonoBehaviour
         }
     }
 
-    public void EnemyAttack()
+    public void EnemyAttack() //Enemy攻撃
     {
         if(enemySlider.value > 0)
         {
@@ -66,13 +73,13 @@ public class BattleMotionController : MonoBehaviour
 
     }
 
-    public void PlayerDamage()
+    public void PlayerDamage() //Playerくらう
     {
         player.GetComponent<Animator>().SetTrigger("Damage");
         
     }
 
-    public void EnemyDestroyCoroutine()
+    public void EnemyDestroyCoroutine() 
     {
         StartCoroutine("EnemyDestroyWait");
     }

@@ -31,8 +31,8 @@ public class PlayerScript : MonoBehaviour
     public GameObject enemy; //戦うEnemyの変数
     public GameObject playerIllusion; //バトル時のPlayerの位置
 
-    public GameObject attackButton; //攻撃ボタン
-    public GameObject specialButton; //必殺ボタン
+    //public GameObject attackButton; //攻撃ボタン
+    //public GameObject specialButton; //必殺ボタン
 
     TalkScript talkScript;
     
@@ -230,7 +230,8 @@ public class PlayerScript : MonoBehaviour
         else
         {
             Invoke("NextWait", 2f);
-            Invoke("attackButtonTrue", 2f);
+            Invoke("ButtonTrue", 2f);
+            gameMaster.GetComponent<BattleController>().special++;
         }
     }
 
@@ -248,9 +249,15 @@ public class PlayerScript : MonoBehaviour
        // gameMaster.SendMessage("BattleStart"); //GameMasterに関数を送る
     }
 
-    public void attackButtonTrue()
+    public void ButtonTrue()
     {
-        attackButton.SetActive(true);
+        gameMaster.GetComponent<BattleController>().attackButton.SetActive(true);
+        if(gameMaster.GetComponent<BattleController>().special >= 3 && gameObject.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
+        {
+            gameMaster.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
+     
+        }
+
     }
 
     public void NextWait()
