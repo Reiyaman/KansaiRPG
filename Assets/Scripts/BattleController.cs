@@ -15,7 +15,10 @@ public class BattleController : MonoBehaviour
 
     public GameObject attackButton;
     public GameObject specialButton;
+    public GameObject recoveryButton;
+
     public int special;
+    public int recovery;
 
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
@@ -32,6 +35,7 @@ public class BattleController : MonoBehaviour
     {
         talkScript = gameObject.GetComponent<TalkScript>();
         special = 0;
+        recovery = 0;
     }
 
     // Update is called once per frame
@@ -44,6 +48,7 @@ public class BattleController : MonoBehaviour
     {
         attackButton.SetActive(false); //ボタンを消す
         specialButton.SetActive(false);
+        recoveryButton.SetActive(false);
 
         int damage = Random.Range(player.GetComponent<LevelController>().playerAttackMinDamage, player.GetComponent<LevelController>().playerAttackMaxDamage); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
@@ -83,6 +88,7 @@ public class BattleController : MonoBehaviour
     {
         attackButton.SetActive(false);
         specialButton.SetActive(false); //ボタンを消す
+        recoveryButton.SetActive(false);
 
         special = 0; //カウントリセット
 
@@ -119,6 +125,48 @@ public class BattleController : MonoBehaviour
 
         }
     }
+
+    public void RecoveryButton()
+    {
+        attackButton.SetActive(false);
+        specialButton.SetActive(false); //ボタンを消す
+        recoveryButton.SetActive(false);
+
+        recovery = 0;
+
+        int recover = 1500;
+
+        player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
+        player.GetComponent<PlayerScript>().playerSlider.value = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
+
+        if (player.GetComponent<PlayerScript>().playerSlider.value > 0.75f) //回復すると色が赤→黄→緑に変化していく
+        {
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (player.GetComponent<PlayerScript>().playerSlider.value + 0.25f) * 4f);
+        }
+
+        else if (player.GetComponent<PlayerScript>().playerSlider.value > 0.25f)
+        {
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (player.GetComponent<PlayerScript>().playerSlider.value + 0.75f) * 4f);
+        }
+        else
+        {
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().playerSlider.value * 4f);
+        }
+
+        Text recover_text = talkScript.talkText;
+        recover_text.text = "おおおパワーがみなぎってきたで！\n" + "めっちゃ回復したで！";
+
+        player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
+
+        if (currentHP > 0)
+            {
+                Invoke("DamageButton", 1.5f);
+                //gameObject.SendMessage("DestroyEnemyWait");
+
+            }
+ 
+    }
+
 
     public void DamageButton()
     {

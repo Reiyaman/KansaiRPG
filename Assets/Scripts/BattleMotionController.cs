@@ -9,8 +9,9 @@ public class BattleMotionController : MonoBehaviour
     public GameObject battleEnemy; //戦う敵の変数
     public Slider enemySlider; //敵のHPゲージ
     public Slider playerSlider; //PlayerのHPゲージ
-    public GameObject attackButton;
-    public GameObject specialButton;
+    public GameObject attackButton; //攻撃ボタン
+    public GameObject specialButton; //必殺技ボタン
+    public GameObject recoveryButton; //回復ボタン
 
     public Text victory_text; //勝利時のテキスト
 
@@ -47,6 +48,11 @@ public class BattleMotionController : MonoBehaviour
         Invoke("EnemyDamage", 0.5f);
     }
 
+    public void PlayerRecoveryButton()
+    {
+        Invoke("EnemyAttack", 1.5f);
+    }
+   
     public void EnemyDamage() //Enemyくらう
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
@@ -88,7 +94,7 @@ public class BattleMotionController : MonoBehaviour
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Death");
 
-        int recover = Random.Range(100, 400);　//バトル勝利時の回復
+        int recover = Random.Range(100, 300);　//バトル勝利時の回復
         victory_text = talkScript.talkText;
 
         if(battleEnemy.name == "BeholderPBR") //ピンクのモンスター

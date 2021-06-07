@@ -232,6 +232,7 @@ public class PlayerScript : MonoBehaviour
             Invoke("NextWait", 2f);
             Invoke("ButtonTrue", 2f);
             gameMaster.GetComponent<BattleController>().special++;
+            gameMaster.GetComponent<BattleController>().recovery++;
         }
     }
 
@@ -252,11 +253,19 @@ public class PlayerScript : MonoBehaviour
     public void ButtonTrue()
     {
         gameMaster.GetComponent<BattleController>().attackButton.SetActive(true);
+
         if(gameMaster.GetComponent<BattleController>().special >= 3 && gameObject.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
         {
             gameMaster.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
      
         }
+
+        if(gameMaster.GetComponent<BattleController>().recovery >= 2 && gameObject.GetComponent<LevelController>().level >= 3)//2ターン経過＆レベル3になったら
+        {
+            gameMaster.GetComponent<BattleController>().recoveryButton.SetActive(true);//Recoveryボタン表示
+        }
+
+
 
     }
 

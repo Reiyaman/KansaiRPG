@@ -9,6 +9,7 @@ public class ModeController : MonoBehaviour
     public GameObject enemySlider; //エネミーのHPゲージ
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
+    public GameObject recoveryButton; //回復ボタン
     public GameObject talkBox; //トークボックス
     public GameObject HPText; //PlayerのHPテキスト
     public GameObject HPSlider; //PlayerのHPゲージ
@@ -82,7 +83,8 @@ public class ModeController : MonoBehaviour
         enemyimage.SetActive(false); //移動モードは非表示
         attackButton.SetActive(false); //移動モードは非表示
         enemySlider.SetActive(false); //移動モードは非表示
-        specialButton.SetActive(false); //移動モードは非表示
+        specialButton.SetActive(false); //最初は非表示
+        recoveryButton.SetActive(false);//最初は非表示
         talkBox.SetActive(false); //移動モードは非表示
 
         images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
@@ -110,6 +112,18 @@ public class ModeController : MonoBehaviour
         enemySlider.SetActive(true); //敵のHPゲージを表示
         talkBox.SetActive(true); //トークボックスを表示
         attackButton.SetActive(true); //攻撃ボタンの表示
+
+        if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
+        {
+            gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
+
+        }
+
+        if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
+        {
+            gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Specialボタン表示
+
+        }
     }
 
     public void GameClear()
@@ -122,6 +136,7 @@ public class ModeController : MonoBehaviour
         attackButton.SetActive(false); //非表示
         enemySlider.SetActive(false); //非表示
         specialButton.SetActive(false); //非表示
+        recoveryButton.SetActive(false);//非表示
         talkBox.SetActive(false); //非表示
 
         gameObject.GetComponent<ResultController>().ResultCoroutine();

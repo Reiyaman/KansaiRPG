@@ -14,7 +14,7 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        level = 1; //Playerの初期能力
+        level = 5; //Playerの初期能力
         playerExp = 0;
         playerAttackMinDamage = 100;
         playerAttackMaxDamage = 150;
