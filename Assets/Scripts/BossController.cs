@@ -45,7 +45,7 @@ public class BossController : MonoBehaviour
             playerPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(playerPos); //EnemyをPlayerPosの座標方向に向かせる
 
-            Rigidbody playerBody = other.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
+            //Rigidbody playerBody = other.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
             //if (other.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
             //{
              //   Vector3 attackForce = (other.transform.position - this.transform.position) * 7; //Playerに与える力を設定

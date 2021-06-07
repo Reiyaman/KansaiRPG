@@ -151,6 +151,7 @@ public class PlayerScript : MonoBehaviour
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
             gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
+            //Invoke("ChangeBattleModeWait", 0.5f);
             Invoke("battlestart", 0.5f);
 
             //Rigidbody enemyBody = other.gameObject.GetComponent<Rigidbody>(); //EnemyのRigidbodyを取得
@@ -161,25 +162,25 @@ public class PlayerScript : MonoBehaviour
         else if(collision.gameObject.tag == "BOSS") //ボスに接触したら
         {
             gameMaster.GetComponent<ModeController>().mode = true;
+            rb.velocity = new Vector3(0, 0, 0);
 
             currentPlayerHP = maxPlayerHP; //代入
 
             eHP = collision.gameObject.GetComponent<BossController>().enemyHP;
             cHP = collision.gameObject.GetComponent<BossController>().currentHP;
             image.sprite = collision.gameObject.GetComponent<BossController>().enemyImage; //戦うEnemyのSprits
-            enemyAttackMaxDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackmaxDamage;
-            enemyAttackMinDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackminDamage;
+            enemyAttackMaxDamage = collision.gameObject.GetComponent<BossController>().enemyAttackMaxDamage;
+            enemyAttackMinDamage = collision.gameObject.GetComponent<BossController>().enemyAttackMinDamage;
             enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
 
-            rb.velocity = new Vector3(0, 0, 0);
             gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
 
             Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
-           // gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-            Invoke("ChangeBattleModeWait", 1.5f);
+            gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
+            //Invoke("ChangeBattleModeWait", 1.0f);
             Invoke("battlestart", 0.5f);
         }
 

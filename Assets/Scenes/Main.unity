@@ -2723,6 +2723,8 @@ MonoBehaviour:
   player: {fileID: 1528839621}
   battleEnemy: {fileID: 0}
   attackButton: {fileID: 153038339}
+  playerAttackMinDamage: 0
+  playerAttackMaxDamage: 0
   maxHP: 0
   currentHP: 0
 --- !u!114 &835167083
@@ -2743,6 +2745,8 @@ MonoBehaviour:
   playerSlider: {fileID: 1066198351}
   attackButton: {fileID: 153038339}
   specialButton: {fileID: 836801953}
+  victory_text: {fileID: 0}
+  exp: 0
 --- !u!114 &835167084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2947,6 +2951,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 479472045}
     m_Modifications:
+    - target: {fileID: 595423155, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: enemyHP
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
       propertyPath: m_Name
       value: SlimePBR
@@ -4993,6 +5001,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1888909220}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1528839622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528839621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c39e00baf2f4e2e8a03e24b57c60e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  playerExp: 0
+  gameMaster: {fileID: 835167079}
+  playerAttackMinDamage: 0
+  playerAttackMaxDamage: 0
 --- !u!1 &1565297809
 GameObject:
   m_ObjectHideFlags: 0
@@ -5716,7 +5741,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871506607}
-  m_LocalRotation: {x: 0.044278067, y: -0.6817332, z: 0.04140231, w: 0.7290852}
+  m_LocalRotation: {x: 0.044278048, y: -0.6817332, z: 0.041402295, w: 0.7290852}
   m_LocalPosition: {x: 3.6719885, y: 7.66, z: -6.0899997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5778,6 +5803,10 @@ PrefabInstance:
       propertyPath: gameMaster
       value: 
       objectReference: {fileID: 835167079}
+    - target: {fileID: 444783037, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: maxPlayerHP
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 444783037, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
       propertyPath: attackButton
       value: 
@@ -6339,25 +6368,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2013366452, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
-      propertyPath: enemyAttackMaxDamage
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 2013366452, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
-      propertyPath: enemyAttackMinDamage
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 2146839161, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.9
-      objectReference: {fileID: 0}
     - target: {fileID: 2146839161, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.1
+      value: 10.35
       objectReference: {fileID: 0}
     - target: {fileID: 1000010252498714, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
       propertyPath: m_Name
-      value: wizard_weapon_legacy DEMO
+      value: wizard
       objectReference: {fileID: 0}
     - target: {fileID: 4000013314187654, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
       propertyPath: m_RootOrder
@@ -6402,16 +6419,6 @@ PrefabInstance:
     - target: {fileID: 4000013314187654, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1207331872065776864, guid: a967089208f523246bbb4911dd5cde5c,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 6.200897
-      objectReference: {fileID: 0}
-    - target: {fileID: 1207331872065776864, guid: a967089208f523246bbb4911dd5cde5c,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.08758545
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a967089208f523246bbb4911dd5cde5c, type: 3}
