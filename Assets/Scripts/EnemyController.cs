@@ -21,11 +21,13 @@ public class EnemyController : MonoBehaviour
     public int enemyHP ; //敵の最大HP
     public int currentHP; //現在の敵のHP
     public Sprite enemyImage; //敵のSprite
+    
+    public int enemynumber; //エネミー番号
 
     public int enemyattackminDamage; //エネミーの攻撃力
     public int enemyattackmaxDamage;
 
-     Transform player; //PlayerのTransformコンポーネントを格納する変数
+    Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
     public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
     
@@ -45,7 +47,7 @@ public class EnemyController : MonoBehaviour
         enemyMoveRange = transform.position; //Enemyの初期位置を取得
         currentHP = enemyHP; //代入
 
-        enemyContainer = GameObject.Find("EnemyContainer");
+        enemyContainer = GameObject.Find("EnemyContainer"); //Hierarchy上にないのでFindで探す
         this.gameObject.transform.parent = enemyContainer.transform; //Enemyをコンテナに格納する
 
         animator.SetInteger("Walk", 0);

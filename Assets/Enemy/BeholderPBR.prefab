@@ -200,6 +200,7 @@ MonoBehaviour:
   enemyHP: 1000
   currentHP: 0
   enemyImage: {fileID: 21300000, guid: 46d5e818a06cb4148ad15c51f1d1d73d, type: 3}
+  enemynumber: 2
   enemyattackminDamage: 200
   enemyattackmaxDamage: 240
 --- !u!195 &2854699325249535043

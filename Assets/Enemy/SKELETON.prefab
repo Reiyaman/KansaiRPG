@@ -831,6 +831,7 @@ MonoBehaviour:
   enemyHP: 300
   currentHP: 0
   enemyImage: {fileID: 21300000, guid: f77ceacb7c98b485f9bc1e16bf85f3ad, type: 3}
+  enemynumber: 4
   enemyattackminDamage: 30
   enemyattackmaxDamage: 50
 --- !u!65 &-4431621981511117163
@@ -844,8 +845,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.1974754, y: 7.2483625, z: 3.4024467}
-  m_Center: {x: -0.007425308, y: 3.1241813, z: 0.24094963}
+  m_Size: {x: 6.1974754, y: 6.8158145, z: 3.4024467}
+  m_Center: {x: -0.007425308, y: 3.3404553, z: 0.24094963}
 --- !u!54 &-2525479538267410573
 Rigidbody:
   m_ObjectHideFlags: 0

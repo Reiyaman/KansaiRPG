@@ -113,13 +113,13 @@ public class ModeController : MonoBehaviour
         talkBox.SetActive(true); //トークボックスを表示
         attackButton.SetActive(true); //攻撃ボタンの表示
 
-        if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 6) //３ターン経過＆レベル５になったら
+        if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
         {
             gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
 
         }
 
-        if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 4) //2ターン経過＆レベル3になったら
+        if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
         {
             gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Specialボタン表示
 

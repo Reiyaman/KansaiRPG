@@ -97,38 +97,38 @@ public class BattleMotionController : MonoBehaviour
         int recover = Random.Range(100, 300);　//バトル勝利時の回復
         victory_text = talkScript.talkText;
 
-        if(battleEnemy.name == "SlimePBR") //スライム
+        if(battleEnemy.GetComponent<EnemyController>().enemynumber == 0) //スライム
         {
              exp = Random.Range(100, 150);
         }
 
-        else if(battleEnemy.name == "ChestMonsterPBR") //箱のモンスター
+        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 1) //箱のモンスター
         {
              exp = Random.Range(250, 300);
         }
 
-        else if(battleEnemy.name == "SlimePBR") //ピンクのモンスター
+        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 2) //ピンクのモンスター
         {
              exp = Random.Range(400, 450);
         }
 
 
-        else if(battleEnemy.name == "TurtleShell") //青いスライム
+        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //青いスライム
         {
              exp = Random.Range(500, 550);
         }
 
-        else if(battleEnemy.name == "SKELETON") //スケルトン
+        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 4) //スケルトン
         {
             exp = Random.Range(700, 800);
         }
 
-        else if (battleEnemy.name == "FreeLichHP") //槍使い
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 5) //槍使い
         {
             exp = Random.Range(700, 800);
         }
 
-        else if (battleEnemy.name == "GoblinHunterMain") //ゴブリン
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //ゴブリン
         {
             exp = Random.Range(800, 1000);
         }
