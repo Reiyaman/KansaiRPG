@@ -11,13 +11,15 @@ public class LevelController : MonoBehaviour
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
 
+    public 
+
     // Start is called before the first frame update
     void Start()
     {
         level = 5; //Playerの初期能力
         playerExp = 0;
-        playerAttackMinDamage = 100;
-        playerAttackMaxDamage = 150;
+        playerAttackMinDamage = 10000;
+        playerAttackMaxDamage = 15000;
     }
 
     // Update is called once per frame

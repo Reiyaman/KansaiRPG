@@ -132,6 +132,8 @@ public class PlayerScript : MonoBehaviour
        
         if (collision.gameObject.tag == "Enemy")//Enemyに接触した場合
         {
+            
+
             gameMaster.GetComponent<ModeController>().mode = true;
             rb.velocity = new Vector3(0, 0, 0);
 
@@ -180,7 +182,7 @@ public class PlayerScript : MonoBehaviour
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
             gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-            //Invoke("ChangeBattleModeWait", 1.0f);
+            //Invoke("ChangeBattleModeWait", 3.0f);
             Invoke("battlestart", 0.5f);
         }
 
