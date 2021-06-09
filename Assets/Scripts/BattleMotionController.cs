@@ -97,9 +97,9 @@ public class BattleMotionController : MonoBehaviour
         int recover = Random.Range(100, 300);　//バトル勝利時の回復
         victory_text = talkScript.talkText;
 
-        if(battleEnemy.name == "BeholderPBR") //ピンクのモンスター
+        if(battleEnemy.name == "SlimePBR") //スライム
         {
-             exp = Random.Range(400, 500);
+             exp = Random.Range(100, 150);
         }
 
         else if(battleEnemy.name == "ChestMonsterPBR") //箱のモンスター
@@ -107,26 +107,37 @@ public class BattleMotionController : MonoBehaviour
              exp = Random.Range(250, 300);
         }
 
-        else if(battleEnemy.name == "GoblinHunterMain") //ゴブリン
+        else if(battleEnemy.name == "SlimePBR") //ピンクのモンスター
         {
-             exp = Random.Range(800, 1000);
+             exp = Random.Range(400, 450);
         }
 
-        else if(battleEnemy.name == "SlimePBR") //スライム
-        {
-             exp = Random.Range(100, 150);
-        }
 
         else if(battleEnemy.name == "TurtleShell") //青いスライム
         {
              exp = Random.Range(500, 550);
         }
-        
+
+        else if(battleEnemy.name == "SKELETON") //スケルトン
+        {
+            exp = Random.Range(700, 800);
+        }
+
+        else if (battleEnemy.name == "FreeLichHP") //槍使い
+        {
+            exp = Random.Range(700, 800);
+        }
+
+        else if (battleEnemy.name == "GoblinHunterMain") //ゴブリン
+        {
+            exp = Random.Range(800, 1000);
+        }
+
         victory_text.text = "おっしゃあ！　倒したったで!"; //勝利時のテキスト
 
         yield return new WaitForSeconds(3.0f);
 
-        if(battleEnemy.name != "wizard") //ボス以外
+        if(battleEnemy.tag != "BOSS") //ボス以外
         {
             player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
             player.GetComponent<PlayerScript>().playerSlider.value = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
