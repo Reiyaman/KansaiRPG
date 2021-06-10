@@ -17,6 +17,8 @@ public class BattleController : MonoBehaviour
     public GameObject specialButton;
     public GameObject recoveryButton;
 
+    public GameObject healEffect; //ヒールエフェクト
+
     public int special;
     public int recovery;
 
@@ -136,6 +138,8 @@ public class BattleController : MonoBehaviour
 
         int recover = 1500;
 
+        healEffect.SetActive(true);
+
         player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
         player.GetComponent<PlayerScript>().playerSlider.value = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
 
@@ -153,17 +157,15 @@ public class BattleController : MonoBehaviour
             player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().playerSlider.value * 4f);
         }
 
+        healEffect.SetActive(true);
         Text recover_text = talkScript.talkText;
         recover_text.text = "おおおパワーがみなぎってきたで！\n" + "めっちゃ回復したで！";
 
         player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
 
-        if (currentHP > 0)
-            {
-                Invoke("DamageButton", 1.5f);
-                //gameObject.SendMessage("DestroyEnemyWait");
-
-            }
+        Invoke("healEffectNotActive", 1.5f);
+        Invoke("DamageButton", 1.5f);
+        //gameObject.SendMessage("DestroyEnemyWait");
  
     }
 
@@ -180,5 +182,10 @@ public class BattleController : MonoBehaviour
         maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;
         currentHP = player.gameObject.GetComponent<PlayerScript>().cHP;
        // gameObject.SendMessage("ChangeBattleMode");
+    }
+
+    public void healEffectNotActive()
+    {
+        healEffect.SetActive(false);
     }
 }

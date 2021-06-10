@@ -18,8 +18,8 @@ public class LevelController : MonoBehaviour
     {
         level = 5; //Playerの初期能力
         playerExp = 0;
-        playerAttackMinDamage = 10000;
-        playerAttackMaxDamage = 15000;
+        playerAttackMinDamage = 10;
+        playerAttackMaxDamage = 15;
     }
 
     // Update is called once per frame

@@ -13,6 +13,7 @@ public class BattleMotionController : MonoBehaviour
     public GameObject specialButton; //必殺技ボタン
     public GameObject recoveryButton; //回復ボタン
 
+
     public Text victory_text; //勝利時のテキスト
 
     public int exp;

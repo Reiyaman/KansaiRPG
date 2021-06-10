@@ -193,11 +193,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 83.85759, y: 65.8578}
+  scrollPos: {x: 62.079407, y: 54.384212}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.9585002
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -235,7 +235,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 50
     y: 86
-    width: 109.989555
+    width: 111
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 54.465275
     y: 164.94524
-    width: 97.99164
+    width: 98
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -427,7 +427,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 62.386917
     y: 248.45988
-    width: 73.99582
+    width: 74
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 301.55148
     y: 169.73575
-    width: 97.99164
+    width: 98
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 288.52386
     y: 90.55492
-    width: 133.98538
+    width: 134
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -788,7 +788,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 183.51996
     y: 75.54732
-    width: 85.99373
+    width: 86
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 193.079
     y: 169.5311
-    width: 61.99791
+    width: 62
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -984,7 +984,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 283.7561
     y: 253.68036
-    width: 73.99582
+    width: 74
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1151,7 +1151,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 165.99283
     y: 251.60161
-    width: 85.99373
+    width: 86
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3815,6 +3815,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1001330437}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &735995901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1512125933, guid: c20397bf1592dc040b827e8716b0bd41,
+    type: 3}
+  m_PrefabInstance: {fileID: 1888909220}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &739755454
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,6 +4199,7 @@ MonoBehaviour:
   attackButton: {fileID: 153038339}
   specialButton: {fileID: 836801953}
   recoveryButton: {fileID: 294331602}
+  healEffect: {fileID: 735995901}
   special: 0
   recovery: 0
   playerAttackMinDamage: 0
@@ -4218,6 +4225,7 @@ MonoBehaviour:
   attackButton: {fileID: 153038339}
   specialButton: {fileID: 836801953}
   recoveryButton: {fileID: 294331602}
+  healEffect: {fileID: 735995901}
   victory_text: {fileID: 0}
   exp: 0
 --- !u!114 &835167084
@@ -7569,6 +7577,30 @@ PrefabInstance:
       propertyPath: playerSliderGauge
       value: 
       objectReference: {fileID: 1565297811}
+    - target: {fileID: 1512125933, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512483267, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512483279, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512483279, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512483279, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512483291, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1528839623, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
       propertyPath: flowchart
       value: 
