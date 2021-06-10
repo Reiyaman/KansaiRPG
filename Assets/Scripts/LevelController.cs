@@ -11,15 +11,15 @@ public class LevelController : MonoBehaviour
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
 
-    public 
+    public GameObject levelUpEffect; //レベルアップエフェクト
 
     // Start is called before the first frame update
     void Start()
     {
-        level = 5; //Playerの初期能力
+        level = 1; //Playerの初期能力
         playerExp = 0;
-        playerAttackMinDamage = 10;
-        playerAttackMaxDamage = 15;
+        playerAttackMinDamage = 1000;
+        playerAttackMaxDamage = 1500;
     }
 
     // Update is called once per frame
@@ -42,9 +42,13 @@ public class LevelController : MonoBehaviour
             playerAttackMaxDamage = 300;
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 500;
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
+
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
 
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル２にアップしたで!\n" + "もっと強くなろうな！";
+
         }
 
         if(playerExp >= 500 && level == 2)
@@ -54,9 +58,15 @@ public class LevelController : MonoBehaviour
             playerAttackMaxDamage = 450;
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 800;
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
+
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
+
 
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル3にアップしたで!\n" + "リカバリーを習得したで！";
+
+            
         }
 
         if(playerExp >= 1000 && level == 3)
@@ -66,9 +76,15 @@ public class LevelController : MonoBehaviour
             playerAttackMaxDamage = 600;
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1000;
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
 
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
+
+            
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル4にアップしたで!\n" + "もっと強くなろうな！";
+
+            
         }
 
         if(playerExp >= 2500 && level == 4)
@@ -78,10 +94,14 @@ public class LevelController : MonoBehaviour
             playerAttackMaxDamage = 900;
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1300;
 
+            yield return new WaitForSeconds(1.5f);
 
-            yield return new WaitForSeconds(2.0f);
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
 
+          
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル5にアップしたで!\n" + "必殺技を習得したで！";
+
         }
 
         if(playerExp >= 5000 && level == 5)
@@ -92,9 +112,15 @@ public class LevelController : MonoBehaviour
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1600;
 
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
 
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
+
+            
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル6にアップしたで!\n" + "もっと強くなろうな！";
+
+            
         }
 
         if(playerExp >= 10000 && level == 6)
@@ -105,9 +131,14 @@ public class LevelController : MonoBehaviour
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2000;
 
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
 
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
+
+           
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル7にアップしたで!\n" + "もっと強くなろうな！";
+
         }
 
         if(playerExp >= 20000 && level == 7)
@@ -118,9 +149,14 @@ public class LevelController : MonoBehaviour
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2500;
 
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
 
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
+
+            
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル8にアップしたで!\n" + "もっと強くなろうな！";
+
         }
 
         if(playerExp >= 35000 && level == 8)
@@ -131,9 +167,13 @@ public class LevelController : MonoBehaviour
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 3000;
 
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
+
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
 
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル9にアップしたで!\n" + "もっと強くなろうな！";
+
         }
 
         if(playerExp >= 50000 && level == 9)
@@ -144,9 +184,20 @@ public class LevelController : MonoBehaviour
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 3400;
 
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.5f);
 
+            levelUpEffect.SetActive(true);
+            Invoke("LevelUpEffectNotActive", 1.8f);
+
+            
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル10にアップしたで!\n" + "君は今最強や！";
+
+          
         }
+    }
+
+    public void LevelUpEffectNotActive()
+    {
+        levelUpEffect.SetActive(false);
     }
 }

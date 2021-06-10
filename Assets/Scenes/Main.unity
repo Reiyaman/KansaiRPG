@@ -1381,7 +1381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -346.6, y: 164.4}
+  m_AnchoredPosition: {x: -346.6, y: 184.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &91190762
@@ -4225,7 +4225,6 @@ MonoBehaviour:
   attackButton: {fileID: 153038339}
   specialButton: {fileID: 836801953}
   recoveryButton: {fileID: 294331602}
-  healEffect: {fileID: 735995901}
   victory_text: {fileID: 0}
   exp: 0
 --- !u!114 &835167084
@@ -5233,7 +5232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228, y: 166}
+  m_AnchoredPosition: {x: -228, y: 184.3}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1066198351
@@ -7511,7 +7510,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871506607}
-  m_LocalRotation: {x: 0.044278048, y: -0.6817332, z: 0.041402295, w: 0.7290852}
+  m_LocalRotation: {x: 0.044278067, y: -0.6817332, z: 0.04140231, w: 0.7290852}
   m_LocalPosition: {x: 3.6719885, y: 7.66, z: -6.0899997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7561,6 +7560,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 425272070, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 425272070, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 425639718, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 444783037, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
       propertyPath: enemyimage
       value: 
@@ -7577,30 +7588,6 @@ PrefabInstance:
       propertyPath: playerSliderGauge
       value: 
       objectReference: {fileID: 1565297811}
-    - target: {fileID: 1512125933, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512483267, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512483279, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512483279, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512483279, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512483291, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1528839623, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
       propertyPath: flowchart
       value: 
