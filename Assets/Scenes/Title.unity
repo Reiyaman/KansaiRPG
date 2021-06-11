@@ -414,6 +414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSE: {fileID: 8300000, guid: 3afba08538dcc43cf92b7de7c686bcac, type: 3}
+  titleSE: {fileID: 0}
+  retrySE: {fileID: 0}
 --- !u!4 &581437569
 Transform:
   m_ObjectHideFlags: 0
@@ -440,7 +442,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e7f6a8bbfde334ad49523c8ce1167a67, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.59
   m_Pitch: 1
   Loop: 1
   Mute: 0

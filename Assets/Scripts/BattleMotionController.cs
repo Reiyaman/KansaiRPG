@@ -238,14 +238,16 @@ public class BattleMotionController : MonoBehaviour
 
             player.GetComponent<LevelController>().levelUpWait(); //Playerのレベルアップ関数を呼び出す
 
+            enemycontainer.GetComponent<AudioSource>().Stop();
+
         }
 
         else //ボスに勝った場合
         {
             victory_text.text = "ボスを見事撃破やで！\n" + "これでオウサカ島の平和が守られたで！\n" + "ほんまありがとうな！";
+            battleEnemy.GetComponent<AudioSource>().Stop();
         }
 
-        enemycontainer.GetComponent<AudioSource>().Stop();
         audioSource.PlayOneShot(victorySE);
         
         Invoke("EnemyDestroy", 4f);
