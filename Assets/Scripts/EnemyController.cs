@@ -14,6 +14,12 @@ public class EnemyController : MonoBehaviour
     public float stopDistance; //Enemyが停止するPlayerとの距離を格納する変数
     public float moveDistance; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
 
+    private Vector3 startPosition; //初期位置
+    private bool arrived; //目的地に到着したか
+    private Vector3 direcition; //移動方向
+    private Vector3 destination; //目的値
+    
+
     bool action = false; //Playerに接触したかしていないか
 
     Vector3 enemyMoveRange;
@@ -57,6 +63,11 @@ public class EnemyController : MonoBehaviour
         animator.SetInteger("Run", 0);
         animator.SetBool("Battle", false);
 
+        var randDestination = Random.insideUnitCircle * 20; //目的地ランダム設定
+        startPosition = transform.position; //初期位置の保存
+        destination = startPosition + new Vector3(randDestination.x, 0, randDestination.y); //目的地の設定
+        arrived = false; //目的地についてないから偽
+        
 
 
         //enemyImage = GetComponent<Image>();
@@ -95,10 +106,24 @@ public class EnemyController : MonoBehaviour
                 transform.position = transform.position + transform.forward * moveSpeed * Time.deltaTime; //Enemyを前方向に向かわせる
             }
 
-            else
+            else //射程距離外なら
             {
-                animator.SetInteger("Run", 0);
-                animator.SetInteger("Walk", 1);
+                if (!arrived) //まだ目的地についていないなら
+                {
+                    direcition = (destination - transform.position).normalized; //正規化
+                    transform.LookAt(new Vector3(destination.x, transform.position.y, destination.z)); //目的地に顔向ける
+                    transform.position += direcition * walkSpeed * Time.deltaTime; //目的地に向かって進む
+                    animator.SetInteger("Run", 0);
+                    animator.SetInteger("Walk", 1);
+
+                    if(Vector3.Distance(transform.position, destination) < 0.5f) //目的地についたら
+                    {
+                        arrived = true;
+                        animator.SetInteger("Walk", 0);
+                        Invoke("destinationOption", 3f);
+                    }
+                }
+                
                 // InvokeRepeating("MoveEnemy", 1, 5);
             }
         }
@@ -147,6 +172,15 @@ public class EnemyController : MonoBehaviour
         float enemyMoveRangex = 6 * Mathf.Sin(Random.Range(0f, 360f));
         float enemyMoveRangez = 6 * Mathf.Sin(Random.Range(0f, 360f));
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
+    }
+
+    public void destinationOption() //目的地更新
+    {
+        var randDestination = Random.insideUnitCircle * 20; //目的地ランダム設定
+        startPosition = transform.position; //現時点の位置の保存
+        destination = startPosition + new Vector3(randDestination.x, 0, randDestination.y); //目的地の設定
+        arrived = false; //目的地についてないから偽
+
     }
 
     
