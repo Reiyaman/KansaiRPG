@@ -13,6 +13,10 @@ public class LevelController : MonoBehaviour
 
     public GameObject levelUpEffect; //レベルアップエフェクト
 
+    public AudioClip levelUpSE;
+
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +24,8 @@ public class LevelController : MonoBehaviour
         playerExp = 0;
         playerAttackMinDamage = 1000;
         playerAttackMaxDamage = 1500;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -46,6 +52,7 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル２にアップしたで!\n" + "もっと強くなろうな！";
 
@@ -62,6 +69,7 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
 
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル3にアップしたで!\n" + "リカバリーを習得したで！";
@@ -80,8 +88,9 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
-            
+
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル4にアップしたで!\n" + "もっと強くなろうな！";
 
             
@@ -98,8 +107,9 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
-          
+
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル5にアップしたで!\n" + "必殺技を習得したで！";
 
         }
@@ -116,8 +126,9 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
-            
+
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル6にアップしたで!\n" + "もっと強くなろうな！";
 
             
@@ -135,8 +146,9 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
-           
+
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル7にアップしたで!\n" + "もっと強くなろうな！";
 
         }
@@ -153,8 +165,9 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
-            
+
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル8にアップしたで!\n" + "もっと強くなろうな！";
 
         }
@@ -171,6 +184,7 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル9にアップしたで!\n" + "もっと強くなろうな！";
 
@@ -188,8 +202,9 @@ public class LevelController : MonoBehaviour
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
+            audioSource.PlayOneShot(levelUpSE);
 
-            
+
             gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル10にアップしたで!\n" + "君は今最強や！";
 
           

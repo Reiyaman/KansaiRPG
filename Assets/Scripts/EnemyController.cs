@@ -35,6 +35,9 @@ public class EnemyController : MonoBehaviour
 
     GameObject enemyContainer; //フィールド上のEnemyを格納するコンテナオブジェクト
 
+    public AudioClip attackSE; //エネミーの攻撃SE
+
+
     // Start is called before the first frame update
     void Start()
     {

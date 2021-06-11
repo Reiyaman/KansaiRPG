@@ -19,6 +19,10 @@ public class ResultController : MonoBehaviour
     float gameTimeSecond; //クリアするまでにかかる時間を計測する変数
     float gameTimeMinute;
 
+   
+
+    
+
     // Start is called before the first frame update
     void Start()
     {

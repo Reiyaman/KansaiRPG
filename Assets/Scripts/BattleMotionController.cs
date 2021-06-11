@@ -13,17 +13,38 @@ public class BattleMotionController : MonoBehaviour
     public GameObject specialButton; //必殺技ボタン
     public GameObject recoveryButton; //回復ボタン
 
+    public GameObject enemycontainer;
+
 
     public Text victory_text; //勝利時のテキスト
 
     public int exp;
 
     TalkScript talkScript;
+
+
+    public AudioClip playerdamageSE; //PlayerDamageSE
+    public AudioClip playerstingSE; //Playerが刺された時のSE
+    public AudioClip playertackleSE; //Playerが物理攻撃食らったSE
+    public AudioClip playerbossSE; //ボスに食らった時のSE
+
+    public AudioClip playerAttackSE; //Playerが攻撃するSE
+    public AudioClip playerSpecialAttackSE; //Playerの必殺技SE
+    public AudioClip playerRecoverSE; //Playerの回復SE
+
+    public AudioClip enemyDamageSE; //エネミーがくらうSE
+    public AudioClip enemySpecialDamageSE;
+
+    public AudioClip victorySE; //勝利BGM
+
    
+
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         talkScript = gameObject.GetComponent<TalkScript>();
     }
 
@@ -37,6 +58,8 @@ public class BattleMotionController : MonoBehaviour
     {
         battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
         player.GetComponent<Animator>().SetTrigger("Attack");
+
+        audioSource.PlayOneShot(playerAttackSE);　
         Invoke("EnemyDamage", 0.5f);
         //battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
         //Invoke("EnemyAttack", 2.0f);
@@ -46,17 +69,21 @@ public class BattleMotionController : MonoBehaviour
     {
         battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
         player.GetComponent<Animator>().SetTrigger("Special");
-        Invoke("EnemyDamage", 0.5f);
+
+        audioSource.PlayOneShot(playerSpecialAttackSE);
+        Invoke("EnemySpecialDamage", 0.5f);
     }
 
     public void PlayerRecoveryButton()
     {
+        audioSource.PlayOneShot(playerRecoverSE);
         Invoke("EnemyAttack", 1.5f);
     }
    
     public void EnemyDamage() //Enemyくらう
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
+        audioSource.PlayOneShot(enemyDamageSE);
 
         if(enemySlider.value <= 0)
         {
@@ -69,19 +96,63 @@ public class BattleMotionController : MonoBehaviour
         }
     }
 
+    public void EnemySpecialDamage() //必殺技くらう時
+    {
+        battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
+        audioSource.PlayOneShot(enemySpecialDamageSE);
+
+        if (enemySlider.value <= 0) //体力がなくなったら死亡
+        {
+            Invoke("EnemyDestroyCoroutine", 0.2f);
+        }
+
+        else
+        {
+            Invoke("EnemyAttack", 1.5f);
+        }
+    }
+
     public void EnemyAttack() //Enemy攻撃
     {
-        if(enemySlider.value > 0)
+        if(battleEnemy.tag != "BOSS")
         {
-            battleEnemy.GetComponent<Animator>().SetTrigger("Attack");
-            Invoke("PlayerDamage", 0.7f);
+            audioSource.PlayOneShot(battleEnemy.GetComponent<EnemyController>().attackSE);
         }
+
+        else
+        {
+            audioSource.PlayOneShot(battleEnemy.GetComponent<BossController>().attackSE);
+        }
+
+        battleEnemy.GetComponent<Animator>().SetTrigger("Attack");
+        Invoke("PlayerDamage", 0.7f);
        // player.GetComponent<Animator>().SetTrigger("Damage");
 
     }
 
     public void PlayerDamage() //Playerくらう
     {
+        if(battleEnemy.gameObject.tag == "BOSS")
+        {
+            audioSource.PlayOneShot(playerbossSE);
+        }
+
+
+        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 4 || battleEnemy.GetComponent<EnemyController>().enemynumber == 5 || battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //槍使いとゴブリンか骸骨にくらった時
+        {
+            audioSource.PlayOneShot(playerstingSE);
+        }
+
+        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 1 || battleEnemy.GetComponent<EnemyController>().enemynumber == 2 || battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //ピンクか箱か甲羅に食らった時
+        {
+            audioSource.PlayOneShot(playertackleSE);
+        }
+
+        else //スライムに食らった時
+        {
+            audioSource.PlayOneShot(playerdamageSE);
+        }
+
         player.GetComponent<Animator>().SetTrigger("Damage");
         
     }
@@ -98,7 +169,12 @@ public class BattleMotionController : MonoBehaviour
         int recover = Random.Range(100, 300);　//バトル勝利時の回復
         victory_text = talkScript.talkText;
 
-        if (battleEnemy.GetComponent<EnemyController>().enemynumber == 0) //スライム
+        if(battleEnemy.tag == "BOSS")
+        {
+            exp = 0;
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 0) //スライム
         {
             exp = Random.Range(100, 150);
         }
@@ -169,8 +245,8 @@ public class BattleMotionController : MonoBehaviour
             victory_text.text = "ボスを見事撃破やで！\n" + "これでオウサカ島の平和が守られたで！\n" + "ほんまありがとうな！";
         }
 
-        
-        
+        enemycontainer.GetComponent<AudioSource>().Stop();
+        audioSource.PlayOneShot(victorySE);
         
         Invoke("EnemyDestroy", 4f);
     }

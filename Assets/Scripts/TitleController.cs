@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class TitleController : MonoBehaviour
 {
     AudioSource audioSource;
-    //public AudioClip startSE;
-    //public AudioClip titleSE;
-    //public AudioClip retrySE;
+    public AudioClip startSE;
+    public AudioClip titleSE;
+    public AudioClip retrySE;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +24,8 @@ public class TitleController : MonoBehaviour
 
     public void StartButton()
     {
+        audioSource.PlayOneShot(startSE);
         SceneManager.LoadScene("Main");
-        //audioSource.PlayOneShot(startSE);
     }
 
     public void OptionButton()
@@ -35,6 +35,7 @@ public class TitleController : MonoBehaviour
 
     public void TitleButton()
     {
+        audioSource.PlayOneShot(titleSE);
         SceneManager.LoadScene("Title");
         //audioSource.PlayOneShot(titleSE);
 
@@ -42,6 +43,7 @@ public class TitleController : MonoBehaviour
 
     public void RetryButton()
     {
+        audioSource.PlayOneShot(retrySE);
         SceneManager.LoadScene("Main");
         //sudioSource.PlayOneShot(retrySE);
     }
@@ -60,4 +62,5 @@ public class TitleController : MonoBehaviour
     {
         SceneManager.LoadScene("StaffRoll");
     }
+
 }

@@ -20,10 +20,20 @@ public class ModeController : MonoBehaviour
     public GameObject gameClearCamera; //ゲームクリアのカメラの変数
 
     public GameObject enemyContainer;
+    //public GameObject boss;
 
     public bool mode; // /移動中かバトル中かの変数
     public int x; //スポナーの数
     public EnemyGenarator[] refObj; //エネミースポナースクリプトの変数
+
+    //public AudioClip[] bgm; //移動とバトルのBGM配列
+    public AudioClip gameclearSE;
+
+    //AudioSource audioSource;
+
+    AudioSource moveBGM;
+
+
 
     //public GameObject Enemy;
     //public GameObject 
@@ -37,6 +47,13 @@ public class ModeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //audioSource = GetComponent<AudioSource>();
+        //audioSource.clip = bgm[0];
+        //audioSource.Play();
+
+        moveBGM = GetComponent<AudioSource>();
+       
+
         EnemyGenarator enemySpawners = refObj[x].gameObject.GetComponent<EnemyGenarator>(); //EnemySpawner達のスクリプトを取得
         mode = false; //移動中はFalse
 
@@ -53,6 +70,11 @@ public class ModeController : MonoBehaviour
 
     public void ChangeBattleMode()
     {
+        //audioSource.Pause();
+        //audioSource.clip = bgm[1];
+        //audioSource.Play();
+        moveBGM.Stop();
+        //enemyContainer.GetComponent<AudioSource>().Play();
         mode = true; //バトルモードに遷移
 
         int size = refObj.Length;
@@ -76,6 +98,12 @@ public class ModeController : MonoBehaviour
 
     public void ChangeMoveMode()
     {
+        //audioSource.Stop();
+        //audioSource.clip = bgm[0];
+        //audioSource.UnPause();
+        enemyContainer.GetComponent<AudioSource>().Stop();
+        moveBGM.Play();
+
         mode = false; //移動モードに遷移
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //移動カメラに切り替え
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1; 
@@ -102,6 +130,8 @@ public class ModeController : MonoBehaviour
 
     public void BattleMode()
     {
+       
+
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
 
@@ -138,6 +168,8 @@ public class ModeController : MonoBehaviour
         specialButton.SetActive(false); //非表示
         recoveryButton.SetActive(false);//非表示
         talkBox.SetActive(false); //非表示
+
+        moveBGM.PlayOneShot(gameclearSE);
 
         gameObject.GetComponent<ResultController>().ResultCoroutine();
         

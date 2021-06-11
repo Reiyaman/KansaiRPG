@@ -31,6 +31,10 @@ public class PlayerScript : MonoBehaviour
     public GameObject enemy; //戦うEnemyの変数
     public GameObject playerIllusion; //バトル時のPlayerの位置
 
+    public GameObject enemycontainer;
+
+    public AudioClip jumpSE; //ジャンプSE
+    public AudioClip landingSE; //着地SE
     //public GameObject attackButton; //攻撃ボタン
     //public GameObject specialButton; //必殺ボタン
 
@@ -115,6 +119,8 @@ public class PlayerScript : MonoBehaviour
                 rb.AddForce(new Vector3(0, 10, 0), ForceMode.Impulse);
 
                 jumpCount--;
+
+                gameObject.GetComponent<AudioSource>().PlayOneShot(jumpSE);
             }
 
 
@@ -156,6 +162,8 @@ public class PlayerScript : MonoBehaviour
             //Invoke("ChangeBattleModeWait", 0.5f);
             Invoke("battlestart", 0.5f);
 
+            enemycontainer.GetComponent<AudioSource>().Play();
+
             //Rigidbody enemyBody = other.gameObject.GetComponent<Rigidbody>(); //EnemyのRigidbodyを取得
             //Vector3 attackForce = (other.transform.position - this.transform.position) * 5; //Enemyに与える力を設定
             //enemyBody.AddForce(attackForce, ForceMode.Impulse); //Enemyに衝撃を与える
@@ -184,11 +192,14 @@ public class PlayerScript : MonoBehaviour
             gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
             //Invoke("ChangeBattleModeWait", 3.0f);
             Invoke("battlestart", 0.5f);
+
+            collision.gameObject.GetComponent<AudioSource>().Play();
         }
 
         else if(collision.gameObject.tag == "Ground")
         {
             jumpCount = defaultJumpCount;
+            gameObject.GetComponent<AudioSource>().PlayOneShot(landingSE);
         }
 
     }

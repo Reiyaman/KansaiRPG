@@ -14,6 +14,10 @@ public class BossController : MonoBehaviour
     public int enemyAttackMaxDamage; //接触したエネミーの攻撃力
     public int enemyAttackMinDamage; //
 
+    public AudioClip attackSE;
+
+    public AudioSource bossaudioSource; //ボスBGM
+
     Animator animator;//アニメーションの変数
     public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
 
@@ -25,6 +29,7 @@ public class BossController : MonoBehaviour
         rb = GetComponent<Rigidbody>(); //RigidBodyを取得
         animator = GetComponent<Animator>(); //Animatorを取得
         currentHP = enemyHP; //代入
+        bossaudioSource = GetComponent<AudioSource>();
       //  player = GameObject.Find("RPGHeroHP").transform;　//プレイヤーのオブジェクトを探して格納
 
     }
