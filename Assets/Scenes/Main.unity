@@ -272,9 +272,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 11229686}
+  - {fileID: 11229676}
   selectedCommands:
-  - {fileID: 11229682}
+  - {fileID: 11229673}
   variables: []
   description: 
   stepPause: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
   description: 
   character: {fileID: 443530632}
   portrait: {fileID: 21300000, guid: c43647729e5f24f1ea812088ce35a08e, type: 3}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 67c13d845c8a14e0c991912d763914ea, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4568,17 +4568,17 @@ Transform:
   - {fileID: 1085942025}
   - {fileID: 924301417}
   - {fileID: 1573106046}
-  - {fileID: 1857035263}
   - {fileID: 748417805}
   - {fileID: 1591867129}
+  - {fileID: 1857035263}
   - {fileID: 525761830}
   - {fileID: 1535391296}
   - {fileID: 565647969}
-  - {fileID: 1323059603}
   - {fileID: 397145690}
+  - {fileID: 1323059603}
   - {fileID: 2121532730}
-  - {fileID: 9695866}
   - {fileID: 1243456537}
+  - {fileID: 9695866}
   m_Father: {fileID: 1188219578}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24838,7 +24838,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871506607}
-  m_LocalRotation: {x: 0.044278067, y: -0.68173313, z: 0.041402306, w: 0.72908527}
+  m_LocalRotation: {x: 0.044278055, y: -0.6817332, z: 0.041402303, w: 0.7290852}
   m_LocalPosition: {x: 3.6719885, y: 5.8599997, z: -34.190002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
