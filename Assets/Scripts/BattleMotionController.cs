@@ -14,6 +14,7 @@ public class BattleMotionController : MonoBehaviour
     public GameObject recoveryButton; //回復ボタン
 
     public GameObject enemycontainer;
+    public GameObject swordParticle; //必殺技時のパーティクル
 
 
     public Text victory_text; //勝利時のテキスト
@@ -67,6 +68,8 @@ public class BattleMotionController : MonoBehaviour
 
     public void PlayerSpecialAttck() //Special攻撃時
     {
+        swordParticle.SetActive(true); //必殺技時に出現
+        
         battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
         player.GetComponent<Animator>().SetTrigger("Special");
 
@@ -114,6 +117,8 @@ public class BattleMotionController : MonoBehaviour
 
     public void EnemyAttack() //Enemy攻撃
     {
+        swordParticle.SetActive(false);
+
         if(battleEnemy.tag != "BOSS")
         {
             audioSource.PlayOneShot(battleEnemy.GetComponent<EnemyController>().attackSE);
