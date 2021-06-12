@@ -113,10 +113,10 @@ public class PlayerScript : MonoBehaviour
                 rb.velocity = transform.forward * dashSpeed + new Vector3(0, rb.velocity.y, 0);
             }
 
-            if (Input.GetKey(KeyCode.Space) && jumpCount > 0 ) //Space
+            if (Input.GetKey(KeyCode.Space) && jumpCount > 0 ) //Spaceでジャンプ
             {
                 //rb.velocity = new Vector3(0, 0, 0);
-                rb.AddForce(new Vector3(0, 10, 0), ForceMode.Impulse);
+                rb.AddForce(new Vector3(0, 11, 0), ForceMode.Impulse);
 
                 jumpCount--;
 
