@@ -1181,7 +1181,7 @@ MonoBehaviour:
   moveDistance: 20
   enemyHP: 2000
   currentHP: 0
-  enemyImage: {fileID: 21300000, guid: 41c2e3164caef42d0a56d493eca425ad, type: 3}
+  enemyImage: {fileID: 21300000, guid: 9c74c6161840542aa829431e7dafe605, type: 3}
   enemynumber: 6
   enemyattackminDamage: 400
   enemyattackmaxDamage: 450

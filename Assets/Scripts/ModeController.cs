@@ -6,12 +6,13 @@ using Cinemachine;
 public class ModeController : MonoBehaviour
 {
     public GameObject enemyimage; //エネミーの画像
-    public GameObject enemySlider; //エネミーのHPゲージ
+    public GameObject enemySliderobject; //エネミーのHPゲージ
+    public GameObject enemySlider;
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
     public GameObject recoveryButton; //回復ボタン
     public GameObject talkBox; //トークボックス
-    public GameObject HPText; //PlayerのHPテキスト
+    //public GameObject HPText; //PlayerのHPテキスト
     public GameObject HPSlider; //PlayerのHPゲージ
     public GameObject GameClearText; //Gameclearテキスト
 
@@ -110,7 +111,8 @@ public class ModeController : MonoBehaviour
 
         enemyimage.SetActive(false); //移動モードは非表示
         attackButton.SetActive(false); //移動モードは非表示
-        enemySlider.SetActive(false); //移動モードは非表示
+        //enemySlider.SetActive(false); //移動モードは非表示
+        enemySliderobject.SetActive(false);
         specialButton.SetActive(false); //最初は非表示
         recoveryButton.SetActive(false);//最初は非表示
         talkBox.SetActive(false); //移動モードは非表示
@@ -135,11 +137,11 @@ public class ModeController : MonoBehaviour
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
 
-        enemySlider.GetComponent<Slider>().value = 1;
+        enemySlider.GetComponent<Image>().fillAmount = 1;
         gameObject.GetComponent<BattleController>().enemySliderGauge.color = gameObject.GetComponent<BattleController>().color_1;
 
         enemyimage.SetActive(true); //画像を表示
-        enemySlider.SetActive(true); //敵のHPゲージを表示
+        enemySliderobject.SetActive(true); //敵のHPゲージを表示
         talkBox.SetActive(true); //トークボックスを表示
         attackButton.SetActive(true); //攻撃ボタンの表示
 
@@ -159,12 +161,13 @@ public class ModeController : MonoBehaviour
     public void GameClear()
     {
         mode = true;
-        HPText.SetActive(false); //PlayerのHP文字を非表示
+        //HPText.SetActive(false); //PlayerのHP文字を非表示
         HPSlider.SetActive(false); //PlayerのHPゲージを非表示
         GameClearText.SetActive(true); //Gameclearのテキストを表示
         enemyimage.SetActive(false); //非表示
         attackButton.SetActive(false); //非表示
-        enemySlider.SetActive(false); //非表示
+        //enemySlider.SetActive(false); //非表示
+        enemySliderobject.SetActive(false);
         specialButton.SetActive(false); //非表示
         recoveryButton.SetActive(false);//非表示
         talkBox.SetActive(false); //非表示

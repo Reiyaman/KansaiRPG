@@ -21,9 +21,9 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         level = 1; //Playerの初期能力
-        playerExp = 9;
-        playerAttackMinDamage = 2000;
-        playerAttackMaxDamage = 3000;
+        playerExp = 0;
+        playerAttackMinDamage = 200;
+        playerAttackMaxDamage = 300;
 
         audioSource = GetComponent<AudioSource>();
     }

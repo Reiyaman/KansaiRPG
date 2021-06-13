@@ -22,9 +22,10 @@ public class PlayerScript : MonoBehaviour
     public int maxPlayerHP; //Playerの最大HP
     public int currentPlayerHP; //Playerの現在のHP
 
-    public Slider playerSlider; //PlayerのHPゲージ変数
+    public GameObject playerSlider; //PlayerのHPゲージ変数
     public Image playerSliderGauge; //スライダーの色の変数
     public Color color_1, color_2, color_3, color_4; // カラーの変数
+    public Text playerHPText; 
 
     public GameObject enemyimage; //エネミーの画像
     public GameObject gameMaster; //GameMasterオブジェクトの変数
@@ -65,6 +66,10 @@ public class PlayerScript : MonoBehaviour
         currentPlayerHP = maxPlayerHP; //代入
         talkScript = gameMaster.GetComponent<TalkScript>();
         defaultJumpCount = jumpCount;
+
+        playerSliderGauge = playerSlider.GetComponent<Image>();
+
+        playerHPText.text = maxPlayerHP +  "/" + maxPlayerHP;
     }
 
     // Update is called once per frame
@@ -216,26 +221,34 @@ public class PlayerScript : MonoBehaviour
         currentPlayerHP = currentPlayerHP - damage; //最新のHPを取得
         Debug.Log("After current : " + currentPlayerHP);
 
-        playerSlider.value = (float)currentPlayerHP / (float)maxPlayerHP; //HPバーのゲージを減らす
-        Debug.Log("slider.value : " + playerSlider.value);
-
-        if (playerSlider.value > 0.75f) //段々と色が緑→黄→赤に変化していく
+        if(currentPlayerHP <= 0) //０以下は０と表示
         {
-            playerSliderGauge.color = Color.Lerp(color_2, color_1, (playerSlider.value - 0.75f) * 4f);
+            currentPlayerHP = 0;
         }
 
-        else if (playerSlider.value > 0.25f)
+        playerHPText.text = currentPlayerHP + "/" + maxPlayerHP;
+
+        playerSliderGauge.fillAmount = (float)currentPlayerHP / (float)maxPlayerHP; //HPバーのゲージを減らす
+        Debug.Log("slider.value : " + playerSlider.GetComponent<Image>().fillAmount);
+
+        if (playerSliderGauge.fillAmount > 0.75f) //段々と色が緑→黄→赤に変化していく
         {
-            playerSliderGauge.color = Color.Lerp(color_3, color_2, (playerSlider.value - 0.25f) * 4f);
+            playerSliderGauge.color = Color.Lerp(color_2, color_1, (playerSlider.GetComponent<Image>().fillAmount - 0.75f) * 4f);
+        }
+
+        else if (playerSliderGauge.fillAmount > 0.25f)
+        {
+            playerSliderGauge.color = Color.Lerp(color_3, color_2, (playerSlider.GetComponent<Image>().fillAmount - 0.25f) * 4f);
         }
         else
         {
-            playerSliderGauge.color = Color.Lerp(color_4, color_3, playerSlider.value * 4f);
+            playerSliderGauge.color = Color.Lerp(color_4, color_3, playerSlider.GetComponent<Image>().fillAmount * 4f);
         }
 
 
-        if(playerSlider.value <= 0)
+        if(playerSliderGauge.fillAmount <= 0)
         {
+            
             gameMaster.GetComponent<BattleMotionController>().PlayerDeath();
            // gameMaster.SendMessage("PlayerDeath");
 

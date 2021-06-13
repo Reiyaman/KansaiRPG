@@ -7,8 +7,8 @@ public class BattleMotionController : MonoBehaviour
 {
     public GameObject player; //Playerの変数
     public GameObject battleEnemy; //戦う敵の変数
-    public Slider enemySlider; //敵のHPゲージ
-    public Slider playerSlider; //PlayerのHPゲージ
+    public GameObject enemySlider; //敵のHPゲージ
+    public GameObject playerSlider; //PlayerのHPゲージ
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺技ボタン
     public GameObject recoveryButton; //回復ボタン
@@ -18,6 +18,7 @@ public class BattleMotionController : MonoBehaviour
 
 
     public Text victory_text; //勝利時のテキスト
+    public Text playerHPText;
 
     public int exp;
 
@@ -88,7 +89,7 @@ public class BattleMotionController : MonoBehaviour
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
         audioSource.PlayOneShot(enemyDamageSE);
 
-        if(enemySlider.value <= 0)
+        if(enemySlider.GetComponent<Image>().fillAmount <= 0)
         {
             Invoke("EnemyDestroyCoroutine", 0.2f);
         }
@@ -104,7 +105,7 @@ public class BattleMotionController : MonoBehaviour
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
         audioSource.PlayOneShot(enemySpecialDamageSE);
 
-        if (enemySlider.value <= 0) //体力がなくなったら死亡
+        if (enemySlider.GetComponent<Image>().fillAmount <= 0) //体力がなくなったら死亡
         {
             Invoke("EnemyDestroyCoroutine", 0.2f);
         }
@@ -223,22 +224,32 @@ public class BattleMotionController : MonoBehaviour
         if(battleEnemy.tag != "BOSS") //ボス以外
         {
             player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
-            player.GetComponent<PlayerScript>().playerSlider.value = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
-            Debug.Log("slider.value : " + playerSlider.value);
+            player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
+            Debug.Log("slider.value : " + playerSlider.GetComponent<Image>().fillAmount);
 
-            if (player.GetComponent<PlayerScript>().playerSlider.value > 0.75f) //回復すると色が赤→黄→緑に変化していく
+            if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.75f) //回復すると色が赤→黄→緑に変化していく
             {
-                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (playerSlider.value + 0.25f) * 4f);
+                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (playerSlider.GetComponent<Image>().fillAmount + 0.25f) * 4f);
             }
 
-            else if (player.GetComponent<PlayerScript>().playerSlider.value > 0.25f)
+            else if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.25f)
             {
-                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (playerSlider.value + 0.75f) * 4f);
+                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (playerSlider.GetComponent<Image>().fillAmount + 0.75f) * 4f);
             }
             else
             {
-                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, playerSlider.value * 4f);
+                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, playerSlider.GetComponent<Image>().fillAmount * 4f);
             }
+
+
+            if(player.GetComponent<PlayerScript>().currentPlayerHP >= player.GetComponent<PlayerScript>().maxPlayerHP)
+            {
+                player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
+                player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+
+            }
+
+            playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
             victory_text.text = "体力" + recover + "回復したで！\n" + "経験値" + exp + "ゲットや！"; //回復&経験値
 
             player.GetComponent<LevelController>().levelUpWait(); //Playerのレベルアップ関数を呼び出す

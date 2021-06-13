@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour
 {
-    public Slider enemyslider; //敵の体力ゲージ
+    public GameObject enemyslider; //敵の体力ゲージ
 
     public Image enemySliderGauge; //スライダーの色の変数
     public Color color_1, color_2, color_3, color_4; // カラーの変数
@@ -21,6 +21,9 @@ public class BattleController : MonoBehaviour
 
     public int special;
     public int recovery;
+
+    public Text enemyHPText;
+    public Text playerHPText;
 
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
@@ -38,6 +41,10 @@ public class BattleController : MonoBehaviour
         talkScript = gameObject.GetComponent<TalkScript>();
         special = 0;
         recovery = 0;
+
+        //enemyHPText.text = maxHP + "/" + maxHP;
+
+        enemySliderGauge = enemyslider.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -57,22 +64,29 @@ public class BattleController : MonoBehaviour
 
         currentHP = currentHP - damage; //最新のHPを取得
         Debug.Log("After current : " + currentHP);
-
-        enemyslider.value = (float)currentHP / (float)maxHP; //HPバーのゲージを減らす
-        Debug.Log("slider.value : " + enemyslider.value);
-
-        if (enemyslider.value > 0.75f) //段々と色が緑→黄→赤に変化していく
+        
+        if (currentHP <= 0) //０以下は０と表示
         {
-            enemySliderGauge.color = Color.Lerp(color_2, color_1, (enemyslider.value - 0.75f) * 4f);
+            currentHP = 0;
         }
 
-        else if (enemyslider.value > 0.25f)
+        enemyHPText.text = currentHP + "/" + maxHP;
+
+        enemySliderGauge.fillAmount = (float)currentHP / (float)maxHP; //HPバーのゲージを減らす
+        Debug.Log("slider.value : " + enemySliderGauge.fillAmount);
+
+        if (enemySliderGauge.fillAmount > 0.75f) //段々と色が緑→黄→赤に変化していく
         {
-            enemySliderGauge.color = Color.Lerp(color_3, color_2, (enemyslider.value - 0.25f) * 4f);
+            enemySliderGauge.color = Color.Lerp(color_2, color_1, (enemySliderGauge.fillAmount - 0.75f) * 4f);
+        }
+
+        else if (enemySliderGauge.fillAmount > 0.25f)
+        {
+            enemySliderGauge.color = Color.Lerp(color_3, color_2, (enemySliderGauge.fillAmount - 0.25f) * 4f);
         }
         else
         {
-            enemySliderGauge.color = Color.Lerp(color_4, color_3, enemyslider.value * 4f);
+            enemySliderGauge.color = Color.Lerp(color_4, color_3, enemySliderGauge.fillAmount * 4f);
         }
 
         Text attack_text = talkScript.talkText;
@@ -99,22 +113,29 @@ public class BattleController : MonoBehaviour
 
         currentHP = currentHP - damage; //最新のHPを取得
         Debug.Log("After current : " + currentHP);
-
-        enemyslider.value = (float)currentHP / (float)maxHP; //HPバーのゲージを減らす
-        Debug.Log("slider.value : " + enemyslider.value);
-
-        if (enemyslider.value > 0.75f) //段々と色が緑→黄→赤に変化していく
+        
+        if (currentHP <= 0) //０以下は０と表示
         {
-            enemySliderGauge.color = Color.Lerp(color_2, color_1, (enemyslider.value - 0.75f) * 4f);
+            currentHP = 0;
         }
 
-        else if (enemyslider.value > 0.25f)
+        enemyHPText.text = currentHP + "/" + maxHP;
+
+        enemySliderGauge.fillAmount = (float)currentHP / (float)maxHP; //HPバーのゲージを減らす
+        Debug.Log("slider.value : " + enemySliderGauge.fillAmount);
+
+        if (enemySliderGauge.fillAmount > 0.75f) //段々と色が緑→黄→赤に変化していく
         {
-            enemySliderGauge.color = Color.Lerp(color_3, color_2, (enemyslider.value - 0.25f) * 4f);
+            enemySliderGauge.color = Color.Lerp(color_2, color_1, (enemySliderGauge.fillAmount - 0.75f) * 4f);
+        }
+
+        else if (enemySliderGauge.fillAmount > 0.25f)
+        {
+            enemySliderGauge.color = Color.Lerp(color_3, color_2, (enemySliderGauge.fillAmount - 0.25f) * 4f);
         }
         else
         {
-            enemySliderGauge.color = Color.Lerp(color_4, color_3, enemyslider.value * 4f);
+            enemySliderGauge.color = Color.Lerp(color_4, color_3, enemySliderGauge.fillAmount * 4f);
         }
 
         Text special_text = talkScript.talkText;
@@ -141,22 +162,28 @@ public class BattleController : MonoBehaviour
         healEffect.SetActive(true);
 
         player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
-        player.GetComponent<PlayerScript>().playerSlider.value = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
+        player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
 
-        if (player.GetComponent<PlayerScript>().playerSlider.value > 0.75f) //回復すると色が赤→黄→緑に変化していく
+        if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.75f) //回復すると色が赤→黄→緑に変化していく
         {
-            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (player.GetComponent<PlayerScript>().playerSlider.value + 0.25f) * 4f);
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount + 0.25f) * 4f);
         }
 
-        else if (player.GetComponent<PlayerScript>().playerSlider.value > 0.25f)
+        else if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.25f)
         {
-            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (player.GetComponent<PlayerScript>().playerSlider.value + 0.75f) * 4f);
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount + 0.75f) * 4f);
         }
         else
         {
-            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().playerSlider.value * 4f);
+            player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount * 4f);
         }
 
+        if(currentHP >= maxHP) //回復後のHPがマックス超えたらマックスに制限する
+        {
+            currentHP = maxHP;
+        }
+
+        playerHPText.text = currentHP + "/" + maxHP;
         healEffect.SetActive(true);
         Text recover_text = talkScript.talkText;
         recover_text.text = "おおおパワーがみなぎってきたで！\n" + "めっちゃ回復したで！";
@@ -181,6 +208,7 @@ public class BattleController : MonoBehaviour
         
         maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;
         currentHP = player.gameObject.GetComponent<PlayerScript>().cHP;
+        enemyHPText.text = maxHP + "/" + maxHP;
        // gameObject.SendMessage("ChangeBattleMode");
     }
 
