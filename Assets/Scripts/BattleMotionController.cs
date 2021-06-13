@@ -217,7 +217,7 @@ public class BattleMotionController : MonoBehaviour
         }
 
 
-        victory_text.text = "おっしゃあ！　倒したったで!"; //勝利時のテキスト
+        victory_text.text = "おっしゃあ！　たおしたったで!"; //勝利時のテキスト
 
         yield return new WaitForSeconds(3.0f);
 
@@ -251,7 +251,7 @@ public class BattleMotionController : MonoBehaviour
 
             playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
 
-            victory_text.text = "体力" + recover + "回復したで！\n" + "経験値" + exp + "ゲットや！"; //回復&経験値
+            victory_text.text = "たいりょく " + recover + "　かいふく　したで！\n" + "けいけんち　" + exp + "　ゲットや！"; //回復&経験値
 
             player.GetComponent<LevelController>().levelUpWait(); //Playerのレベルアップ関数を呼び出す
 
@@ -261,7 +261,7 @@ public class BattleMotionController : MonoBehaviour
 
         else //ボスに勝った場合
         {
-            victory_text.text = "ボスを見事撃破やで！\n" + "これでオウサカ島の平和が守られたで！\n" + "ほんまありがとうな！";
+            victory_text.text = "ボスを　みごと　げきは　やで！\n" + "これで　オウサカじまの　へいわが　まもられたで！\n" + "ほんま　ありがとうな！";
             battleEnemy.GetComponent<AudioSource>().Stop();
         }
 
@@ -289,7 +289,7 @@ public class BattleMotionController : MonoBehaviour
         //attackButton.SetActive(false);
         //specialButton.SetActive(false);
         Text lose_text = talkScript.talkText;
-        lose_text.text = "あああ、やられてしもうた、、";
+        lose_text.text = "あああ、　やられてしもうた、、";
         player.GetComponent<Animator>().SetTrigger("Death");
         gameObject.GetComponent<TitleController>().GameOverWait();
     }

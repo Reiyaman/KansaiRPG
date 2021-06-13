@@ -6,15 +6,21 @@ using UnityEngine;
 public class Hit : MonoBehaviour
 {
 
-    //public GameObject battleenemy;
+   
 
     public Fungus.Flowchart flowchart = null;
-   // public String sendMessage = "";
+    // public String sendMessage = "";
 
+    private void Update()
+    {
+       
+    }
     private void OnCollisionEnter(Collision collision)
     {
+
         if(collision.gameObject.tag != "Enemy")
         {
+
             if(collision.gameObject.tag == "BOSS")
             {
                 flowchart.SendFungusMessage("boss");

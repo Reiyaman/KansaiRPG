@@ -26,12 +26,12 @@ public class TalkScript : MonoBehaviour
 
     public void TalkStart()
     {
-        talkText.text = "きっしょいモンスターが現れよったで！";
+        talkText.text = "きっしょい　モンスターが　あらわれよったで！";
 
     }
 
     public void Next()
     {
-        talkText.text = "まだまだ負けてないでえ！";
+        talkText.text = "まだまだ　負けて　ないでえ！";
     }
 }

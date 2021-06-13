@@ -20,6 +20,11 @@ public class ModeController : MonoBehaviour
     public GameObject battleModeCamera; //バトル中のカメラの変数
     public GameObject gameClearCamera; //ゲームクリアのカメラの変数
 
+    public GameObject sayDialog;
+    public Text talkText;
+    public bool wait;
+
+
     public GameObject enemyContainer;
     //public GameObject boss;
 
@@ -66,8 +71,36 @@ public class ModeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (sayDialog.activeSelf == true) //会話中は消す
+        {
+            attackButton.SetActive(false);
+            specialButton.SetActive(false);
+            recoveryButton.SetActive(false);
+            talkBox.SetActive(false);
+        }
+
+        else if (enemySliderobject.activeSelf == true && sayDialog.activeSelf == false)
+        {
+            talkBox.SetActive(true);
+            if(wait == true)
+            {
+                attackButton.SetActive(true);
+
+                if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
+                {
+                    gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
+                }
+
+                if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
+                {
+                    gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
+                }
+            }
+            
+
+        }
     }
+
 
     public void ChangeBattleMode()
     {
@@ -102,6 +135,8 @@ public class ModeController : MonoBehaviour
         //audioSource.Stop();
         //audioSource.clip = bgm[0];
         //audioSource.UnPause();
+        
+
         enemyContainer.GetComponent<AudioSource>().Stop();
         moveBGM.Play();
 
@@ -132,7 +167,7 @@ public class ModeController : MonoBehaviour
 
     public void BattleMode()
     {
-       
+        wait = true;
 
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
@@ -153,7 +188,7 @@ public class ModeController : MonoBehaviour
 
         if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
         {
-            gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Specialボタン表示
+            gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
 
         }
     }

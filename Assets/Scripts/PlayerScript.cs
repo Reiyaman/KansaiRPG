@@ -214,7 +214,7 @@ public class PlayerScript : MonoBehaviour
         int damage = Random.Range(enemyAttackMinDamage, enemyAttackMaxDamage); //攻撃のダメージを乱数で取得
 
         Text damage_text = talkScript.talkText;
-        damage_text.text = damage + "のダメージをくらってもうたわ！";
+        damage_text.text = damage + "のダメージを　くらってもうたわ！";
         Debug.Log("damage : " + damage);
 
 
@@ -297,6 +297,7 @@ public class PlayerScript : MonoBehaviour
 
     public void NextWait()
     {
+        gameMaster.GetComponent<ModeController>().wait = true;
         talkScript.Next();
     }
 

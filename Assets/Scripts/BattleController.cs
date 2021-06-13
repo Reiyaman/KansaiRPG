@@ -55,6 +55,8 @@ public class BattleController : MonoBehaviour
 
     public void AttackButton() //Attackボタンを押した時に呼ぶ関数
     {
+        gameObject.GetComponent<ModeController>().wait = false;
+
         attackButton.SetActive(false); //ボタンを消す
         specialButton.SetActive(false);
         recoveryButton.SetActive(false);
@@ -102,6 +104,8 @@ public class BattleController : MonoBehaviour
 
     public void SpecialButton() //Specialボタンを押した時に呼ぶ関数
     {
+        gameObject.GetComponent<ModeController>().wait = false;
+
         attackButton.SetActive(false);
         specialButton.SetActive(false); //ボタンを消す
         recoveryButton.SetActive(false);
@@ -139,7 +143,7 @@ public class BattleController : MonoBehaviour
         }
 
         Text special_text = talkScript.talkText;
-        special_text.text = "くらえ！わいのスペシャル攻撃や！\n" + damage + "のダメージを与えたったわい！";
+        special_text.text = "くらえ！　わいの　スペシャルこうげきや！\n" + damage + "の　ダメージを　あたえたったわい！";
 
         if (currentHP > 0)
         {
@@ -151,6 +155,8 @@ public class BattleController : MonoBehaviour
 
     public void RecoveryButton()
     {
+        gameObject.GetComponent<ModeController>().wait = false;
+
         attackButton.SetActive(false);
         specialButton.SetActive(false); //ボタンを消す
         recoveryButton.SetActive(false);
@@ -186,7 +192,7 @@ public class BattleController : MonoBehaviour
         playerHPText.text = currentHP + "/" + maxHP;
         healEffect.SetActive(true);
         Text recover_text = talkScript.talkText;
-        recover_text.text = "おおおパワーがみなぎってきたで！\n" + "めっちゃ回復したで！";
+        recover_text.text = "おおお　パワーが　みなぎって　きたで！\n" + "めっちゃ　かいふく　したで！";
 
         player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
 
