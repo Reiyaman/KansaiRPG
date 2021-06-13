@@ -516,7 +516,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: KansaibenRPG
+  m_Text: "\u304B\u3093\u3055\u3044\u3079\u3093\u3000RPG"
 --- !u!222 &256182856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1024,7 +1024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &714641533
 RectTransform:
   m_ObjectHideFlags: 0

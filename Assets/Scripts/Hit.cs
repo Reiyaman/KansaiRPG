@@ -15,6 +15,7 @@ public class Hit : MonoBehaviour
     {
        
     }
+
     private void OnCollisionEnter(Collision collision)
     {
 

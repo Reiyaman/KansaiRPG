@@ -58,6 +58,8 @@ public class ModeController : MonoBehaviour
         //audioSource.Play();
 
         moveBGM = GetComponent<AudioSource>();
+
+        //wait = false;
        
 
         EnemyGenarator enemySpawners = refObj[x].gameObject.GetComponent<EnemyGenarator>(); //EnemySpawner達のスクリプトを取得
@@ -77,6 +79,7 @@ public class ModeController : MonoBehaviour
             specialButton.SetActive(false);
             recoveryButton.SetActive(false);
             talkBox.SetActive(false);
+            wait = true;
         }
 
         else if (enemySliderobject.activeSelf == true && sayDialog.activeSelf == false)
@@ -107,6 +110,7 @@ public class ModeController : MonoBehaviour
         //audioSource.Pause();
         //audioSource.clip = bgm[1];
         //audioSource.Play();
+       
         moveBGM.Stop();
         //enemyContainer.GetComponent<AudioSource>().Play();
         mode = true; //バトルモードに遷移
@@ -167,7 +171,7 @@ public class ModeController : MonoBehaviour
 
     public void BattleMode()
     {
-        wait = true;
+        //wait = true;
 
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
@@ -177,20 +181,20 @@ public class ModeController : MonoBehaviour
 
         enemyimage.SetActive(true); //画像を表示
         enemySliderobject.SetActive(true); //敵のHPゲージを表示
-        talkBox.SetActive(true); //トークボックスを表示
-        attackButton.SetActive(true); //攻撃ボタンの表示
+        //talkBox.SetActive(true); //トークボックスを表示
+        //attackButton.SetActive(true); //攻撃ボタンの表示
 
-        if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
-        {
-            gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
+        //if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
+        //{
+        //    gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
 
-        }
+        //}
 
-        if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
-        {
-            gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
+        //if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
+        //{
+        //    gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
 
-        }
+        //}
     }
 
     public void GameClear()

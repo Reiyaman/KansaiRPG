@@ -90,9 +90,9 @@ public class BattleController : MonoBehaviour
         {
             enemySliderGauge.color = Color.Lerp(color_4, color_3, enemySliderGauge.fillAmount * 4f);
         }
-
+        
         Text attack_text = talkScript.talkText;
-        attack_text.text = damage + "のダメージを与えたったわい！";
+        attack_text.text = damage + "の　ダメージを　あたえたったわい！";
 
         if(currentHP > 0)
         {

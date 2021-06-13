@@ -48,7 +48,7 @@ public class LevelController : MonoBehaviour
         playerExp += gameMaster.GetComponent<BattleMotionController>().exp; //経験値を加算
         expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP; //経験値ゲージ増やす
 
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(2f);
 
         if(playerExp >= 300 && level == 1) 
         {
