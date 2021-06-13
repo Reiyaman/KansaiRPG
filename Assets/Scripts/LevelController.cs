@@ -23,11 +23,11 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        level = 1; //Playerの初期能力
+        level = 5; //Playerの初期能力
         playerExp = 0;
         playermaxEXP = 300;
-        playerAttackMinDamage =20000;
-        playerAttackMaxDamage = 30000;
+        playerAttackMinDamage =20;
+        playerAttackMaxDamage = 30;
         expGauge.GetComponent<Image>().fillAmount = 0;
 
         audioSource = GetComponent<AudioSource>();

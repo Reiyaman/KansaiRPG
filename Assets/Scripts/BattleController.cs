@@ -168,6 +168,11 @@ public class BattleController : MonoBehaviour
         healEffect.SetActive(true);
 
         player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
+
+        
+
+        playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
+
         player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
 
         if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.75f) //回復すると色が赤→黄→緑に変化していく
@@ -184,13 +189,15 @@ public class BattleController : MonoBehaviour
             player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount * 4f);
         }
 
-        if(currentHP >= maxHP) //回復後のHPがマックス超えたらマックスに制限する
+        healEffect.SetActive(true);
+
+        if (player.GetComponent<PlayerScript>().currentPlayerHP >= player.GetComponent<PlayerScript>().maxPlayerHP) //回復後のHPがマックス超えたらマックスに制限する
         {
-            currentHP = maxHP;
+            player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
         }
 
-        playerHPText.text = currentHP + "/" + maxHP;
-        healEffect.SetActive(true);
+        playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
+
         Text recover_text = talkScript.talkText;
         recover_text.text = "おおお　パワーが　みなぎって　きたで！\n" + "めっちゃ　かいふく　したで！";
 

@@ -157,14 +157,14 @@ public class PlayerScript : MonoBehaviour
             enemyAttackMaxDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackmaxDamage;
             enemyAttackMinDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackminDamage;
 
-            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
+            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position; //指定の位置にPlayer移動
 
             Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
             gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-            //Invoke("ChangeBattleModeWait", 0.5f);
+            //Invoke("ChangeBattleModeWait", 1.2f);
             Invoke("battlestart", 0.5f);
 
             enemycontainer.GetComponent<AudioSource>().Play();
@@ -188,14 +188,14 @@ public class PlayerScript : MonoBehaviour
             enemyAttackMinDamage = collision.gameObject.GetComponent<BossController>().enemyAttackMinDamage;
             enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
 
-            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position;
+            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position; //指定の位置にPlayer移動
 
             Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
             enemyPos.y = transform.position.y; //自分自身のY座標を格納
             transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
 
             gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-            //Invoke("ChangeBattleModeWait", 3.0f);
+            //Invoke("ChangeBattleModeWait", 1.2f);
             Invoke("battlestart", 0.5f);
 
             collision.gameObject.GetComponent<AudioSource>().Play();

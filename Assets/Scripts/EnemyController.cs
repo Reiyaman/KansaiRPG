@@ -134,35 +134,15 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player") //プレイヤーに接触した場合
         {
+            action = true; //Playerに接触したから静止
             this.gameObject.transform.parent = null; //Enemyをコンテナから外す
+            rb.velocity = new Vector3(0, 0, 0);
             //animator.SetInteger("Run", 1);
             // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
             animator.SetBool("Battle", true); //バトルスタート
             //animator.SetInteger("Run", 0);
 
-            //Rigidbody playerBody = collision.gameObject.GetComponent<Rigidbody>(); //PlayerのRigidbodyを取得
-            //if (collision.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
-            //{
-             //   Vector3 attackForce = (collision.transform.position - this.transform.position) * 7; //Playerに与える力を設定
-             //   attackForce.y = transform.position.y; //Y座標だけは動かさない
-             //   playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-           // }
-           // else if (collision.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-            //{
-              //  Vector3 attackForce = (collision.transform.position - this.transform.position) * 3f; //Playerに与える力を設定
-               // attackForce.y = transform.position.y; //Y座標だけは動かさない
-               // playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-           // }
-            //else
-           // {
-            //    Vector3 attackForce = (collision.transform.position - this.transform.position) * 2; //Playerに与える力を設定
-              //  attackForce.y = transform.position.y; //Y座標だけは動かさない
-              //  playerBody.AddForce(attackForce, ForceMode.Impulse); //Playerに衝撃を与える
-            //}
-
-            //animator.SetInteger("Walk", 0);
-            //animator.SetInteger("Run", 0);
-            //animator.SetBool("Battle", true); //バトルスタート
+            
             action = true; //Playerに接触したから静止
         }
     }

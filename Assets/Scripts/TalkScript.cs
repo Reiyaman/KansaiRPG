@@ -32,6 +32,6 @@ public class TalkScript : MonoBehaviour
 
     public void Next()
     {
-        talkText.text = "まだまだ　負けて　ないでえ！";
+        talkText.text = "まだまだ　まけて ないでえ！";
     }
 }

@@ -94,10 +94,14 @@ public class ModeController : MonoBehaviour
                     gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
                 }
 
-                if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
+                
+
+                if (gameObject.GetComponent<BattleController>().recovery >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
                 {
                     gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
                 }
+
+               
             }
             
 
@@ -128,7 +132,7 @@ public class ModeController : MonoBehaviour
         
         gameObject.GetComponent<TalkScript>().TalkWait();
 
-        enemyContainer.GetComponent<EnemyStopController>().DisappearEnemy(); //フィールド上の全てのEnemyを消す
+        enemyContainer.GetComponent<EnemyStopController>().DisappearEnemyWait(); //フィールド上の全てのEnemyを消す
 
         Invoke("BattleMode", 0.5f);
 

@@ -22,6 +22,11 @@ public class EnemyStopController : MonoBehaviour
        
     }
 
+    public void DisappearEnemyWait()
+    {
+        Invoke("DisappearEnemy", 0.1f);
+    }
+
     public void DisappearEnemy() //止めて消す
     {
         foreach(Transform child in transform)
