@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
     public int level;　//Playerのレベルの変数
     public int playerExp; //経験値の変数
+    public int playermaxEXP;
     public GameObject gameMaster; //
 
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
 
     public GameObject levelUpEffect; //レベルアップエフェクト
+    public GameObject expGauge; //経験値ゲージ
 
     public AudioClip levelUpSE;
 
@@ -22,8 +25,10 @@ public class LevelController : MonoBehaviour
     {
         level = 1; //Playerの初期能力
         playerExp = 0;
+        playermaxEXP = 300;
         playerAttackMinDamage = 200;
         playerAttackMaxDamage = 300;
+        expGauge.GetComponent<Image>().fillAmount = 0;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -41,12 +46,22 @@ public class LevelController : MonoBehaviour
     private IEnumerator levelUp()
     {
         playerExp += gameMaster.GetComponent<BattleMotionController>().exp; //経験値を加算
-        if(playerExp >= 100 && level == 1) 
+        expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP; //経験値ゲージ増やす
+
+        yield return new WaitForSeconds(2f);
+
+        if(playerExp >= 300 && level == 1) 
         {
             level = 2; //レベルアップ
             playerAttackMinDamage = 150;
             playerAttackMaxDamage = 300;
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 500;
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 500; 
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 500;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
             yield return new WaitForSeconds(1.5f);
 
@@ -63,7 +78,13 @@ public class LevelController : MonoBehaviour
             level = 3;//レベルアップ
             playerAttackMinDamage = 300;
             playerAttackMaxDamage = 450;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 800;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 1000;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
             yield return new WaitForSeconds(1.5f);
 
@@ -82,7 +103,13 @@ public class LevelController : MonoBehaviour
             level = 4;//レベルアップ
             playerAttackMinDamage = 450;
             playerAttackMaxDamage = 600;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1000;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 2500;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
             yield return new WaitForSeconds(1.5f);
 
@@ -101,7 +128,13 @@ public class LevelController : MonoBehaviour
             level = 5;//レベルアップ
             playerAttackMinDamage = 800;
             playerAttackMaxDamage = 900;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1300;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 5000;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
             yield return new WaitForSeconds(1.5f);
 
@@ -119,7 +152,13 @@ public class LevelController : MonoBehaviour
             level = 6;//レベルアップ
             playerAttackMinDamage = 1000;
             playerAttackMaxDamage = 1200;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1600;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 10000;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
             yield return new WaitForSeconds(1.5f);
@@ -139,7 +178,13 @@ public class LevelController : MonoBehaviour
             level = 7;//レベルアップ
             playerAttackMinDamage = 1200;
             playerAttackMaxDamage = 1400;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2000;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 20000;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
             yield return new WaitForSeconds(1.5f);
@@ -158,7 +203,13 @@ public class LevelController : MonoBehaviour
             level = 8;//レベルアップ
             playerAttackMinDamage = 1400;
             playerAttackMaxDamage = 1600;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2500;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 35000;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
             yield return new WaitForSeconds(1.5f);
@@ -177,7 +228,13 @@ public class LevelController : MonoBehaviour
             level = 9;//レベルアップ
             playerAttackMinDamage = 1600;
             playerAttackMaxDamage = 1700;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 3000;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            playermaxEXP = 50000;
+            playerExp = playerExp - playermaxEXP;
+            expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
             yield return new WaitForSeconds(1.5f);
@@ -195,7 +252,12 @@ public class LevelController : MonoBehaviour
             level = 10;//レベルアップ
             playerAttackMinDamage = 1800;
             playerAttackMaxDamage = 2000;
+
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 3400;
+            gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+
+            expGauge.GetComponent<Image>().fillAmount = 1;　//最大レベルなので満タン
 
 
             yield return new WaitForSeconds(1.5f);

@@ -27963,6 +27963,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 835167079}
     - target: {fileID: 444783037, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: maxPlayerHP
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 444783037, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
       propertyPath: playerHPText
       value: 
       objectReference: {fileID: 383308444}
@@ -28038,6 +28042,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2059018951865018823, guid: c20397bf1592dc040b827e8716b0bd41,
+        type: 3}
+      propertyPath: expGauge
+      value: 
+      objectReference: {fileID: 1335073224}
     - target: {fileID: 2059018951865018823, guid: c20397bf1592dc040b827e8716b0bd41,
         type: 3}
       propertyPath: gameMaster

@@ -250,6 +250,7 @@ public class BattleMotionController : MonoBehaviour
             }
 
             playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
+
             victory_text.text = "体力" + recover + "回復したで！\n" + "経験値" + exp + "ゲットや！"; //回復&経験値
 
             player.GetComponent<LevelController>().levelUpWait(); //Playerのレベルアップ関数を呼び出す
