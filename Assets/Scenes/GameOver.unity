@@ -417,10 +417,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1515997556, guid: 2cb597c059c0637489d7a3309e26cb52, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1714725612, guid: 2cb597c059c0637489d7a3309e26cb52, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -433,12 +429,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 95156709322560568, guid: 2cb597c059c0637489d7a3309e26cb52,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 22100000, guid: 0d805657d55fb684996d65c4f03f68fa,
-        type: 2}
     - target: {fileID: 224010093356604562, guid: 2cb597c059c0637489d7a3309e26cb52,
         type: 3}
       propertyPath: m_Pivot.x
