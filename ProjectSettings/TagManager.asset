@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - BOSS
   - Ground
+  - Obstacle
   layers:
   - Default
   - TransparentFX

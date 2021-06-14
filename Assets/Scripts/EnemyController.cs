@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
         animator.SetInteger("Run", 0);
         animator.SetBool("Battle", false);
 
-        var randDestination = Random.insideUnitCircle * 20; //目的地ランダム設定
+        var randDestination = Random.insideUnitCircle * 15; //目的地ランダム設定
         startPosition = transform.position; //初期位置の保存
         destination = startPosition + new Vector3(randDestination.x, 0, randDestination.y); //目的地の設定
         arrived = false; //目的地についてないから偽
@@ -145,6 +145,13 @@ public class EnemyController : MonoBehaviour
             
             action = true; //Playerに接触したから静止
         }
+
+        if(collision.gameObject.transform.parent.tag == "Obstacle")
+        {
+            arrived = true;
+            animator.SetInteger("Walk", 0);
+            Invoke("destinationOption", 1f);
+        }
     }
 
     void MoveEnemy()
@@ -156,7 +163,7 @@ public class EnemyController : MonoBehaviour
 
     public void destinationOption() //目的地更新
     {
-        var randDestination = Random.insideUnitCircle * 20; //目的地ランダム設定
+        var randDestination = Random.insideUnitCircle * 15; //目的地ランダム設定
         startPosition = transform.position; //現時点の位置の保存
         destination = startPosition + new Vector3(randDestination.x, 0, randDestination.y); //目的地の設定
         arrived = false; //目的地についてないから偽
