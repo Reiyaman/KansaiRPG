@@ -205,9 +205,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 11229696}
+  - {fileID: 11229691}
   selectedCommands:
-  - {fileID: 11229693}
+  - {fileID: 11229688}
   variables: []
   description: 
   stepPause: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 51.149426
     y: 86
-    width: 71.163895
+    width: 111.163895
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 53.465275
     y: 165.09467
-    width: 60
+    width: 97.505936
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -427,7 +427,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 60.19927
     y: 249.64754
-    width: 60
+    width: 73.75297
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 300.36383
     y: 170.73575
-    width: 60
+    width: 97.505936
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 289.71152
     y: 89.36727
-    width: 93.13538
+    width: 133.13538
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -721,7 +721,7 @@ MonoBehaviour:
   description: 
   character: {fileID: 1224231899}
   portrait: {fileID: 21300000, guid: 319719e74fbe045bab9a764be61ba4a1, type: 3}
-  voiceOverClip: {fileID: 8300000, guid: b242d643487394d9298ac109eb1af856, type: 3}
+  voiceOverClip: {fileID: 8300000, guid: 39de1bc6f11e545cfabd073a324e17e2, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -788,7 +788,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 181.21375
     y: 70.94226
-    width: 60
+    width: 85.629456
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 192.079
     y: 168.5311
-    width: 60
+    width: 61.876484
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -984,7 +984,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 282.56845
     y: 253.68036
-    width: 60
+    width: 73.75297
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1152,7 +1152,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 165.99283
     y: 252.78926
-    width: 60
+    width: 85.629456
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -12062,6 +12062,82 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dc91df1df7124d76b1f1eb21af23ca4, type: 3}
@@ -23183,6 +23259,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1888909220}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1528839622
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528839621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.0865442
+  m_Height: 2.1730883
+  m_Direction: 1
+  m_Center: {x: -0.01011559, y: 1.0918565, z: 0}
 --- !u!1 &1536142314
 GameObject:
   m_ObjectHideFlags: 0
@@ -28340,6 +28430,10 @@ PrefabInstance:
       propertyPath: playerSliderGauge
       value: 
       objectReference: {fileID: 2019607947}
+    - target: {fileID: 1528839622, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1528839623, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
       propertyPath: flowchart
       value: 
@@ -28410,7 +28504,8 @@ PrefabInstance:
       propertyPath: gameMaster
       value: 
       objectReference: {fileID: 835167079}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1528839622, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c20397bf1592dc040b827e8716b0bd41, type: 3}
 --- !u!4 &1888909221 stripped
 Transform:
@@ -29978,7 +30073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a25c5b6a3fd74a209f57bf624abc7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
 --- !u!114 &2019607947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31913,7 +32007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a25c5b6a3fd74a209f57bf624abc7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
 --- !u!114 &2118082217
 MonoBehaviour:
   m_ObjectHideFlags: 0
