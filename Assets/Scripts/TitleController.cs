@@ -10,6 +10,10 @@ public class TitleController : MonoBehaviour
     public AudioClip titleSE;
     public AudioClip retrySE;
 
+    
+    public GameObject operation;
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,8 @@ public class TitleController : MonoBehaviour
 
     public void OptionButton()
     {
+        operation.SetActive(true);
+        audioSource.PlayOneShot(titleSE);
 
     }
 
@@ -61,6 +67,12 @@ public class TitleController : MonoBehaviour
     public void gameClear()
     {
         SceneManager.LoadScene("StaffRoll");
+    }
+
+    public void ReturnButton()
+    {
+        operation.SetActive(false);
+        audioSource.PlayOneShot(titleSE);
     }
 
 }

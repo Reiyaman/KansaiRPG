@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour
 {
     Rigidbody rb; //Rigidbody変数の宣言 
     float moveSpeed = 9; //スピードの変数の宣言
-    float dashSpeed = 20;
+    float dashSpeed = 25;
     float rotateSpeed = 90; //回転スピードの宣言
 
     public int jumpCount = 1; //ジャンプできる回数
