@@ -19,8 +19,11 @@ public class BattleController : MonoBehaviour
 
     public GameObject healEffect; //ヒールエフェクト
 
-    public int special;
-    public int recovery;
+    public int special;　//スペシャルが使えるまでのターン数
+    public int recovery; //リカバリーが使えるまでのターン数
+
+    public int specialrange; //必殺技の倍率
+    public int recover; //回復力
 
     public Text enemyHPText;
     public Text playerHPText;
@@ -112,7 +115,7 @@ public class BattleController : MonoBehaviour
 
         special = 0; //カウントリセット
 
-        int damage = Random.Range(player.GetComponent<LevelController>().playerAttackMinDamage, player.GetComponent<LevelController>().playerAttackMaxDamage) * 3; //攻撃のダメージを乱数で取得
+        int damage = Random.Range(player.GetComponent<LevelController>().playerAttackMinDamage, player.GetComponent<LevelController>().playerAttackMaxDamage) * specialrange; //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
 
         currentHP = currentHP - damage; //最新のHPを取得
@@ -163,7 +166,7 @@ public class BattleController : MonoBehaviour
 
         recovery = 0;
 
-        int recover = 1500;
+        
 
         healEffect.SetActive(true);
 

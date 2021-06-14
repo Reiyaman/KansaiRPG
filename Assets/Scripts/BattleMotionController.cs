@@ -185,35 +185,35 @@ public class BattleMotionController : MonoBehaviour
             exp = Random.Range(100, 150);
         }
 
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 1) //箱のモンスター
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 1) //ピンクのモンスター
         {
-            exp = Random.Range(250, 300);
+            exp = Random.Range(150, 175);
         }
 
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 2) //ピンクのモンスター
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 2) //箱のモンスター
         {
-            exp = Random.Range(400, 450);
+            exp = Random.Range(200, 250);
         }
 
 
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //青いスライム
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //スケルトン
         {
-            exp = Random.Range(500, 550);
+            exp = Random.Range(275, 300);
         }
 
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 4) //スケルトン
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 4) //青いスライム
         {
-            exp = Random.Range(700, 800);
+            exp = Random.Range(325, 350);
         }
 
         else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 5) //槍使い
         {
-            exp = Random.Range(700, 800);
+            exp = Random.Range(375, 400);
         }
 
         else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //ゴブリン
         {
-            exp = Random.Range(800, 1000);
+            exp = Random.Range(500, 600);
         }
 
 
@@ -223,32 +223,36 @@ public class BattleMotionController : MonoBehaviour
 
         if(battleEnemy.tag != "BOSS") //ボス以外
         {
-            player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
-            player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
-            Debug.Log("slider.value : " + playerSlider.GetComponent<Image>().fillAmount);
-
-            if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.75f) //回復すると色が赤→黄→緑に変化していく
+            if (player.GetComponent<PlayerScript>().currentPlayerHP + recover >= player.GetComponent<PlayerScript>().maxPlayerHP)
             {
-                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (playerSlider.GetComponent<Image>().fillAmount + 0.25f) * 4f);
-            }
-
-            else if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.25f)
-            {
-                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (playerSlider.GetComponent<Image>().fillAmount + 0.75f) * 4f);
-            }
-            else
-            {
-                player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, playerSlider.GetComponent<Image>().fillAmount * 4f);
-            }
-
-
-            if(player.GetComponent<PlayerScript>().currentPlayerHP >= player.GetComponent<PlayerScript>().maxPlayerHP)
-            {
+                recover = player.GetComponent<PlayerScript>().maxPlayerHP - player.GetComponent<PlayerScript>().currentPlayerHP; //回復力の差分
                 player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
                 player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+                player.GetComponent<PlayerScript>().playerSliderGauge.color = player.GetComponent<PlayerScript>().color_1;
 
             }
 
+            else
+            {
+                player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
+                player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
+                Debug.Log("slider.value : " + playerSlider.GetComponent<Image>().fillAmount);
+
+                if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.75f) //回復すると色が赤→黄→緑に変化していく
+                {
+                    player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (playerSlider.GetComponent<Image>().fillAmount + 0.25f) * 4f);
+                }
+
+                else if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.25f)
+                {
+                    player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_3, player.GetComponent<PlayerScript>().color_2, (playerSlider.GetComponent<Image>().fillAmount + 0.75f) * 4f);
+                }
+                else
+                {
+                    player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_4, player.GetComponent<PlayerScript>().color_3, playerSlider.GetComponent<Image>().fillAmount * 4f);
+                }
+            }
+          
             playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
 
             victory_text.text = "たいりょく " + recover + "　かいふく　したで！\n" + "けいけんち　" + exp + "　ゲットや！"; //回復&経験値

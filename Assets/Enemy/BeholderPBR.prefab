@@ -198,12 +198,12 @@ MonoBehaviour:
   exist: 0
   stopDistance: 3
   moveDistance: 20
-  enemyHP: 1000
+  enemyHP: 400
   currentHP: 0
   enemyImage: {fileID: 21300000, guid: 5ca35502550ba4a59903e91989b41c40, type: 3}
-  enemynumber: 2
-  enemyattackminDamage: 200
-  enemyattackmaxDamage: 240
+  enemynumber: 1
+  enemyattackminDamage: 75
+  enemyattackmaxDamage: 120
   attackSE: {fileID: 0}
 --- !u!195 &2854699325249535043
 NavMeshAgent:

@@ -40,22 +40,22 @@ public class Hit : MonoBehaviour
 
         else if(collision.gameObject.GetComponent<EnemyController>().enemynumber == 1)
         {
-            flowchart.SendFungusMessage("chest");
+            flowchart.SendFungusMessage("pink");
         }
 
         else if (collision.gameObject.GetComponent<EnemyController>().enemynumber == 2)
         {
-            flowchart.SendFungusMessage("pink");
+            flowchart.SendFungusMessage("chest");
         }
 
         else if (collision.gameObject.GetComponent<EnemyController>().enemynumber == 3)
         {
-            flowchart.SendFungusMessage("turtleshell");
+            flowchart.SendFungusMessage("skeleton");
         }
 
         else if (collision.gameObject.GetComponent<EnemyController>().enemynumber == 4)
         {
-            flowchart.SendFungusMessage("skeleton");
+            flowchart.SendFungusMessage("turtleshell");
         }
 
         else if (collision.gameObject.GetComponent<EnemyController>().enemynumber == 5)

@@ -23,11 +23,11 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        level = 5; //Playerの初期能力
+        level = 1; //Playerの初期能力
         playerExp = 0;
         playermaxEXP = 300;
-        playerAttackMinDamage =20;
-        playerAttackMaxDamage = 30;
+        playerAttackMinDamage =100;
+        playerAttackMaxDamage = 150;
         expGauge.GetComponent<Image>().fillAmount = 0;
 
         audioSource = GetComponent<AudioSource>();
@@ -52,18 +52,24 @@ public class LevelController : MonoBehaviour
 
         if(playerExp >= 300 && level == 1) 
         {
-            level = 2; //レベルアップ
-            playerAttackMinDamage = 150;
-            playerAttackMaxDamage = 300;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 500; 
+            level = 2; //レベルアップ
+            playerAttackMinDamage = 125;
+            playerAttackMaxDamage = 175;
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 650;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
 
             playermaxEXP = 500;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
-            yield return new WaitForSeconds(1.5f);
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
@@ -75,18 +81,26 @@ public class LevelController : MonoBehaviour
 
         if(playerExp >= 500 && level == 2)
         {
-            level = 3;//レベルアップ
-            playerAttackMinDamage = 300;
-            playerAttackMaxDamage = 450;
+            yield return new WaitForSeconds(1.5f);
 
+            level = 3;//レベルアップ
+            playerAttackMinDamage = 200;
+            playerAttackMaxDamage = 275;
+
+            gameMaster.GetComponent<BattleController>().recover = 800; 
+            
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 800;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 1000;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 700;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
-            yield return new WaitForSeconds(1.5f);
+            
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
@@ -98,20 +112,26 @@ public class LevelController : MonoBehaviour
             
         }
 
-        if(playerExp >= 1000 && level == 3)
+        if(playerExp >= 700 && level == 3)
         {
+            yield return new WaitForSeconds(1.5f);
+
             level = 4;//レベルアップ
-            playerAttackMinDamage = 450;
-            playerAttackMaxDamage = 600;
+            playerAttackMinDamage = 250;
+            playerAttackMaxDamage = 300;
 
             gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1000;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 2500;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 900;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
-            yield return new WaitForSeconds(1.5f);
+            
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
@@ -123,20 +143,28 @@ public class LevelController : MonoBehaviour
             
         }
 
-        if(playerExp >= 2500 && level == 4)
+        if(playerExp >= 900 && level == 4)
         {
-            level = 5;//レベルアップ
-            playerAttackMinDamage = 800;
-            playerAttackMaxDamage = 900;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1300;
+            level = 5;//レベルアップ
+            playerAttackMinDamage = 350;
+            playerAttackMaxDamage = 400;
+
+            gameMaster.GetComponent<BattleController>().specialrange = 2;
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1200;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 5000;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 1000;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
-            yield return new WaitForSeconds(1.5f);
+           
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
@@ -147,21 +175,27 @@ public class LevelController : MonoBehaviour
 
         }
 
-        if(playerExp >= 5000 && level == 5)
+        if(playerExp >= 1000 && level == 5)
         {
-            level = 6;//レベルアップ
-            playerAttackMinDamage = 1000;
-            playerAttackMaxDamage = 1200;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1600;
+            level = 6;//レベルアップ
+            playerAttackMinDamage = 400;
+            playerAttackMaxDamage = 450;
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1400;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 10000;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 1100;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
-            yield return new WaitForSeconds(1.5f);
+           
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
@@ -173,46 +207,60 @@ public class LevelController : MonoBehaviour
             
         }
 
-        if(playerExp >= 10000 && level == 6)
+        if(playerExp >= 1100 && level == 6)
         {
-            level = 7;//レベルアップ
-            playerAttackMinDamage = 1200;
-            playerAttackMaxDamage = 1400;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2000;
+            level = 7;//レベルアップ
+            playerAttackMinDamage = 500;
+            playerAttackMaxDamage = 600;
+
+            gameMaster.GetComponent<BattleController>().recover = 1400; //回復力アップ
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 1700;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 20000;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 1200;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
-            yield return new WaitForSeconds(1.5f);
+            
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
             audioSource.PlayOneShot(levelUpSE);
 
 
-            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル7に　アップしたで!\n" + "もっと　つよく　なろうな！";
+            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル7に　アップしたで!\n" + "リカバリーの　いりょくが　つよく　なったで！";
 
         }
 
-        if(playerExp >= 20000 && level == 7)
+        if(playerExp >= 1200 && level == 7)
         {
-            level = 8;//レベルアップ
-            playerAttackMinDamage = 1400;
-            playerAttackMaxDamage = 1600;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2500;
+            level = 8;//レベルアップ
+            playerAttackMinDamage = 600;
+            playerAttackMaxDamage = 700;
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2000;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 35000;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 1300;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
-            yield return new WaitForSeconds(1.5f);
+            
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
@@ -223,44 +271,60 @@ public class LevelController : MonoBehaviour
 
         }
 
-        if(playerExp >= 35000 && level == 8)
+        if(playerExp >= 1300 && level == 8)
         {
-            level = 9;//レベルアップ
-            playerAttackMinDamage = 1600;
-            playerAttackMaxDamage = 1700;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 3000;
+            level = 9;//レベルアップ
+            playerAttackMinDamage = 700;
+            playerAttackMaxDamage = 800;
+
+            gameMaster.GetComponent<BattleController>().specialrange = 3;　//必殺技威力アップ
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2200;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
 
-            playermaxEXP = 50000;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
+
+            playermaxEXP = 1500;
             playerExp = playerExp - playermaxEXP;
             expGauge.GetComponent<Image>().fillAmount = (float)playerExp / (float)playermaxEXP;
 
 
-            yield return new WaitForSeconds(1.5f);
+            
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
             audioSource.PlayOneShot(levelUpSE);
 
-            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル9に　アップしたで!\n" + "もっと　つよく　なろうな！";
+            gameMaster.GetComponent<BattleMotionController>().victory_text.text = "レベル9に　アップしたで!\n" + "ひっさつわざが　さらに　つよく　なったで！";
 
         }
 
-        if(playerExp >= 50000 && level == 9)
+        if(playerExp >= 1500 && level == 9)
         {
-            level = 10;//レベルアップ
-            playerAttackMinDamage = 1800;
-            playerAttackMaxDamage = 2000;
+            yield return new WaitForSeconds(1.5f);
 
-            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 3400;
+            level = 10;//レベルアップ
+            playerAttackMinDamage = 1000;
+            playerAttackMaxDamage = 1100;
+
+            gameMaster.GetComponent<BattleController>().recover = 2000; //回復威力アップ
+            gameMaster.GetComponent<BattleController>().specialrange = 4; //必殺技威力アップ
+
+            gameObject.GetComponent<PlayerScript>().maxPlayerHP = 2500;
+            gameObject.GetComponent<PlayerScript>().currentPlayerHP = gameObject.GetComponent<PlayerScript>().maxPlayerHP;
             gameObject.GetComponent<PlayerScript>().playerHPText.text = gameObject.GetComponent<PlayerScript>().currentPlayerHP + "/" + gameObject.GetComponent<PlayerScript>().maxPlayerHP; //更新
+
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = 1;
+            gameObject.GetComponent<PlayerScript>().playerSliderGauge.color = gameObject.GetComponent<PlayerScript>().color_1;
 
 
             expGauge.GetComponent<Image>().fillAmount = 1;　//最大レベルなので満タン
 
 
-            yield return new WaitForSeconds(1.5f);
 
             levelUpEffect.SetActive(true);
             Invoke("LevelUpEffectNotActive", 1.8f);
