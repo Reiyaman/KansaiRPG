@@ -15,6 +15,7 @@ public class ModeController : MonoBehaviour
     //public GameObject HPText; //PlayerのHPテキスト
     public GameObject HPSlider; //PlayerのHPゲージ
     public GameObject GameClearText; //Gameclearテキスト
+    public GameObject enemyLevelText; //Enemyの強さテキスト
 
     public GameObject moveModeCamera; //移動中のカメラの変数
     public GameObject battleModeCamera; //バトル中のカメラの変数
@@ -159,6 +160,7 @@ public class ModeController : MonoBehaviour
         specialButton.SetActive(false); //最初は非表示
         recoveryButton.SetActive(false);//最初は非表示
         talkBox.SetActive(false); //移動モードは非表示
+        enemyLevelText.SetActive(false);//移動モードは非表示
 
         images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
 

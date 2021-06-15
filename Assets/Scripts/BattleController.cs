@@ -27,6 +27,7 @@ public class BattleController : MonoBehaviour
 
     public Text enemyHPText;
     public Text playerHPText;
+    public Text enemyLevelText;
 
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
@@ -221,11 +222,55 @@ public class BattleController : MonoBehaviour
 
     public void BattleStart()
     {
-        
+        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
         maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;
         currentHP = player.gameObject.GetComponent<PlayerScript>().cHP;
         enemyHPText.text = maxHP + "/" + maxHP;
-       // gameObject.SendMessage("ChangeBattleMode");
+
+        if (battleEnemy.tag == "BOSS")
+        {
+            enemyLevelText.text = "つよさ10";
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 0) //スライム
+        {
+            enemyLevelText.text = "つよさ1";
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 1) //ピンクのモンスター
+        {
+            enemyLevelText.text = "つよさ2";
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 2) //箱のモンスター
+        {
+            enemyLevelText.text = "つよさ3";
+        }
+
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //スケルトン
+        {
+            enemyLevelText.text = "つよさ4";
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 4) //青いスライム
+        {
+            enemyLevelText.text = "つよさ5";
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 5) //槍使い
+        {
+            enemyLevelText.text = "つよさ6";
+        }
+
+        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //ゴブリン
+        {
+            enemyLevelText.text = "つよさ8";
+        }
+
+        enemyLevelText.gameObject.SetActive(true); //enemyの強さ表示
+
+        // gameObject.SendMessage("ChangeBattleMode");
     }
 
     public void healEffectNotActive()
