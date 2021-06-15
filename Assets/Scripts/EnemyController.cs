@@ -146,12 +146,12 @@ public class EnemyController : MonoBehaviour
             action = true; //Playerに接触したから静止
         }
 
-        if(collision.gameObject.transform.parent.tag == "Obstacle")
-        {
-            arrived = true;
-            animator.SetInteger("Walk", 0);
-            Invoke("destinationOption", 1f);
-        }
+        //if(collision.gameObject.transform.parent.tag == "Obstacle")
+        //{
+          //  arrived = true;
+           // animator.SetInteger("Walk", 0);
+            //Invoke("destinationOption", 1f);
+        //}
     }
 
     void MoveEnemy()

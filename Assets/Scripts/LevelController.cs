@@ -15,6 +15,7 @@ public class LevelController : MonoBehaviour
 
     public GameObject levelUpEffect; //レベルアップエフェクト
     public GameObject expGauge; //経験値ゲージ
+    public Text levelText; //Playerのレベルの表示
 
     public AudioClip levelUpSE;
 
@@ -31,6 +32,9 @@ public class LevelController : MonoBehaviour
         expGauge.GetComponent<Image>().fillAmount = 0;
 
         audioSource = GetComponent<AudioSource>();
+
+        levelText.text = "レベル１"; 
+
     }
 
     // Update is called once per frame
@@ -55,6 +59,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 2; //レベルアップ
+            levelText.text = "レベル2";
+
             playerAttackMinDamage = 125;
             playerAttackMaxDamage = 175;
 
@@ -84,6 +90,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 3;//レベルアップ
+            levelText.text = "レベル3";
+
             playerAttackMinDamage = 200;
             playerAttackMaxDamage = 275;
 
@@ -117,6 +125,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 4;//レベルアップ
+            levelText.text = "レベル4";
+
             playerAttackMinDamage = 250;
             playerAttackMaxDamage = 300;
 
@@ -148,6 +158,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 5;//レベルアップ
+            levelText.text = "レベル5";
+
             playerAttackMinDamage = 350;
             playerAttackMaxDamage = 400;
 
@@ -180,6 +192,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 6;//レベルアップ
+            levelText.text = "レベル6";
+
             playerAttackMinDamage = 400;
             playerAttackMaxDamage = 450;
 
@@ -212,6 +226,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 7;//レベルアップ
+            levelText.text = "レベル7";
+
             playerAttackMinDamage = 500;
             playerAttackMaxDamage = 600;
 
@@ -245,6 +261,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 8;//レベルアップ
+            levelText.text = "レベル8";
+
             playerAttackMinDamage = 600;
             playerAttackMaxDamage = 700;
 
@@ -276,6 +294,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 9;//レベルアップ
+            levelText.text = "レベル9";
+
             playerAttackMinDamage = 700;
             playerAttackMaxDamage = 800;
 
@@ -308,6 +328,8 @@ public class LevelController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
             level = 10;//レベルアップ
+            levelText.text = "レベル10";
+
             playerAttackMinDamage = 1000;
             playerAttackMaxDamage = 1100;
 
