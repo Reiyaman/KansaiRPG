@@ -9,9 +9,11 @@ public class BattleMotionController : MonoBehaviour
     public GameObject battleEnemy; //戦う敵の変数
     public GameObject enemySlider; //敵のHPゲージ
     public GameObject playerSlider; //PlayerのHPゲージ
+
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺技ボタン
     public GameObject recoveryButton; //回復ボタン
+    public GameObject escapeButton; //にげるボタン
 
     public GameObject enemycontainer;
     public GameObject swordParticle; //必殺技時のパーティクル
@@ -33,6 +35,8 @@ public class BattleMotionController : MonoBehaviour
     public AudioClip playerAttackSE; //Playerが攻撃するSE
     public AudioClip playerSpecialAttackSE; //Playerの必殺技SE
     public AudioClip playerRecoverSE; //Playerの回復SE
+    public AudioClip playerEscapeSE; //PlayerがにげるSE
+    public AudioClip playerNotEscapeSE; //PlayerがにげられなかったSE
 
     public AudioClip enemyDamageSE; //エネミーがくらうSE
     public AudioClip enemySpecialDamageSE;
@@ -82,6 +86,25 @@ public class BattleMotionController : MonoBehaviour
     {
         audioSource.PlayOneShot(playerRecoverSE);
         Invoke("EnemyAttack", 1.5f);
+    }
+
+    public void PlayerEscapeButton() //Escapeボタン押した時
+    {
+        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
+
+        if (gameObject.GetComponent<BattleController>().escapeNumber == 1)
+        {
+            audioSource.PlayOneShot(playerEscapeSE);
+
+            Invoke("EnemyDestroy", 2f);
+
+        }
+
+        else
+        {
+            audioSource.PlayOneShot(playerNotEscapeSE);
+            Invoke("EnemyAttack", 1.5f);
+        }
     }
    
     public void EnemyDamage() //Enemyくらう

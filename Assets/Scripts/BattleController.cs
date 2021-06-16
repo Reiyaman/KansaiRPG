@@ -16,6 +16,7 @@ public class BattleController : MonoBehaviour
     public GameObject attackButton;
     public GameObject specialButton;
     public GameObject recoveryButton;
+    public GameObject escapeButton;
 
     public GameObject healEffect; //ヒールエフェクト
 
@@ -24,6 +25,7 @@ public class BattleController : MonoBehaviour
 
     public int specialrange; //必殺技の倍率
     public int recover; //回復力
+    public int escapeNumber;
 
     public Text enemyHPText;
     public Text playerHPText;
@@ -64,6 +66,7 @@ public class BattleController : MonoBehaviour
         attackButton.SetActive(false); //ボタンを消す
         specialButton.SetActive(false);
         recoveryButton.SetActive(false);
+        escapeButton.SetActive(false);
 
         int damage = Random.Range(player.GetComponent<LevelController>().playerAttackMinDamage, player.GetComponent<LevelController>().playerAttackMaxDamage); //攻撃のダメージを乱数で取得
         Debug.Log("damage : " + damage);
@@ -110,9 +113,10 @@ public class BattleController : MonoBehaviour
     {
         gameObject.GetComponent<ModeController>().wait = false;
 
-        attackButton.SetActive(false);
-        specialButton.SetActive(false); //ボタンを消す
+        attackButton.SetActive(false); //ボタンを消す
+        specialButton.SetActive(false);
         recoveryButton.SetActive(false);
+        escapeButton.SetActive(false);
 
         special = 0; //カウントリセット
 
@@ -161,9 +165,10 @@ public class BattleController : MonoBehaviour
     {
         gameObject.GetComponent<ModeController>().wait = false;
 
-        attackButton.SetActive(false);
-        specialButton.SetActive(false); //ボタンを消す
+        attackButton.SetActive(false); //ボタンを消す
+        specialButton.SetActive(false);
         recoveryButton.SetActive(false);
+        escapeButton.SetActive(false);
 
         recovery = 0;
 
@@ -214,13 +219,42 @@ public class BattleController : MonoBehaviour
     }
 
 
-    public void DamageButton()
+    public void EscapeButton()
+    {
+        gameObject.GetComponent<ModeController>().wait = false;
+
+        attackButton.SetActive(false); //ボタンを消す
+        specialButton.SetActive(false);
+        recoveryButton.SetActive(false);
+        escapeButton.SetActive(false);
+
+        escapeNumber = Random.Range(1, 3); //逃げる確率2分の１
+
+        if(escapeNumber == 1) //もし逃げれるなら
+        {
+            Text escape_text = talkScript.talkText;
+            escape_text.text = "ここは　いったん　たいきゃくや！　にげるで！";
+
+        }
+
+        else  //もし無理なら
+        {
+            Text escape_text = talkScript.talkText;
+            escape_text.text = "あかん！　うまく　にげれへんかったわ！";
+
+            Invoke("DamageButton", 1.5f);
+        }
+       
+    }
+
+
+    public void DamageButton()　//Player受ける
     {
         player.GetComponent<PlayerScript>().PlayerDamage();
        // player.gameObject.SendMessage("PlayerDamage");
     }
-
-    public void BattleStart()
+    
+    public void BattleStart() //バトル相手の情報を代入
     {
         battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
         maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;

@@ -8,9 +8,12 @@ public class ModeController : MonoBehaviour
     public GameObject enemyimage; //エネミーの画像
     public GameObject enemySliderobject; //エネミーのHPゲージ
     public GameObject enemySlider;
+
     public GameObject attackButton; //攻撃ボタン
     public GameObject specialButton; //必殺ボタン
     public GameObject recoveryButton; //回復ボタン
+    public GameObject escapeButton; //にげるボタン
+
     public GameObject talkBox; //トークボックス
     //public GameObject HPText; //PlayerのHPテキスト
     public GameObject HPSlider; //PlayerのHPゲージ
@@ -79,6 +82,7 @@ public class ModeController : MonoBehaviour
             attackButton.SetActive(false);
             specialButton.SetActive(false);
             recoveryButton.SetActive(false);
+            escapeButton.SetActive(false);
             talkBox.SetActive(false);
             wait = true;
         }
@@ -102,7 +106,11 @@ public class ModeController : MonoBehaviour
                     gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
                 }
 
-               
+                if(gameObject.GetComponent<BattleController>().battleEnemy.tag != "BOSS") //道中の敵にだけ表示
+                {
+                    escapeButton.SetActive(true);
+                }
+
             }
             
 
@@ -159,6 +167,7 @@ public class ModeController : MonoBehaviour
         enemySliderobject.SetActive(false);
         specialButton.SetActive(false); //最初は非表示
         recoveryButton.SetActive(false);//最初は非表示
+        escapeButton.SetActive(false);
         talkBox.SetActive(false); //移動モードは非表示
         enemyLevelText.SetActive(false);//移動モードは非表示
 
@@ -215,6 +224,7 @@ public class ModeController : MonoBehaviour
         enemySliderobject.SetActive(false);
         specialButton.SetActive(false); //非表示
         recoveryButton.SetActive(false);//非表示
+        escapeButton.SetActive(false);
         talkBox.SetActive(false); //非表示
 
         moveBGM.PlayOneShot(gameclearSE);
