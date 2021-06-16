@@ -120,13 +120,20 @@ public class PlayerScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && jumpCount > 0 ) //Spaceでジャンプ
             {
-                //rb.velocity = new Vector3(0, 0, 0);
+                rb.velocity = new Vector3(0, 0, 0);
                 rb.AddForce(new Vector3(0, 11, 0), ForceMode.Impulse);
 
                 jumpCount--;
 
                 gameObject.GetComponent<AudioSource>().PlayOneShot(jumpSE);
             }
+
+
+            if(gameObject.transform.position.y <= -25.0f) //もしも落下したらGameOver
+            {
+                gameMaster.GetComponent<TitleController>().GameOver();
+            }
+            
 
 
         }
