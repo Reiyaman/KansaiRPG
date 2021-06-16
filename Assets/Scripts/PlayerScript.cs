@@ -145,6 +145,7 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+
     private void OnCollisionEnter(Collision collision)
     {
        

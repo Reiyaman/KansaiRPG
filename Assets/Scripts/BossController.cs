@@ -44,6 +44,8 @@ public class BossController : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            rb.velocity = new Vector3(0, 0, 0);
+
             animator.SetBool("Battle", true); //バトルスタート
 
             Vector3 playerPos = other.transform.position; //変数を作成して、Playerの座標を格納
