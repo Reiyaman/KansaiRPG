@@ -99,7 +99,7 @@ public class BattleController : MonoBehaviour
         }
         
         Text attack_text = talkScript.talkText;
-        attack_text.text = damage + "の　ダメージを　あたえたったわい！";
+        attack_text.text = damage + "の　ダメージを　あたえたで！";
 
         if(currentHP > 0)
         {
@@ -151,7 +151,7 @@ public class BattleController : MonoBehaviour
         }
 
         Text special_text = talkScript.talkText;
-        special_text.text = "くらえ！　わいの　スペシャルこうげきや！\n" + damage + "の　ダメージを　あたえたったわい！";
+        special_text.text = "くらえ！　わいの　スペシャルこうげきや！\n" + damage + "の　ダメージを　あたえたで！";
 
         if (currentHP > 0)
         {

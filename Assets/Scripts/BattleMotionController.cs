@@ -15,6 +15,9 @@ public class BattleMotionController : MonoBehaviour
     public GameObject recoveryButton; //回復ボタン
     public GameObject escapeButton; //にげるボタン
 
+    GameObject swordeffect;
+    GameObject specialeffect;
+
     public GameObject enemycontainer;
     public GameObject swordParticle; //必殺技時のパーティクル
 
@@ -112,7 +115,10 @@ public class BattleMotionController : MonoBehaviour
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
         audioSource.PlayOneShot(enemyDamageSE);
 
-        if(enemySlider.GetComponent<Image>().fillAmount <= 0)
+        battleEnemy.transform.Find("Eff_Laser_1").gameObject.SetActive(true);
+        Invoke("NotActiveEffect", 0.1f); //エフェクト消す関数
+
+        if (enemySlider.GetComponent<Image>().fillAmount <= 0)
         {
             Invoke("EnemyDestroyCoroutine", 0.2f);
         }
@@ -127,6 +133,9 @@ public class BattleMotionController : MonoBehaviour
     {
         battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
         audioSource.PlayOneShot(enemySpecialDamageSE);
+
+        battleEnemy.transform.Find("Eff_Hit_2").gameObject.SetActive(true);
+        Invoke("NotActiveEffect", 1f); //エフェクト消す関数
 
         if (enemySlider.GetComponent<Image>().fillAmount <= 0) //体力がなくなったら死亡
         {
@@ -312,12 +321,19 @@ public class BattleMotionController : MonoBehaviour
     }
 
     public void PlayerDeath()
-    {
+    { 
         //attackButton.SetActive(false);
         //specialButton.SetActive(false);
         Text lose_text = talkScript.talkText;
         lose_text.text = "あああ、　やられてしもうた、、";
         player.GetComponent<Animator>().SetTrigger("Death");
         gameObject.GetComponent<TitleController>().GameOverWait();
+    }
+
+    public void NotActiveEffect()
+    {
+        battleEnemy.transform.Find("Eff_Laser_1").gameObject.SetActive(false);
+        battleEnemy.transform.Find("Eff_Hit_2").gameObject.SetActive(false);
+
     }
 }
