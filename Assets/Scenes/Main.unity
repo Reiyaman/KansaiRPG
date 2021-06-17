@@ -205,9 +205,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 11229672}
+  - {fileID: 11229696}
   selectedCommands:
-  - {fileID: 11229671}
+  - {fileID: 11229692}
   variables: []
   description: 
   stepPause: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 51.149426
     y: 86
-    width: 71.163895
+    width: 111.163895
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
   description: 
   character: {fileID: 1221767576}
   portrait: {fileID: 21300000, guid: b0e082c94bd7e4076a4243f73ff2298e, type: 3}
-  voiceOverClip: {fileID: 8300000, guid: e4283de58a3b34e56807bf335f1f78ff, type: 3}
+  voiceOverClip: {fileID: 8300000, guid: 8097f08f42a0a4cdba8a433186744dd1, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 53.465275
     y: 165.09467
-    width: 60
+    width: 97.505936
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
   description: 
   character: {fileID: 1221767576}
   portrait: {fileID: 21300000, guid: b0e082c94bd7e4076a4243f73ff2298e, type: 3}
-  voiceOverClip: {fileID: 8300000, guid: 51424bd541ae242b7b52ccb689ff5eee, type: 3}
+  voiceOverClip: {fileID: 8300000, guid: 2151bca74c14f47969bd0b70b73f7ca5, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3
   indentLevel: 0
-  storyText: "\u3046\u3061\u306E\u3053\u3068\u3000\u307B\u3081\u3066\u3082\u3000\u306A\u3093\u3082\u306A\u3044\u3067\u3002"
+  storyText: "\u3046\u3061\u306E\u3053\u3068\u3000\u307B\u3081\u3066\u3082\u3000\u306A\u3093\u3082\u306A\u3044\u3067\u30FC\u3002"
   description: 
   character: {fileID: 529004404}
   portrait: {fileID: 21300000, guid: 2043c5e2c791f438da7ccbc86beb6456, type: 3}
@@ -427,7 +427,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 60.19927
     y: 249.64754
-    width: 60
+    width: 73.75297
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 300.36383
     y: 170.73575
-    width: 60
+    width: 97.505936
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -569,7 +569,7 @@ MonoBehaviour:
   description: 
   character: {fileID: 1221767576}
   portrait: {fileID: 21300000, guid: b0e082c94bd7e4076a4243f73ff2298e, type: 3}
-  voiceOverClip: {fileID: 8300000, guid: 9eab8dc4c89164ee896cead2386051a3, type: 3}
+  voiceOverClip: {fileID: 8300000, guid: bbb4451e609db4809bfd3de5d8ec1424, type: 3}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 289.71152
     y: 89.36727
-    width: 93.13538
+    width: 133.13538
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -788,7 +788,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 181.21375
     y: 70.94226
-    width: 60
+    width: 85.629456
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 8
   indentLevel: 0
-  storyText: "\u306F\u3044\u3088\u301C\u30FB\u30FB\u30FB\u30FB\n\u3063\u3066\u3000\u304A\u3049\u3049\u3044\uFF01\u3000\u3084\u304B\u307E\u3057\u3044\u308F\u3044\uFF01\uFF01"
+  storyText: "\u306F\u3044\u3088\u30FC\u30FB\u30FB\u30FB\u30FB\n\u3063\u3066\u3000\u304A\u3049\u3049\u3044\uFF01\u3000\u3084\u304B\u307E\u3057\u3044\u308F\u3044\uFF01\uFF01"
   description: 
   character: {fileID: 1841960764}
   portrait: {fileID: 21300000, guid: c5a5b501005f14fbbac307c1cb279b57, type: 3}
@@ -842,7 +842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 7
   indentLevel: 0
-  storyText: "\u3058\u3083\u307E\u3059\u3093\u306A\u3089\u3000\u304B\u3048\u3063\u3066\u301C"
+  storyText: "\u3058\u3083\u307E\u3059\u3093\u306A\u3089\u3000\u304B\u3048\u3063\u3066\u30FC"
   description: 
   character: {fileID: 1221767576}
   portrait: {fileID: 21300000, guid: b0e082c94bd7e4076a4243f73ff2298e, type: 3}
@@ -869,7 +869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 6
   indentLevel: 0
-  storyText: "\u3061\u3087\u3063\u3068\u3000\u3058\u3083\u307E\u3059\u3093\u3067\u301C"
+  storyText: "\u3061\u3087\u3063\u3068\u3000\u3058\u3083\u307E\u3059\u3093\u3067\u30FC"
   description: 
   character: {fileID: 1841960764}
   portrait: {fileID: 21300000, guid: c5a5b501005f14fbbac307c1cb279b57, type: 3}
@@ -913,7 +913,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 192.079
     y: 168.5311
-    width: 60
+    width: 61.876484
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -984,7 +984,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 282.56845
     y: 253.68036
-    width: 60
+    width: 73.75297
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1152,7 +1152,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 165.99283
     y: 252.78926
-    width: 60
+    width: 85.629456
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11485,8 +11485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 114526636883379746, guid: a63bb7c0f4cb0df429c8364816dc7b20,
-    type: 3}
+  selectedFlowchart: {fileID: 11229667}
 --- !u!4 &630454254
 Transform:
   m_ObjectHideFlags: 1
@@ -15196,7 +15195,7 @@ MonoBehaviour:
   playerRecoverSE: {fileID: 8300000, guid: 030c46932f0d04fd2a03dccd2e4d8a18, type: 3}
   playerEscapeSE: {fileID: 8300000, guid: 56b232184808b44bfb889862f5ae4c00, type: 3}
   playerNotEscapeSE: {fileID: 8300000, guid: 3c90e7eeba96b4f3596c039f40b9a863, type: 3}
-  enemyDamageSE: {fileID: 8300000, guid: b7cbfea85b944464382c443f3a376d2d, type: 3}
+  enemyDamageSE: {fileID: 8300000, guid: 09cf3777d49a94126961a1f79a90b472, type: 3}
   enemySpecialDamageSE: {fileID: 8300000, guid: 7a6ba1fbfbe914c9b9c2cc31857b62b1,
     type: 3}
   victorySE: {fileID: 8300000, guid: 94d9c4768baf444d5810ae4c2f8f7262, type: 3}
@@ -30164,7 +30163,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871506607}
-  m_LocalRotation: {x: 0.03938892, y: -0.68463975, z: 0.037100077, w: 0.7268704}
+  m_LocalRotation: {x: 0.03938891, y: -0.68463975, z: 0.037100065, w: 0.7268704}
   m_LocalPosition: {x: 14.049995, y: 5.7599998, z: -25.289999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
