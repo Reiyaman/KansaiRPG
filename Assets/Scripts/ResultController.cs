@@ -75,13 +75,13 @@ public class ResultController : MonoBehaviour
          
         yield return new WaitForSeconds(1.0f); //1秒待つ
 
-        if(gameTimeMinute <= 5) //最速クリアなら
+        if(gameTimeMinute <= 12) //最速クリアなら
         {
             clearMessage.text = "Wonderful!!";
             clearMessage.gameObject.SetActive(true);
         }
 
-        else if(gameTimeMinute <= 7) //そこそこいいタイムなら
+        else if(gameTimeMinute <= 20) //そこそこいいタイムなら
         {
             clearMessage.text = "Congraturation!";
             clearMessage.gameObject.SetActive(true);
