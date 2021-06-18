@@ -20,6 +20,7 @@ public class BattleMotionController : MonoBehaviour
 
     public GameObject enemycontainer;
     public GameObject swordParticle; //必殺技時のパーティクル
+    public GameObject playerDamageParticle; //ダメージ受ける時のパーティクル
 
 
     public Text victory_text; //勝利時のテキスト
@@ -191,8 +192,10 @@ public class BattleMotionController : MonoBehaviour
             audioSource.PlayOneShot(playerdamageSE);
         }
 
+        playerDamageParticle.SetActive(true);
         player.GetComponent<Animator>().SetTrigger("Damage");
-        
+        Invoke("NotActiveEffect", 1f); //エフェクト消す関数
+
     }
 
     public void EnemyDestroyCoroutine() 
@@ -334,6 +337,7 @@ public class BattleMotionController : MonoBehaviour
     {
         battleEnemy.transform.Find("Eff_Laser_1").gameObject.SetActive(false);
         battleEnemy.transform.Find("Eff_Hit_2").gameObject.SetActive(false);
+        playerDamageParticle.SetActive(false);
 
     }
 }
