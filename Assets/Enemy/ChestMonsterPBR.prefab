@@ -1134,6 +1134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Eff_Laser_1
       objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 2701893e9cc504e8fbcb108ebd48adc4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2701893e9cc504e8fbcb108ebd48adc4, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
