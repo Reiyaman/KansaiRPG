@@ -15,8 +15,7 @@ public class EnemyGenarator : MonoBehaviour
     void Start()
     {
         //InvokeRepeating("GenerateEnemy", 10, 10);
-        gameObject.SetActive(true);
-        exist = true;
+        SpawnMove(true);
     }
 
     // Update is called once per frame
@@ -64,13 +63,18 @@ public class EnemyGenarator : MonoBehaviour
 
     public void DisappearSpawn() //止めて消す
     {
-        exist = false;
-        gameObject.SetActive(false);
+        SpawnMove(false);
     }
 
     public void AppearSpawn() //動かして出現させる
     {
-        exist = true;
-        gameObject.SetActive(true);
+        SpawnMove(true);
+    }
+
+
+    public void SpawnMove(bool spawn)
+    {
+        exist = spawn;
+        gameObject.SetActive(spawn);
     }
 }

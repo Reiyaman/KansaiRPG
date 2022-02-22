@@ -9,6 +9,7 @@ TagManager:
   - BOSS
   - Ground
   - Obstacle
+  - Shop
   layers:
   - Default
   - TransparentFX

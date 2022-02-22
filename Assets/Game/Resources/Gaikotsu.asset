@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c7a6aecc7f24c4e9477cfe2166eea7, type: 3}
+  m_Name: Gaikotsu
+  m_EditorClassIdentifier: 
+  enemyName: Gaikotsu
+  level: "\u305D\u3053\u305D\u3053\u3084\u3067"
+  maxHP: 800
+  attackMinDamage: 200
+  attackMaxDamage: 250
+  expMin: 275
+  expMax: 300
+  attackSE: {fileID: 8300000, guid: a8d757402773d4707ab1300633062ead, type: 3}
+  sprite: {fileID: 21300000, guid: 246f8934607c84fdd80fa0f9c34ff8a4, type: 3}

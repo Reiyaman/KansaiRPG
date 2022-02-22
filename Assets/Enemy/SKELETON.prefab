@@ -831,13 +831,8 @@ MonoBehaviour:
   exist: 0
   stopDistance: 2
   moveDistance: 20
-  enemyHP: 800
-  currentHP: 0
-  enemyImage: {fileID: 21300000, guid: 246f8934607c84fdd80fa0f9c34ff8a4, type: 3}
   enemynumber: 3
-  enemyattackminDamage: 200
-  enemyattackmaxDamage: 250
-  attackSE: {fileID: 8300000, guid: 32d73058d15ae45d68180b9801284e87, type: 3}
+  enemyBase: {fileID: 11400000, guid: 32c542743729b4e6684c86380ad0a215, type: 2}
 --- !u!65 &-4431621981511117163
 BoxCollider:
   m_ObjectHideFlags: 0

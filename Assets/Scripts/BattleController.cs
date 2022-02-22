@@ -27,9 +27,11 @@ public class BattleController : MonoBehaviour
     public int recover; //回復力
     public int escapeNumber;
 
-    public Text enemyHPText;
-    public Text playerHPText;
-    public Text enemyLevelText;
+    [SerializeField] Text enemyHPText;　//敵のHP
+    public Text playerHPText;　//自分のHP
+    [SerializeField] Text enemyLevelText;　//敵のレベル
+    public GameObject enemyImage;
+    public Image image;
 
     public int playerAttackMinDamage; //Playerの攻撃力
     public int playerAttackMaxDamage;
@@ -37,14 +39,19 @@ public class BattleController : MonoBehaviour
     public int maxHP; //Playerスクリプトから引っ張ってきた戦う敵の最大HPを格納する変数
     public int currentHP; //Playerスクリプトから引っ張ってきた戦う敵の現在のHPを格納する変数
 
-    TalkScript talkScript;
+    public TalkScript talkScript;
 
+    public EnemyBase _base;
+    public EnemyStatusController enemyStatus { get; set; }
+
+    //SerializeField] EnemyBase _base;
 
 
     // Start is called before the first frame update
     void Start()
     {
         talkScript = gameObject.GetComponent<TalkScript>();
+        image = enemyImage.GetComponent<Image>();
         special = 0;
         recovery = 0;
 
@@ -98,8 +105,7 @@ public class BattleController : MonoBehaviour
             enemySliderGauge.color = Color.Lerp(color_4, color_3, enemySliderGauge.fillAmount * 4f);
         }
         
-        Text attack_text = talkScript.talkText;
-        attack_text.text = damage + "の　ダメージを　あたえたで！";
+        talkScript.talkText.text = damage + talkScript.textAttack;
 
         if(currentHP > 0)
         {
@@ -151,7 +157,7 @@ public class BattleController : MonoBehaviour
         }
 
         Text special_text = talkScript.talkText;
-        special_text.text = "くらえ！　わいの　スペシャルこうげきや！\n" + damage + "の　ダメージを　あたえたで！";
+        special_text.text =  talkScript.textSpecial + "\n" + damage + talkScript.textAttack;
 
         if (currentHP > 0)
         {
@@ -208,7 +214,7 @@ public class BattleController : MonoBehaviour
         playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
 
         Text recover_text = talkScript.talkText;
-        recover_text.text = "おおお　パワーが　みなぎって　きたで！\n" + "めっちゃ　かいふく　したで！";
+        recover_text.text = talkScript.textRecover1 + "\n" + talkScript.textRecover2;
 
         player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().maxPlayerHP;
 
@@ -232,15 +238,13 @@ public class BattleController : MonoBehaviour
 
         if(escapeNumber == 1) //もし逃げれるなら
         {
-            Text escape_text = talkScript.talkText;
-            escape_text.text = "ここは　いったん　たいきゃくや！　にげるで！";
+            talkScript.talkText.text = talkScript.textRun;
 
         }
 
         else  //もし無理なら
         {
-            Text escape_text = talkScript.talkText;
-            escape_text.text = "あかん！　うまく　にげれへんかったわ！";
+            talkScript.talkText.text = talkScript.textNotRun;
 
             Invoke("DamageButton", 1.5f);
         }
@@ -256,59 +260,21 @@ public class BattleController : MonoBehaviour
     
     public void BattleStart() //バトル相手の情報を代入
     {
-        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
-        maxHP = player.gameObject.GetComponent<PlayerScript>().eHP;
-        currentHP = player.gameObject.GetComponent<PlayerScript>().cHP;
+        _base = player.gameObject.GetComponent<PlayerScript>().enemyBase;
+        //_base = battleEnemy.GetComponent<EnemyController>().enemyBase;
+        enemyStatus = new EnemyStatusController(_base);
+        maxHP = currentHP = enemyStatus.MaxHP;
         enemyHPText.text = maxHP + "/" + maxHP;
-
-        if (battleEnemy.tag == "BOSS")
-        {
-            enemyLevelText.text = "つよさ10";
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 0) //スライム
-        {
-            enemyLevelText.text = "つよさ1";
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 1) //ピンクのモンスター
-        {
-            enemyLevelText.text = "つよさ2";
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 2) //箱のモンスター
-        {
-            enemyLevelText.text = "つよさ3";
-        }
+        image.sprite = _base.Sprite;
+        enemyLevelText.text = enemyStatus.Level;
+        enemyLevelText.gameObject.SetActive(true);
 
 
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //スケルトン
-        {
-            enemyLevelText.text = "つよさ4";
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 4) //青いスライム
-        {
-            enemyLevelText.text = "つよさ5";
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 5) //槍使い
-        {
-            enemyLevelText.text = "つよさ6";
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //ゴブリン
-        {
-            enemyLevelText.text = "つよさ8";
-        }
-
-        enemyLevelText.gameObject.SetActive(true); //enemyの強さ表示
-
-        // gameObject.SendMessage("ChangeBattleMode");
     }
 
     public void healEffectNotActive()
     {
         healEffect.SetActive(false);
     }
+
 }

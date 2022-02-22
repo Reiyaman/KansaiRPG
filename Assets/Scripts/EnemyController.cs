@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     Rigidbody  rb; //Rigidbody変数の宣言
     float moveSpeed = 14; //スピードの変数の宣言
     float walkSpeed = 3;
+    float moveArea = 6;
     public float stopDistance; //Enemyが停止するPlayerとの距離を格納する変数
     public float moveDistance; //EnemyがPlayerに向かって移動を開始する距離を格納する変数
 
@@ -24,14 +25,7 @@ public class EnemyController : MonoBehaviour
 
     Vector3 enemyMoveRange;
 
-    public int enemyHP ; //敵の最大HP
-    public int currentHP; //現在の敵のHP
-    public Sprite enemyImage; //敵のSprite
-    
     public int enemynumber; //エネミー番号
-
-    public int enemyattackminDamage; //エネミーの攻撃力
-    public int enemyattackmaxDamage;
 
     Transform player; //PlayerのTransformコンポーネントを格納する変数
     Animator animator;//アニメーションの変数
@@ -41,7 +35,8 @@ public class EnemyController : MonoBehaviour
 
     GameObject enemyContainer; //フィールド上のEnemyを格納するコンテナオブジェクト
 
-    public AudioClip attackSE; //エネミーの攻撃SE
+    public EnemyBase enemyBase;
+
 
 
     // Start is called before the first frame update
@@ -54,7 +49,6 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>(); //Animatorを取得
         agent = GetComponent<NavMeshAgent>(); //NavMeshAgentを取得
         enemyMoveRange = transform.position; //Enemyの初期位置を取得
-        currentHP = enemyHP; //代入
 
         enemyContainer = GameObject.Find("EnemyContainer"); //Hierarchy上にないのでFindで探す
         this.gameObject.transform.parent = enemyContainer.transform; //Enemyをコンテナに格納する
@@ -68,9 +62,6 @@ public class EnemyController : MonoBehaviour
         destination = startPosition + new Vector3(randDestination.x, 0, randDestination.y); //目的地の設定
         arrived = false; //目的地についてないから偽
         
-
-
-        //enemyImage = GetComponent<Image>();
     }
 
     public void Update()
@@ -90,10 +81,7 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         currentState = animator.GetCurrentAnimatorStateInfo(0);
-        //animator.SetInteger("Walk", 0);
-        //animator.SetInteger("Run", 0);
-        //animator.SetBool("Battle", false);
-
+       
         if(action == false) //Playerにまだ接触していないので動ける
         {
             float distance = Vector3.Distance(transform.position, player.position); //変数を作成してEnemyとPlayerの距離を格納
@@ -124,11 +112,12 @@ public class EnemyController : MonoBehaviour
                     }
                 }
                 
-                // InvokeRepeating("MoveEnemy", 1, 5);
             }
         }
 
     }
+
+
 
     private void OnCollisionEnter(Collision collision) //接触した時の処理
     {
@@ -137,27 +126,16 @@ public class EnemyController : MonoBehaviour
             action = true; //Playerに接触したから静止
             this.gameObject.transform.parent = null; //Enemyをコンテナから外す
             rb.velocity = new Vector3(0, 0, 0);
-            //animator.SetInteger("Run", 1);
-            // this.gameObject.GetComponent<EnemyStopController>().enabled = false; //停止させるスクリプトを無効にする
             animator.SetBool("Battle", true); //バトルスタート
-            //animator.SetInteger("Run", 0);
-
             
             action = true; //Playerに接触したから静止
         }
-
-        //if(collision.gameObject.transform.parent.tag == "Obstacle")
-        //{
-          //  arrived = true;
-           // animator.SetInteger("Walk", 0);
-            //Invoke("destinationOption", 1f);
-        //}
     }
 
     void MoveEnemy()
     {
-        float enemyMoveRangex = 6 * Mathf.Sin(Random.Range(0f, 360f));
-        float enemyMoveRangez = 6 * Mathf.Sin(Random.Range(0f, 360f));
+        float enemyMoveRangex = moveArea * Mathf.Sin(Random.Range(0f, 360f));
+        float enemyMoveRangez = moveArea * Mathf.Sin(Random.Range(0f, 360f));
         transform.position = transform.position + new Vector3(enemyMoveRangex, 1.0f, enemyMoveRangez) * walkSpeed * Time.deltaTime - enemyMoveRange;
     }
 
@@ -170,6 +148,5 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    
 
 }

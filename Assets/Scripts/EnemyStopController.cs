@@ -29,22 +29,21 @@ public class EnemyStopController : MonoBehaviour
 
     public void DisappearEnemy() //止めて消す
     {
-        foreach(Transform child in transform)
-        {
-            child.gameObject.GetComponent<EnemyController>().exist = false;
-            child.gameObject.SetActive(false);
-        }
-        
-       // gameObject.GetComponent<Mesh>().enabled = false;
+        EnemyMove(false);
     }
 
     public void AppearEnemy() //動かして出現させる
     {
+        EnemyMove(true);
+    }
+
+
+    public void EnemyMove(bool exist)
+    {
         foreach (Transform child in transform)
         {
-            child.gameObject.GetComponent<EnemyController>().exist = true;
-            child.gameObject.SetActive(true);
+            child.gameObject.GetComponent<EnemyController>().exist = exist;
+            child.gameObject.SetActive(exist);
         }
-            
     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c7a6aecc7f24c4e9477cfe2166eea7, type: 3}
+  m_Name: Suraimu
+  m_EditorClassIdentifier: 
+  enemyName: Suraimu
+  level: "\u3081\u3061\u3083\u3088\u308F\u3044\u3067"
+  maxHP: 350
+  attackMinDamage: 50
+  attackMaxDamage: 100
+  expMin: 100
+  expMax: 150
+  attackSE: {fileID: 8300000, guid: b7cbfea85b944464382c443f3a376d2d, type: 3}
+  sprite: {fileID: 21300000, guid: 9986cc12728c04ac190d7f6c19f5de8f, type: 3}

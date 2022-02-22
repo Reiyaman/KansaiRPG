@@ -30,12 +30,6 @@ public class BattleMotionController : MonoBehaviour
 
     TalkScript talkScript;
 
-
-    public AudioClip playerdamageSE; //PlayerDamageSE
-    public AudioClip playerstingSE; //Playerが刺された時のSE
-    public AudioClip playertackleSE; //Playerが物理攻撃食らったSE
-    public AudioClip playerbossSE; //ボスに食らった時のSE
-
     public AudioClip playerAttackSE; //Playerが攻撃するSE
     public AudioClip playerSpecialAttackSE; //Playerの必殺技SE
     public AudioClip playerRecoverSE; //Playerの回復SE
@@ -46,8 +40,6 @@ public class BattleMotionController : MonoBehaviour
     public AudioClip enemySpecialDamageSE;
 
     public AudioClip victorySE; //勝利BGM
-
-   
 
     AudioSource audioSource;
 
@@ -66,20 +58,18 @@ public class BattleMotionController : MonoBehaviour
 
     public void PlayerAttack() //Playerが攻撃
     {
-        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
+        GetEnemyData();
         player.GetComponent<Animator>().SetTrigger("Attack");
 
         audioSource.PlayOneShot(playerAttackSE);　
         Invoke("EnemyDamage", 0.5f);
-        //battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
-        //Invoke("EnemyAttack", 2.0f);
     }
 
     public void PlayerSpecialAttck() //Special攻撃時
     {
         swordParticle.SetActive(true); //必殺技時に出現
-        
-        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
+
+        GetEnemyData();
         player.GetComponent<Animator>().SetTrigger("Special");
 
         audioSource.PlayOneShot(playerSpecialAttackSE);
@@ -94,7 +84,7 @@ public class BattleMotionController : MonoBehaviour
 
     public void PlayerEscapeButton() //Escapeボタン押した時
     {
-        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
+        GetEnemyData();
 
         if (gameObject.GetComponent<BattleController>().escapeNumber == 1)
         {
@@ -113,56 +103,30 @@ public class BattleMotionController : MonoBehaviour
    
     public void EnemyDamage() //Enemyくらう
     {
-        battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
+        EnemyDamageAni();
         audioSource.PlayOneShot(enemyDamageSE);
 
         battleEnemy.transform.Find("Eff_Laser_1").gameObject.SetActive(true);
         Invoke("NotActiveEffect", 0.1f); //エフェクト消す関数
 
-        if (enemySlider.GetComponent<Image>().fillAmount <= 0)
-        {
-            Invoke("EnemyDestroyCoroutine", 0.2f);
-        }
-
-        else
-        {
-            Invoke("EnemyAttack", 1.5f);
-        }
+        EnemyDeath();
     }
 
     public void EnemySpecialDamage() //必殺技くらう時
     {
-        battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
+        EnemyDamageAni();
         audioSource.PlayOneShot(enemySpecialDamageSE);
 
         battleEnemy.transform.Find("Eff_Hit_2").gameObject.SetActive(true);
         Invoke("NotActiveEffect", 1f); //エフェクト消す関数
 
-        if (enemySlider.GetComponent<Image>().fillAmount <= 0) //体力がなくなったら死亡
-        {
-            Invoke("EnemyDestroyCoroutine", 0.2f);
-        }
-
-        else
-        {
-            Invoke("EnemyAttack", 1.5f);
-        }
+        EnemyDeath();
     }
 
     public void EnemyAttack() //Enemy攻撃
     {
         swordParticle.SetActive(false);
-
-        if(battleEnemy.tag != "BOSS")
-        {
-            audioSource.PlayOneShot(battleEnemy.GetComponent<EnemyController>().attackSE);
-        }
-
-        else
-        {
-            audioSource.PlayOneShot(battleEnemy.GetComponent<BossController>().attackSE);
-        }
-
+       
         battleEnemy.GetComponent<Animator>().SetTrigger("Attack");
         Invoke("PlayerDamage", 0.7f);
        // player.GetComponent<Animator>().SetTrigger("Damage");
@@ -171,26 +135,7 @@ public class BattleMotionController : MonoBehaviour
 
     public void PlayerDamage() //Playerくらう
     {
-        if(battleEnemy.gameObject.tag == "BOSS")
-        {
-            audioSource.PlayOneShot(playerbossSE);
-        }
-
-
-        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 4 || battleEnemy.GetComponent<EnemyController>().enemynumber == 5 || battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //槍使いとゴブリンか骸骨にくらった時
-        {
-            audioSource.PlayOneShot(playerstingSE);
-        }
-
-        else if(battleEnemy.GetComponent<EnemyController>().enemynumber == 1 || battleEnemy.GetComponent<EnemyController>().enemynumber == 2 || battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //ピンクか箱か甲羅に食らった時
-        {
-            audioSource.PlayOneShot(playertackleSE);
-        }
-
-        else //スライムに食らった時
-        {
-            audioSource.PlayOneShot(playerdamageSE);
-        }
+        audioSource.PlayOneShot(gameObject.GetComponent<BattleController>()._base.AttackSE);
 
         playerDamageParticle.SetActive(true);
         player.GetComponent<Animator>().SetTrigger("Damage");
@@ -209,50 +154,10 @@ public class BattleMotionController : MonoBehaviour
 
         int recover = Random.Range(100, 300);　//バトル勝利時の回復
         victory_text = talkScript.talkText;
-
-        if(battleEnemy.tag == "BOSS")
-        {
-            exp = 0;
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 0) //スライム
-        {
-            exp = Random.Range(100, 150);
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 1) //ピンクのモンスター
-        {
-            exp = Random.Range(150, 175);
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 2) //箱のモンスター
-        {
-            exp = Random.Range(200, 250);
-        }
+        exp = Random.Range(battleEnemy.GetComponent<EnemyController>().enemyBase.ExpMin, battleEnemy.GetComponent<EnemyController>(). enemyBase.ExpMax);
 
 
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 3) //スケルトン
-        {
-            exp = Random.Range(275, 300);
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 4) //青いスライム
-        {
-            exp = Random.Range(325, 350);
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 5) //槍使い
-        {
-            exp = Random.Range(375, 400);
-        }
-
-        else if (battleEnemy.GetComponent<EnemyController>().enemynumber == 6) //ゴブリン
-        {
-            exp = Random.Range(500, 600);
-        }
-
-
-        victory_text.text = "おっしゃあ！　たおしたったで!"; //勝利時のテキスト
+        talkScript.talkText.text = talkScript.textWin; //勝利時のテキスト
 
         yield return new WaitForSeconds(3.0f);
 
@@ -272,7 +177,7 @@ public class BattleMotionController : MonoBehaviour
                 player.GetComponent<PlayerScript>().currentPlayerHP = player.GetComponent<PlayerScript>().currentPlayerHP + recover;
                 player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount = (float)player.GetComponent<PlayerScript>().currentPlayerHP / (float)player.GetComponent<PlayerScript>().maxPlayerHP; //HPバーのゲージを増やす
                 Debug.Log("slider.value : " + playerSlider.GetComponent<Image>().fillAmount);
-
+                
                 if (player.GetComponent<PlayerScript>().playerSliderGauge.fillAmount > 0.75f) //回復すると色が赤→黄→緑に変化していく
                 {
                     player.GetComponent<PlayerScript>().playerSliderGauge.color = Color.Lerp(player.GetComponent<PlayerScript>().color_2, player.GetComponent<PlayerScript>().color_1, (playerSlider.GetComponent<Image>().fillAmount + 0.25f) * 4f);
@@ -290,7 +195,7 @@ public class BattleMotionController : MonoBehaviour
           
             playerHPText.text = player.GetComponent<PlayerScript>().currentPlayerHP + "/" + player.GetComponent<PlayerScript>().maxPlayerHP;
 
-            victory_text.text = "たいりょく " + recover + "　かいふく　したで！\n" + "けいけんち　" + exp + "　ゲットや！"; //回復&経験値
+            victory_text.text = talkScript.textGet1 + recover + talkScript.textGet2 + "\n" + talkScript.textGet3 + exp + talkScript.textGet4; //回復&経験値
 
             player.GetComponent<LevelController>().levelUpWait(); //Playerのレベルアップ関数を呼び出す
 
@@ -300,7 +205,7 @@ public class BattleMotionController : MonoBehaviour
 
         else //ボスに勝った場合
         {
-            victory_text.text = "ボスを　みごと　げきは　やで！\n" + "これで　オウサカじまの　へいわが　まもられたで！\n" + "ほんま　ありがとうな！";
+            talkScript.talkText.text = talkScript.textClear1 + "\n" + talkScript.textClear2 + "\n" + talkScript.textClear3;
             battleEnemy.GetComponent<AudioSource>().Stop();
         }
 
@@ -324,11 +229,10 @@ public class BattleMotionController : MonoBehaviour
     }
 
     public void PlayerDeath()
-    { 
+    {
         //attackButton.SetActive(false);
         //specialButton.SetActive(false);
-        Text lose_text = talkScript.talkText;
-        lose_text.text = "あああ、　やられてしもうた、、";
+        talkScript.talkText.text = talkScript.textLose;
         player.GetComponent<Animator>().SetTrigger("Death");
         gameObject.GetComponent<TitleController>().GameOverWait();
     }
@@ -339,5 +243,28 @@ public class BattleMotionController : MonoBehaviour
         battleEnemy.transform.Find("Eff_Hit_2").gameObject.SetActive(false);
         playerDamageParticle.SetActive(false);
 
+    }
+    
+    public void GetEnemyData() //接触した敵の情報を変数に格納
+    {
+        battleEnemy = player.gameObject.GetComponent<PlayerScript>().enemy;
+    }
+
+    public void EnemyDamageAni()
+    {
+        battleEnemy.GetComponent<Animator>().SetTrigger("Damage");
+    }
+
+    public void EnemyDeath() //体力がなくなったら死亡
+    {
+        if (enemySlider.GetComponent<Image>().fillAmount <= 0)
+        {
+            Invoke("EnemyDestroyCoroutine", 0.2f);
+        }
+
+        else
+        {
+            Invoke("EnemyAttack", 1.5f);
+        }
     }
 }

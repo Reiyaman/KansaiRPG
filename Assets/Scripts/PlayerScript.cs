@@ -9,15 +9,10 @@ public class PlayerScript : MonoBehaviour
     float moveSpeed = 10; //スピードの変数の宣言
     float dashSpeed = 24;
     float rotateSpeed = 90; //回転スピードの宣言
-
-    public int jumpCount = 1; //ジャンプできる回数
-    int defaultJumpCount; //設定したジャンプできる回数を保存する変数
    
     
     public int eHP; //接触したEnemyの最大HP
     public int cHP; //接触したEnemyの現在のHP
-    public int enemyAttackMaxDamage; //接触したエネミーの攻撃力
-    public int enemyAttackMinDamage; //
 
     public int maxPlayerHP; //Playerの最大HP
     public int currentPlayerHP; //Playerの現在のHP
@@ -27,45 +22,32 @@ public class PlayerScript : MonoBehaviour
     public Color color_1, color_2, color_3, color_4; // カラーの変数
     public Text playerHPText; 
 
-    public GameObject enemyimage; //エネミーの画像
+    //public GameObject enemyimage; //エネミーの画像
     public GameObject gameMaster; //GameMasterオブジェクトの変数
     public GameObject enemy; //戦うEnemyの変数
     public GameObject playerIllusion; //バトル時のPlayerの位置
 
     public GameObject enemycontainer;
 
-    public AudioClip jumpSE; //ジャンプSE
-    public AudioClip landingSE; //着地SE
-    //public GameObject attackButton; //攻撃ボタン
-    //public GameObject specialButton; //必殺ボタン
 
     TalkScript talkScript;
-    
-
-    //public GameObject[] enemy; //エネミーの配列
-
-    public Image image;
-    //Sprite[] enemySprite = new Sprite[6]; //Spriteを入れるための配列
+    public EnemyBase enemyBase;
+    public PlayerBase playerBase;
+    int level = 1; //初期レベル
 
     Animator animator; //アニメーションの変数
     public static AnimatorStateInfo currentState; //現在のアニメーションの状態の変数
 
-   // private void Awake()
-   // {
-       // for(int i = 0; i < enemy.Length; i++)
-       // {
-       //     enemySprite[i] = Resources.Load<Sprite>(enemy[i].name); //Resourcesフォルダに入れたSpriteを取得する
-       // }
-    //}
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();　//Rigidbodyの取得
         animator = GetComponent<Animator>();　//Animatorの取得
-        image = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
+        //image = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
         currentPlayerHP = maxPlayerHP; //代入
         talkScript = gameMaster.GetComponent<TalkScript>();
-        defaultJumpCount = jumpCount;
+        //defaultJumpCount = jumpCount;
 
         playerSliderGauge = playerSlider.GetComponent<Image>();
 
@@ -112,22 +94,11 @@ public class PlayerScript : MonoBehaviour
                 transform.Rotate(new Vector3(0, 1, 0) * rotateSpeed * Time.deltaTime);
             }
 
-            if (Input.GetKey(KeyCode.D)) //D
+            if (Input.GetKey(KeyCode.Space)) // Space
             {
                 animator.SetInteger("Dash", 1);
                 rb.velocity = transform.forward * dashSpeed + new Vector3(0, rb.velocity.y, 0);
             }
-
-            if (Input.GetKey(KeyCode.Space) && jumpCount > 0 ) //Spaceでジャンプ
-            {
-                rb.velocity = new Vector3(0, 0, 0);
-                rb.AddForce(new Vector3(0, 11, 0), ForceMode.Impulse);
-
-                jumpCount--;
-
-                gameObject.GetComponent<AudioSource>().PlayOneShot(jumpSE);
-            }
-
 
             if(gameObject.transform.position.y <= -25.0f) //もしも落下したらGameOver
             {
@@ -145,86 +116,39 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-
     private void OnCollisionEnter(Collision collision)
     {
-       
+        
         if (collision.gameObject.tag == "Enemy")//Enemyに接触した場合
         {
-            
-
-            gameMaster.GetComponent<ModeController>().mode = true;
-            rb.velocity = new Vector3(0, 0, 0);
-
-            //maxPlayerHP = currentPlayerHP; //代入
-
-            eHP = collision.gameObject.GetComponent<EnemyController>().enemyHP; //戦うEnemyの最大HPを取得
-            cHP = collision.gameObject.GetComponent<EnemyController>().currentHP; //戦うEnemyの現在のHPを取得
-            image.sprite = collision.gameObject.GetComponent<EnemyController>().enemyImage; //戦うEnemyのSprits
-            enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
-            enemyAttackMaxDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackmaxDamage;
-            enemyAttackMinDamage = collision.gameObject.GetComponent<EnemyController>().enemyattackminDamage;
-
-            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position; //指定の位置にPlayer移動
-
-            Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
-            enemyPos.y = transform.position.y; //自分自身のY座標を格納
-            transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
-
-            gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-            //Invoke("ChangeBattleModeWait", 1.2f);
-            Invoke("battlestart", 0.5f);
-
-            enemycontainer.GetComponent<AudioSource>().Play();
-
-            //Rigidbody enemyBody = other.gameObject.GetComponent<Rigidbody>(); //EnemyのRigidbodyを取得
-            //Vector3 attackForce = (other.transform.position - this.transform.position) * 5; //Enemyに与える力を設定
-            //enemyBody.AddForce(attackForce, ForceMode.Impulse); //Enemyに衝撃を与える
+            enemy = collision.gameObject;
+            ContactEnemy(enemy);
+            enemyBase = enemy.GetComponent<EnemyController>().enemyBase; //戦うEnemyのゲームオブジェクトを代入
         }
 
         else if(collision.gameObject.tag == "BOSS") //ボスに接触したら
         {
-            gameMaster.GetComponent<ModeController>().mode = true;
-            rb.velocity = new Vector3(0, 0, 0);
-
-            //maxPlayerHP = currentPlayerHP; //代入
-
-            eHP = collision.gameObject.GetComponent<BossController>().enemyHP;
-            cHP = collision.gameObject.GetComponent<BossController>().currentHP;
-            image.sprite = collision.gameObject.GetComponent<BossController>().enemyImage; //戦うEnemyのSprits
-            enemyAttackMaxDamage = collision.gameObject.GetComponent<BossController>().enemyAttackMaxDamage;
-            enemyAttackMinDamage = collision.gameObject.GetComponent<BossController>().enemyAttackMinDamage;
-            enemy = collision.gameObject; //戦うEnemyのゲームオブジェクトを代入
-
-            gameObject.transform.position = collision.transform.Find("Playerillusion").gameObject.transform.position; //指定の位置にPlayer移動
-
-            Vector3 enemyPos = collision.transform.position; //変数を作成して、当たったEnemyの座標を格納
-            enemyPos.y = transform.position.y; //自分自身のY座標を格納
-            transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
-
-            gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
-            //Invoke("ChangeBattleModeWait", 1.2f);
-            Invoke("battlestart", 0.5f);
-
-            collision.gameObject.GetComponent<AudioSource>().Play();
+            enemy = collision.gameObject;
+            ContactEnemy(enemy);
+            enemyBase = enemy.GetComponent<BossController>().enemyBase; //戦うEnemyのゲームオブジェクトを代入
         }
 
-        else if(collision.gameObject.tag == "Ground")
+        /*else if(collision.gameObject.tag == "Shop")
         {
-            jumpCount = defaultJumpCount;
-            gameObject.GetComponent<AudioSource>().PlayOneShot(landingSE);
-        }
+            gameMaster.GetComponent<ModeController>().mode = true;
+            collision.gameObject.GetComponent<ShopManager>().Hello();
+
+        }*/
+
 
     }
 
     public void PlayerDamage() //Playerがくらう
     {
-        int damage = Random.Range(enemyAttackMinDamage, enemyAttackMaxDamage); //攻撃のダメージを乱数で取得
+        int damage = Random.Range(enemyBase.AttackMinDamage, enemyBase.AttackMaxDamage); //攻撃のダメージを乱数で取得
 
-        Text damage_text = talkScript.talkText;
-        damage_text.text = damage + "のダメージを　くらってもうたわ！";
+        talkScript.talkText.text = damage + talkScript.textDamage;
         Debug.Log("damage : " + damage);
-
 
         currentPlayerHP = currentPlayerHP - damage; //最新のHPを取得
         Debug.Log("After current : " + currentPlayerHP);
@@ -256,9 +180,7 @@ public class PlayerScript : MonoBehaviour
 
         if(playerSliderGauge.fillAmount <= 0)
         {
-            
             gameMaster.GetComponent<BattleMotionController>().PlayerDeath();
-           // gameMaster.SendMessage("PlayerDeath");
 
         }
         else
@@ -281,7 +203,6 @@ public class PlayerScript : MonoBehaviour
     public void battlestart() 
     {
         gameMaster.GetComponent<BattleController>().BattleStart();
-       // gameMaster.SendMessage("BattleStart"); //GameMasterに関数を送る
     }
 
     public void ButtonTrue()
@@ -309,4 +230,21 @@ public class PlayerScript : MonoBehaviour
         talkScript.Next();
     }
 
-}
+    public void ContactEnemy(GameObject enemy) //敵と接触した時の処理
+    {
+        
+        gameMaster.GetComponent<ModeController>().mode = true;
+        rb.velocity = new Vector3(0, 0, 0);
+
+        gameObject.transform.position = enemy.transform.Find("Playerillusion").gameObject.transform.position; //指定の位置にPlayer移動
+
+        Vector3 enemyPos = enemy.transform.position; //変数を作成して、当たったEnemyの座標を格納
+        enemyPos.y = transform.position.y; //自分自身のY座標を格納
+        transform.LookAt(enemyPos); //PlayerをEnemyPosの座標方向に向かせる
+
+        gameObject.GetComponent<PlayerScript>().ChangeBattleModeWait();
+        Invoke("battlestart", 0.5f);
+
+        enemycontainer.GetComponent<AudioSource>().Play();
+    }
+} 

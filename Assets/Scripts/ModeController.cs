@@ -19,6 +19,7 @@ public class ModeController : MonoBehaviour
     public GameObject HPSlider; //PlayerのHPゲージ
     public GameObject GameClearText; //Gameclearテキスト
     public GameObject enemyLevelText; //Enemyの強さテキスト
+    public GameObject playerLevelText; //Playerのレベルテキスト
 
     public GameObject moveModeCamera; //移動中のカメラの変数
     public GameObject battleModeCamera; //バトル中のカメラの変数
@@ -30,7 +31,6 @@ public class ModeController : MonoBehaviour
 
 
     public GameObject enemyContainer;
-    //public GameObject boss;
 
     public bool mode; // /移動中かバトル中かの変数
     public int x; //スポナーの数
@@ -39,16 +39,8 @@ public class ModeController : MonoBehaviour
     //public AudioClip[] bgm; //移動とバトルのBGM配列
     public AudioClip gameclearSE;
 
-    //AudioSource audioSource;
 
     AudioSource moveBGM;
-
-
-
-    //public GameObject Enemy;
-    //public GameObject 
-
-    //public List<GameObject>  StopEnemyObject = new List<GameObject>(); //停止させる配列
 
     public GameObject Player;
 
@@ -56,16 +48,13 @@ public class ModeController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        //audioSource = GetComponent<AudioSource>();
-        //audioSource.clip = bgm[0];
-        //audioSource.Play();
+    { 
 
         moveBGM = GetComponent<AudioSource>();
 
         //wait = false;
-       
 
+        sayDialog.SetActive(false);
         EnemyGenarator enemySpawners = refObj[x].gameObject.GetComponent<EnemyGenarator>(); //EnemySpawner達のスクリプトを取得
         mode = false; //移動中はFalse
 
@@ -79,39 +68,44 @@ public class ModeController : MonoBehaviour
     {
         if (sayDialog.activeSelf == true) //会話中は消す
         {
+            
             attackButton.SetActive(false);
             specialButton.SetActive(false);
             recoveryButton.SetActive(false);
             escapeButton.SetActive(false);
             talkBox.SetActive(false);
+            
             wait = true;
         }
 
-        else if (enemySliderobject.activeSelf == true && sayDialog.activeSelf == false)
+        else if (wait == true && sayDialog.activeSelf == false)
         {
-            talkBox.SetActive(true);
-            if(wait == true)
-            {
-                attackButton.SetActive(true);
 
-                if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
-                {
-                    gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
-                }
+            talkBox.SetActive(true);
+            enemyimage.SetActive(true); //少し間を開けて表示
+            enemySliderobject.SetActive(true);
+            enemyLevelText.SetActive(true);
+ 
+            attackButton.SetActive(true);
+
+            if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
+            {
+                gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
+            }
 
                 
 
-                if (gameObject.GetComponent<BattleController>().recovery >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
-                {
-                    gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
-                }
-
-                if(gameObject.GetComponent<BattleController>().battleEnemy.tag != "BOSS") //道中の敵にだけ表示
-                {
-                    escapeButton.SetActive(true);
-                }
-
+            if (gameObject.GetComponent<BattleController>().recovery >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
+            {
+                gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
             }
+
+
+            if(gameObject.GetComponent<BattleController>().player.gameObject.GetComponent<PlayerScript>().enemy.tag != "BOSS") //道中の敵にだけ表示
+            {
+                escapeButton.SetActive(true);
+            }
+
             
 
         }
@@ -120,10 +114,6 @@ public class ModeController : MonoBehaviour
 
     public void ChangeBattleMode()
     {
-        //audioSource.Pause();
-        //audioSource.clip = bgm[1];
-        //audioSource.Play();
-       
         moveBGM.Stop();
         //enemyContainer.GetComponent<AudioSource>().Play();
         mode = true; //バトルモードに遷移
@@ -138,7 +128,10 @@ public class ModeController : MonoBehaviour
 
         }
 
-        
+        enemySlider.GetComponent<Image>().fillAmount = 1;
+        gameObject.GetComponent<BattleController>().enemySliderGauge.color = gameObject.GetComponent<BattleController>().color_1;
+
+
         gameObject.GetComponent<TalkScript>().TalkWait();
 
         enemyContainer.GetComponent<EnemyStopController>().DisappearEnemyWait(); //フィールド上の全てのEnemyを消す
@@ -159,17 +152,9 @@ public class ModeController : MonoBehaviour
 
         mode = false; //移動モードに遷移
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //移動カメラに切り替え
-        battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1; 
+        battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
 
-        enemyimage.SetActive(false); //移動モードは非表示
-        attackButton.SetActive(false); //移動モードは非表示
-        //enemySlider.SetActive(false); //移動モードは非表示
-        enemySliderobject.SetActive(false);
-        specialButton.SetActive(false); //最初は非表示
-        recoveryButton.SetActive(false);//最初は非表示
-        escapeButton.SetActive(false);
-        talkBox.SetActive(false); //移動モードは非表示
-        enemyLevelText.SetActive(false);//移動モードは非表示
+        MoveHide();
 
         images = enemyimage.GetComponent<Image>(); //EnemyImageのImageコンポーネント取得
 
@@ -186,52 +171,42 @@ public class ModeController : MonoBehaviour
 
     public void BattleMode()
     {
-        //wait = true;
 
         moveModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         battleModeCamera.gameObject.GetComponent<CinemachineVirtualCamera>().Priority = 100; //バトルカメラに切り替え
 
-        enemySlider.GetComponent<Image>().fillAmount = 1;
-        gameObject.GetComponent<BattleController>().enemySliderGauge.color = gameObject.GetComponent<BattleController>().color_1;
-
         enemyimage.SetActive(true); //画像を表示
         enemySliderobject.SetActive(true); //敵のHPゲージを表示
-        //talkBox.SetActive(true); //トークボックスを表示
-        //attackButton.SetActive(true); //攻撃ボタンの表示
 
-        //if (gameObject.GetComponent<BattleController>().special >= 4 && Player.GetComponent<LevelController>().level >= 5) //３ターン経過＆レベル５になったら
-        //{
-        //    gameObject.GetComponent<BattleController>().specialButton.SetActive(true); //Specialボタン表示
-
-        //}
-
-        //if (gameObject.GetComponent<BattleController>().special >= 3 && Player.GetComponent<LevelController>().level >= 3) //2ターン経過＆レベル3になったら
-        //{
-        //    gameObject.GetComponent<BattleController>().recoveryButton.SetActive(true); //Recoverボタン表示
-
-        //}
     }
 
     public void GameClear()
     {
         mode = true;
-        //HPText.SetActive(false); //PlayerのHP文字を非表示
+        MoveHide();
         HPSlider.SetActive(false); //PlayerのHPゲージを非表示
         GameClearText.SetActive(true); //Gameclearのテキストを表示
-        enemyimage.SetActive(false); //非表示
-        attackButton.SetActive(false); //非表示
-        //enemySlider.SetActive(false); //非表示
-        enemySliderobject.SetActive(false);
-        specialButton.SetActive(false); //非表示
-        recoveryButton.SetActive(false);//非表示
-        escapeButton.SetActive(false);
-        talkBox.SetActive(false); //非表示
+        playerLevelText.SetActive(false);
 
         moveBGM.PlayOneShot(gameclearSE);
 
         gameObject.GetComponent<ResultController>().ResultCoroutine();
         
         
+    }
+
+    public void MoveHide() //移動モード中隠すもの
+    {
+        attackButton.SetActive(false);
+        specialButton.SetActive(false);
+        recoveryButton.SetActive(false);
+        escapeButton.SetActive(false);
+        talkBox.SetActive(false);
+        enemyimage.SetActive(false); //非表示
+        enemySliderobject.SetActive(false);
+        enemyLevelText.SetActive(false);//移動モードは非表示
+        
+  
     }
 
 }
